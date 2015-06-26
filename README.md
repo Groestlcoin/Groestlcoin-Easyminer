@@ -1,7 +1,7 @@
-EasyMiner - V 1.0
+Groestlcoin EasyMiner - V 1.0
 ==============
 
-Minimal clicking multiple GroestlCoin algorithm miner 
+Minimal clicking GroestlCoin miner 
 
 This miner is supposed to be as simple as possible and it mines directly to an electrum wallet that is set up during initial run.
 
