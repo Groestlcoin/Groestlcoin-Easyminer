@@ -101,7 +101,7 @@ Set objShell = CreateObject("Wscript.Shell")
 End If
  If Not objFSO.FolderExists(strfolderpath2) then
   Electrumpresent =0
-  CreateObject("WScript.Shell").Run "http://myriadplatform.org/mining-setup/"
+  CreateObject("WScript.Shell").Run ".\installation.html"
   CreateObject("WScript.Shell").Run ".\Electrum-grsWallet.exe"
   wscript.echo "Please re-open Easyminer when electrum setup is complete"
   wscript.quit
