@@ -502,7 +502,7 @@ wend
 
 'Launch Help page
 If R=5 Then
-CreateObject("WScript.Shell").Run "http://myriadplatform.org/mining-help/"
+CreateObject("WScript.Shell").Run ".\installation.html"
 End If
 
 
