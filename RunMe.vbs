@@ -502,7 +502,7 @@ wend
 
 'Launch Help page
 If R=5 Then
-CreateObject("WScript.Shell").Run ".\installation.html"
+CreateObject("WScript.Shell").Run ".\help.html"
 End If
 
 
