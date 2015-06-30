@@ -1,4 +1,4 @@
-Groestlcoin EasyMiner - V 1.0
+Groestlcoin EasyMiner - V 1.1
 ==============
 
 Minimal clicking GroestlCoin miner 
