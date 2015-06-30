@@ -1,3 +1,2 @@
-GroestlCPU64.EXE -a groestl -o "stratum+tcp://erebor.dwarfpool.com:3345" -u FmMRZvNpEuq76R81Q1YGWScENzSkuJJAwG
- -p 1 --threads 7
-
+quiet.exe GroestlCPU64 -a groestl  -t 7 -o stratum+tcp://moria.dwarfpool.com:3345 -u FYoLoE5UCLDQxNZoWbb1izcegnvKbvpWnA
+ -p 1

@@ -193,31 +193,31 @@ loop
 'Read Variables from files
 Set objFileToRead = CreateObject("Scripting.FileSystemObject").OpenTextFile(".\CPUMine.conf",1)
 Set ObjFso2 = CreateObject("Scripting.FileSystemObject")
-CPUMine = objFileToRead.ReadAll()
+CPUMine = objFileToRead.Read(1)
 objFileToRead.Close
 Set objFileToRead = Nothing
 
 Set objFileToRead = CreateObject("Scripting.FileSystemObject").OpenTextFile(".\Threads.conf",1)
 Set ObjFso2 = CreateObject("Scripting.FileSystemObject")
-Threads = objFileToRead.ReadAll()
+Threads = objFileToRead.Read(1)
 objFileToRead.Close
 Set objFileToRead = Nothing
 
 Set objFileToRead = CreateObject("Scripting.FileSystemObject").OpenTextFile(".\Hidden.conf",1)
 Set ObjFso2 = CreateObject("Scripting.FileSystemObject")
-Hidden = objFileToRead.ReadAll()
+Hidden = objFileToRead.Read(1)
 objFileToRead.Close
 Set objFileToRead = Nothing
 
 Set objFileToRead = CreateObject("Scripting.FileSystemObject").OpenTextFile(".\Groestl.conf",1)
 Set ObjFso2 = CreateObject("Scripting.FileSystemObject")
-GroestlPool = objFileToRead.ReadAll()
+GroestlPool = objFileToRead.Read(38)
 objFileToRead.Close
 Set objFileToRead = Nothing
 
 Set objFileToRead = CreateObject("Scripting.FileSystemObject").OpenTextFile(".\Address.conf",1)
 Set ObjFso2 = CreateObject("Scripting.FileSystemObject")
-Address2 = objFileToRead.ReadAll()
+Address2 = objFileToRead.Read(35)
 objFileToRead.Close
 Set objFileToRead = Nothing
 
@@ -226,7 +226,7 @@ If Arch="X86" Then
 objShell.CurrentDirectory = ".\Groestl\Groestl32"
 End If
 If CPUMine=1 and Arch="X86" Then
-test=("GroestlCPU32.EXE" & " " & "-a groestl -o" & " " &  GroestlPool & " " & "-u" & " " & Address2 & " " & "-p 1" & " " & "--threads" & " " & threads )
+test="GroestlCPU64" & " " & "-a groestl  -t " & threads & " -o " &  GroestlPool & " -u " &  Address2 & " -p 1" 
 Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(minecmdline,2,true)
 objFileToWrite.WriteLine(test)
 objFileToWrite.Close
@@ -237,26 +237,25 @@ If Arch="X64" Then
 objShell.CurrentDirectory = ".\Groestl"
 End IF
 If CPUMine=1 and Arch="X64" Then
-test=("GroestlCPU64.EXE" & " " & "-a groestl -o" & " " &  GroestlPool & " " & "-u" & " " & Address2 & " " & "-p 1" & " " & "--threads" & " " & threads )
+test="GroestlCPU64" & " " & "-a groestl  -t " & threads & " -o " &  GroestlPool & " -u " &  Address2 & " -p 1" 
 Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(minecmdline,2,true)
 objFileToWrite.WriteLine(test)
 objFileToWrite.Close
 Set objFileToWrite = Nothing
-objshell.run minecmdline
+objshell.run  minecmdline
 End If
 If OCL=0 Then
 Wscript.echo("Please download the latest drivers for your video card to enable much faster GPU Mining!")
 End IF
-If OCL=1 and Cuda = 0 Then
+If OCL=1 Then
 objShell.CurrentDirectory = ".\GroestlGPU"
-objshell.run "GroestlGPU" & " " & "-k groestlcoin -o" & " " &  GroestlPool & " " & "-u" & " " & Address2 & " " & "-p 1"
-Set objFileToWrite = Nothing
- objShell.run gpuloc
+test2="GroestlGPU" & " " & "-k groestlcoin -o " & GroestlPool & " -u" & " " & Address2 & " -p 1" & " --intensity d"
+objshell.run test2
  End If
-If OCL=1 and Cuda = 1 Then 
-objShell.CurrentDirectory = ".\GroestlGPU"
-objshell.run "GroestlNVGPU" & " " & "-q -a -k groestl -o" & " " &  GroestlPool & " " & "-u" & " " & Address2 & " " & "-p 1"
-End If
+'If OCL=1 and Cuda = 1 Then 
+'objShell.CurrentDirectory = ".\GroestlGPU"
+'objshell.run "GroestlNVGPU" & " " & "-q -a -k groestl -o" & " " &  GroestlPool & " " & "-u" & " " & Address2 & " " & "-p 1"
+'End If
 If MSVCRx86=0 and Cuda = 1 Then
 wscript.echo ("Please install the needed update from Microsoft to mine with your nvidia card")
 CreateObject("WScript.Shell").Run "http://www.microsoft.com/en-US/download/details.aspx?id=8328"

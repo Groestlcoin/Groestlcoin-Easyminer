@@ -250,10 +250,8 @@ If R=6 Then
 strMenu="Please type Enter your selection (1-6)" & VbCrLf &_
  "1 Open CPU Miner?" & VbCrLf &_
  "2 Number of CPU Threads you wish to use" & VbCrLf &_
- "3 Set up merged mining" & VbCrLf &_
- "4 Launch Hidden?" & VbCrLf &_
- "5 Kill Silent Miners" & VbCrLf &_
- "6 Change Pool"
+ "3 Launch Hidden?" & VbCrLf &_
+ "4 Kill Silent Miners"
 
  rc=InputBox(strMenu,"Menu",1)
  If IsNumeric(rc2) Then
@@ -263,11 +261,9 @@ strMenu="Please type Enter your selection (1-6)" & VbCrLf &_
          Case 2
              R2=2
 	     Case 3
-		     R2=4
+		     R2=3
 	     Case 4
-		     R2=5
-		 Case 5
-			 R2=6
+		     R2=4
      End Select
  End If
 End if 
@@ -309,12 +305,12 @@ objFileToWrite.Close
 
 End if
 
-If R2=3 Then
-wscript.echo("Launching instructions to set up merged mining")
-CreateObject("WScript.Shell").Run "http://grsiad.p2pool.geek.nz/merge"
-End If
+'If R2=3 Then
+'wscript.echo("Launching instructions to set up merged mining")
+'CreateObject("WScript.Shell").Run "http://grsiad.p2pool.geek.nz/merge"
+'End If
 
-If R2=4 Then
+If R2=3 Then
 intHidden = _
     Msgbox("Launch Hidden?", _
         vbYesNo, "Yes")
@@ -339,61 +335,61 @@ Set objFileToWrite = Nothing
 wscript.echo("Please restart the script")
 End If
 
-If R2=5 Then
+If R2=4 Then
 objshell.Run ".\KillSilent.bat"
 Wscript.quit
 End If
 
-If R2=6 Then
+'If R2=5 Then
 
-strMenu="Select which pool to change" & VbCrLf &_
- "1 Groestl"
+'strMenu="Select which pool to change" & VbCrLf &_
+ '"1 Groestl"
 
 
- rc=InputBox(strMenu,"Menu",1)
- If IsNumeric(rc2) Then
-     Select Case rc
-		 Case 1
+ 'rc=InputBox(strMenu,"Menu",1)
+ 'If IsNumeric(rc2) Then
+  '   Select Case rc
+	'	 Case 1
 			 R3=3
-     End Select
- End If
- End If
+     'End Select
+' End If
+ 'End If
  
- If R3=1 Then
- SkeinPool = InputBox("Enter your Skein pool - URL ONLY", _
-    "Skein Pool")
+ 'If R3=1 Then
+ 'SkeinPool = InputBox("Enter your Skein pool - URL ONLY", _
+  '  "Skein Pool")
 	
-	Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(SkeinPath,2,true)
-objFileToWrite.WriteLine(Skeinpool)
-objFileToWrite.Close
-End If
+	'Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(SkeinPath,2,true)
+'objFileToWrite.WriteLine(Skeinpool)
+'objFileToWrite.Close
+'End If
 
- If R3=2 Then
- SkeinPool = InputBox("Enter your Qubit pool - URL ONLY", _
-    "Qubit Pool")
+' If R3=2 Then
+ 'SkeinPool = InputBox("Enter your Qubit pool - URL ONLY", _
+  '  "Qubit Pool")
 	
-	Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(SkeinPath,2,true)
-objFileToWrite.WriteLine(Qubitpool)
-objFileToWrite.Close
-End if
+	'Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(SkeinPath,2,true)
+'objFileToWrite.WriteLine(Qubitpool)
+'objFileToWrite.Close
+'End if
  
-  If R3=3 Then
- SkeinPool = InputBox("Enter your Groestl pool - URL ONLY", _
-    "Groestl Pool")
+ ' If R3=3 Then
+ 'SkeinPool = InputBox("Enter your Groestl pool - URL ONLY", _
+  '  "Groestl Pool")
 	
-	Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(SkeinPath,2,true)
-objFileToWrite.WriteLine(Groestlpool)
-objFileToWrite.Close
-End If
+	'Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(SkeinPath,2,true)
+'objFileToWrite.WriteLine(Groestlpool)
+'objFileToWrite.Close
+'End If
 
- If R3=4 Then
- SkeinPool = InputBox("Enter your Scrypt pool - URL ONLY", _
-    "Scrypt Pool")
+ 'If R3=4 Then
+ 'SkeinPool = InputBox("Enter your Scrypt pool - URL ONLY", _
+  '  "Scrypt Pool")
 	
-	Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(SkeinPath,2,true)
-objFileToWrite.WriteLine(Scryptpool)
-objFileToWrite.Close
- End If
+	'Set objFileToWrite = CreateObject("Scripting.FileSystemObject").OpenTextFile(SkeinPath,2,true)
+'objFileToWrite.WriteLine(Scryptpool)
+'objFileToWrite.Close
+ 'End If
  
 'Read Variables from files
 
