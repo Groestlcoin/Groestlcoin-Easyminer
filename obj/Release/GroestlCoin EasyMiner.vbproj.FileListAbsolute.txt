@@ -1,0 +1,11 @@
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\bin\Release\EasyMiner.exe.config
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\bin\Release\EasyMiner.exe
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\bin\Release\EasyMiner.pdb
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\bin\Release\EasyMiner.xml
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\obj\Release\EasyMiner.frmMain.resources
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\obj\Release\EasyMiner.Resources.resources
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\obj\Release\GroestlCoin EasyMiner.vbproj.GenerateResource.Cache
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\obj\Release\EasyMiner.exe.licenses
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\obj\Release\EasyMiner.exe
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\obj\Release\EasyMiner.xml
+C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\obj\Release\EasyMiner.pdb
