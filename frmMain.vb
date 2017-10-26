@@ -385,34 +385,6 @@ Public Class frmMain
             strOutput = Application.StartupPath & "\Scripts\"
 
             Select Case _SelectedMiningMethod
-                'SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN SKEIN
-                '                Case enumMiningMethod.SkeinCPU32, enumMiningMethod.SkeinCPU64, enumMiningMethod.SkeinGPU
-                '                strOutput &= "skein\"
-                '                If _SelectedMiningMethod = enumMiningMethod.SkeinCPU64 Then
-                '                strOutput &= "SkeinCPU64.exe"
-                '                End If
-                '                If _SelectedMiningMethod = enumMiningMethod.SkeinCPU32 Then
-                '                strOutput &= "Skein32\SkeinCPU32.exe"
-                '                End If
-                '                If _SelectedMiningMethod = enumMiningMethod.SkeinGPU Then
-                '                strOutput &= "SkeinGPU\skeingpu.exe"
-                '                End If
-                'QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT QUBIT 
-                '               Case enumMiningMethod.QubitCPU32, enumMiningMethod.QubitCPU64, enumMiningMethod.QubitGPU
-                '               strOutput &= "qubit\"
-                '               If _SelectedMiningMethod = enumMiningMethod.QubitCPU64 Then
-                '               If IsAMDProcessor Then
-                '               strOutput &= "AMDCPU64.exe"
-                '               Else
-                '               strOutput &= "QubitCPU64.exe"
-                '               End If
-                '               End If
-                '               If _SelectedMiningMethod = enumMiningMethod.QubitCPU32 Then
-                '               strOutput &= "Qubit32\QubitCPU32.exe"
-                '               End If
-                '               If _SelectedMiningMethod = enumMiningMethod.QubitGPU Then
-                '               strOutput &= "QubitGPU\QubitGPU.exe"
-                '  End If
                 'GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL 
                 Case enumMiningMethod.GroestlCPU64, enumMiningMethod.GroestlCPU32, enumMiningMethod.GroestlGPU
                     strOutput &= "groestl\"
@@ -442,23 +414,6 @@ Public Class frmMain
                         _SelectedMiningMethod = enumMiningMethod.GroestlGPU
                         strOutput &= "GroestlGPU\GroestlGPU.exe"
                     End If
-
-
-                    'SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT SCRYPT 
-                    '               Case enumMiningMethod.ScryptCPU32, enumMiningMethod.ScryptCPU64, enumMiningMethod.ScryptGPU
-                    '                  strOutput &= "scrypt\"
-                    '                 If _SelectedMiningMethod = enumMiningMethod.ScryptCPU64 Then
-                    '                 strOutput &= "ScryptCPU64.exe"
-                    '                End If
-                    '               If _SelectedMiningMethod = enumMiningMethod.ScryptCPU32 Then
-                    '               strOutput &= "Scrypt32\ScryptCPU32.exe"
-                    '              End If
-                    '             If _SelectedMiningMethod = enumMiningMethod.ScryptGPU Then
-                    '             If NVidiaCheck Then
-                    '             strOutput &= "ScryptGPU\ScryptNVGPU.exe"
-                    '             End If
-                    '             strOutput &= "ScryptGPU\ScryptGPU.exe"
-                    '            End If
             End Select
 
             Return strOutput
@@ -493,19 +448,10 @@ Public Class frmMain
     Public Property Result As DialogResult
 
     Private Enum enumMiningMethod
-        '        SkeinCPU32
-        '       SkeinCPU64
-        '      SkeinGPU
-        '     QubitCPU32
-        '    QubitCPU64
-        '   QubitGPU
         GroestlCPU32
         GroestlCPU64
         GroestlGPU
         GroestlNVGPU
-        '  ScryptCPU32
-        ' ScryptCPU64
-        'ScryptGPU
     End Enum
 
     Private Enum enumRegistryValue
