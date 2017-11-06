@@ -7,7 +7,7 @@ namespace BL_EasyMiner.Helper
 {
     public class HelperLogic
     {
-        private enum RegistryValue
+        public enum RegistryValue
         {
             CustomAddress,
             CustomUsername,
@@ -63,7 +63,7 @@ namespace BL_EasyMiner.Helper
             }
         }
 
-        private void WriteToRegistry(RegistryValue enumRegValue, string value)
+        public static void WriteToRegistry(RegistryValue enumRegValue, string value)
         {
             string strLocation = "WriteToRegistry";
             try

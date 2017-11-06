@@ -1,83 +1,171 @@
 ﻿Imports System.Environment
 Imports System.IO
-Imports System.Management
 
 Public Class frmMain
 
-    Private strModule As String = "frmMain: "
+    Private Const PROGRAM_TITLE As String = "GroestlCoin EasyMiner"
     Private _newProcess As Process
     Private _SelectedMiningMethod As enumMiningMethod
-    Private Const PROGRAM_TITLE As String = "GroestlCoin EasyMiner"
+    Private strModule As String = "frmMain: "
 
-#Region " Events "
+    Private Enum enumMiningMethod
+        GroestlCPU32
+        GroestlCPU64
+        GroestlGPU
+        GroestlNVGPU
+    End Enum
 
-    Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim strLocation As String = "frmMain_Load"
+    Private Enum enumRegistryValue
+        CustomAddress
+        CustomUsername
+        CustomPassword
+        CustomMiningPool
+        CustomSelectedAlgorithm
+    End Enum
+
+    Public Property Result As DialogResult
+
+    Private ReadOnly Property GetMiningBatch As String
+        Get
+            Return Application.StartupPath & "\scripts\StartMining.bat"
+        End Get
+    End Property
+
+    Private ReadOnly Property GetMiningEXE As String
+        Get
+            Dim strExe As String = GetPathToMinerEXE
+            For I As Integer = strExe.Length - 1 To 0 Step -1
+                If strExe.ElementAt(I) = "\" Then
+                    strExe = strExe.Substring(I, strExe.Length - I).Replace("\", "")
+                    Exit For
+                End If
+            Next
+            Return strExe
+        End Get
+    End Property
+
+    Private ReadOnly Property GetPathToElectrum As String
+        Get
+            Return Application.StartupPath & "\Prerequisites\Electrum-GRS\Electrum-grs.exe"
+        End Get
+    End Property
+
+    Private ReadOnly Property GetPathToMinerEXE() As String
+        Get
+            Dim strOutput As String = String.Empty
+            strOutput = Application.StartupPath & "\Scripts\"
+
+            Select Case _SelectedMiningMethod
+                'GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL
+                Case enumMiningMethod.GroestlCPU64, enumMiningMethod.GroestlCPU32, enumMiningMethod.GroestlGPU
+                    strOutput &= "groestl\"
+
+                    If HasOpenCl = False Then
+
+                        If Is64BitOperatingSystem Then
+                            _SelectedMiningMethod = (enumMiningMethod.GroestlCPU64)
+                        Else
+                            _SelectedMiningMethod = (enumMiningMethod.GroestlCPU32)
+                        End If
+
+                        If _SelectedMiningMethod = enumMiningMethod.GroestlCPU64 Then
+                            strOutput &= "GroestlCPU64.exe"
+                        End If
+                        If _SelectedMiningMethod = enumMiningMethod.GroestlCPU32 Then
+                            strOutput &= "Groestl32\GroestlCPU32.exe"
+
+                        End If
+                    End If
+                    If NVidiaCheck = True Then
+                        _SelectedMiningMethod = enumMiningMethod.GroestlNVGPU
+                        strOutput &= "GroestlGPU\GroestlNVGPU.exe"
+                    End If
+
+                    If HasOpenCl = True And NVidiaCheck = False Then
+                        _SelectedMiningMethod = enumMiningMethod.GroestlGPU
+                        strOutput &= "GroestlGPU\GroestlGPU.exe"
+                    End If
+            End Select
+
+            Return strOutput
+        End Get
+    End Property
+
+    Private ReadOnly Property HasOpenCl As Boolean
+        Get
+            Return My.Computer.FileSystem.FileExists(Environment.SystemDirectory & "\OpenCL.DLL")
+        End Get
+    End Property
+
+    Private ReadOnly Property IsWalletSetup As Boolean
+        Get
+            Return My.Computer.FileSystem.DirectoryExists(WalletFolder) And WalletAddress.Length > 0
+        End Get
+    End Property
+
+    Private ReadOnly Property LogFileLocation As String
+        Get
+            Return Application.StartupPath & "\scripts\minelog.txt"
+        End Get
+    End Property
+
+    Private ReadOnly Property NVidiaCheck As Boolean
+        Get
+            Return My.Computer.FileSystem.FileExists(Environment.SystemDirectory & "\NVCuda.DLL")
+        End Get
+    End Property
+
+    Private ReadOnly Property WalletAddress As String
+
+        Get
+            If rbUseElectrum.Checked Then
+                Dim strFileName As String = ".\Address.conf"
+                If System.IO.File.Exists(strFileName) = True Then
+
+                    'Copied similar hack from vbs files to grab the first address in the file.
+                    Dim objReader As New System.IO.StreamReader(strFileName)
+                    Dim strWalletAddress As String = objReader.ReadLine()
+                    objReader.Close()
+                    Return strWalletAddress
+                Else
+                    MessageBox.Show("Electrum Wallet Not found.  Make sure you have run the inital setup.", PROGRAM_TITLE)
+                    Return String.Empty
+                End If
+            Else 'Custom Address
+                Return txtAddress.Text
+            End If
+        End Get
+    End Property
+
+    Private ReadOnly Property WalletFolder As String
+        Get
+            Return GetFolderPath(SpecialFolder.ApplicationData) & "\Electrum-GRS"
+        End Get
+    End Property
+
+    Private Sub Address_CheckedChanged(sender As Object, e As EventArgs) Handles rbCustomAddress.CheckedChanged, rbUseElectrum.CheckedChanged
+        Dim strLocation As String = "Address_CheckedChanged"
         Try
-            MaximizeBox = False
-            rbGroestl.Checked = True
-
-            'get registry setting from last time.  Are we using a cutom address or the electrum wallet
-            Dim strRegAddress As String = GetSetting("Easyminer", "Settings", "CustomAddress")
-            Dim strRegUsername As String = GetSetting("Easyminer", "Settings", "CustomUsername")
-            Dim strRegPassword As String = GetSetting("Easyminer", "Settings", "CustomPassword")
-            If strRegAddress.Length > 0 Then 'saved a custom address previously
-                rbCustomAddress.Checked = True
-                txtAddress.Text = strRegAddress
-
-            Else
-                rbUseElectrum.Checked = True
+            If rbUseElectrum.Checked Then
+                'check wallet is setup
+                Process.Start(".\address.vbs")
             End If
 
-            Dim strRegPool As String = GetSetting("Easyminer", "Settings", "CustomMiningPool")
-            If strRegPool.Length > 0 Then
-                rbCustomPool.Checked = True
-                txtPool.Text = strRegPool
-                txtUsername.Text = strRegUsername
-                txtPassword.Text = strRegPassword
-            Else
-                rbUsedwarfPool.Checked = True
+            While WalletAddress = ""
+                Threading.Thread.Sleep(500)
+            End While
+            If IsWalletSetup = True Then
+                txtAddress.Text = WalletAddress
+                txtAddress.ReadOnly = True
             End If
 
-        Catch ex As Exception
-            BuildErrorMessage(strModule, strLocation, ex.Message)
-        End Try
-    End Sub
+            If rbCustomAddress.Checked Then
+                txtAddress.ReadOnly = False
+                txtAddress.Text = GetSetting("Easyminer", "Settings", "CustomAddress")
+                txtUsername.Text = GetSetting("Easyminer", "Settings", "CustomUsername")
+                txtPassword.Text = GetSetting("Easyminer", "Settings", "CustomPassword")
 
-    Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        KillMiner()
-    End Sub
-
-    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        Dim strLocation As String = "frmMain_Resize"
-        Try
-            If Me.WindowState = FormWindowState.Minimized Then
-                NotifyIcon1.Visible = True
-                Me.Hide()
-                NotifyIcon1.BalloonTipText = PROGRAM_TITLE
-                NotifyIcon1.ShowBalloonTip(500)
             End If
-
-        Catch ex As Exception
-            BuildErrorMessage(strModule, strLocation, ex.Message)
-        End Try
-    End Sub
-
-    Private Sub NotifyIcon1_Click(sender As Object, e As EventArgs) Handles NotifyIcon1.DoubleClick, NotifyIcon1.Click
-        Dim strLocation As String = "NotifyIcon1_Click"
-        Try
-            Me.Show()
-            Me.WindowState = FormWindowState.Normal
-            NotifyIcon1.Visible = False
-        Catch ex As Exception
-            BuildErrorMessage(strModule, strLocation, ex.Message)
-        End Try
-    End Sub
-
-    Private Sub llWebsite_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llWebsite.LinkClicked
-        Dim strLocation As String = "llWebsite_LinkClicked"
-        Try
-            System.Diagnostics.Process.Start(".\websiteredir.html")
         Catch ex As Exception
             BuildErrorMessage(strModule, strLocation, ex.Message)
         End Try
@@ -120,113 +208,150 @@ Public Class frmMain
 
                     txtOutput.Text &= vbCrLf & "Mining Started at " & Now
 
-                    'If rbSkein.Checked Then
-                    'Select Case Result
-                    'Case DialogResult.Yes 'Mine CPU
-                    '    _SelectedMiningMethod = If(Is64BitOperatingSystem, enumMiningMethod.SkeinCPU64, enumMiningMethod.SkeinCPU32)
-                    '
-                    'Case DialogResult.No 'Mine GPU
-                    '    _SelectedMiningMethod = enumMiningMethod.SkeinGPU
-                    'End Select
-                    '       End If
-
                     If rbGroestl.Checked Then
                         Select Case Result
 
                             Case DialogResult.Yes 'Mine CPU
                                 If Is64BitOperatingSystem Then
 
-
                                     _SelectedMiningMethod = (enumMiningMethod.GroestlCPU64)
                                 Else
                                     _SelectedMiningMethod = (enumMiningMethod.GroestlCPU32)
                                 End If
                             Case DialogResult.No 'Mine GPU
-                                    _SelectedMiningMethod = enumMiningMethod.GroestlGPU
+                                _SelectedMiningMethod = enumMiningMethod.GroestlGPU
 
                         End Select
                     End If
-
-
-
-                    'If rbQubit.Checked Then
-                    'Select Case Result
-                    'Case DialogResult.Yes 'Mine CPU
-                    '_SelectedMiningMethod = If(Is64BitOperatingSystem, enumMiningMethod.QubitCPU64, enumMiningMethod.QubitCPU32) '
-
-                    '                       Case DialogResult.No 'Mine GPU
-                    '                            _SelectedMiningMethod = enumMiningMethod.QubitGPU
-                    '                     End Select
-                    '                  End If
-
-
-
-                    '                 If rbScrypt.Checked Then
-                    '                      Select Case Result
-                    '                           Case DialogResult.Yes 'Mine CPU
-                    '                                _SelectedMiningMethod = If(Is64BitOperatingSystem, enumMiningMethod.ScryptCPU64, enumMiningMethod.ScryptCPU32)
-
-                    '                            Case DialogResult.No 'Mine GPU
-                    '                                _SelectedMiningMethod = enumMiningMethod.ScryptGPU
-                    '            End Select
-                    '                   End If
-
                     WriteBatchFile()
-                            StartMiningProcess()
-                            Timer1.Start()
-                            ProgressBar.Visible = True
-                            Case "btnStop"
-                                btnStart.Enabled = True
-                                btnStop.Enabled = False
-                                txtOutput.Text &= vbCrLf & "Mining Stopped at " & Now
-                                If _newProcess IsNot Nothing Then
-                                    _newProcess.Close()
-                                End If
+                    StartMiningProcess()
+                    Timer1.Start()
+                    ProgressBar.Visible = True
+                Case "btnStop"
+                    btnStart.Enabled = True
+                    btnStop.Enabled = False
+                    txtOutput.Text &= vbCrLf & "Mining Stopped at " & Now
+                    If _newProcess IsNot Nothing Then
+                        _newProcess.Close()
+                    End If
 
-                                KillMiner()
-                                Timer1.Stop()
-                                ProgressBar.Visible = False
-                                DisableEnableControls(True)
-                        End Select
-
+                    KillMiner()
+                    Timer1.Stop()
+                    ProgressBar.Visible = False
+                    DisableEnableControls(True)
+            End Select
         Catch ex As Exception
             BuildErrorMessage(strModule, strLocation, ex.Message)
         End Try
     End Sub
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Dim strLocation As String = "Timer1_Tick"
+    Private Sub btnOpenHelp_Click(sender As Object, e As EventArgs) Handles btnOpenHelp.Click
+        Dim strLocation As String = "btnOpenHelp_Click"
         Try
-            UpdateOutputWindow()
-            Timer1.Start()
+            Process.Start(".\help.html")
         Catch ex As Exception
             BuildErrorMessage(strModule, strLocation, ex.Message)
         End Try
     End Sub
 
-    Private Sub Address_CheckedChanged(sender As Object, e As EventArgs) Handles rbCustomAddress.CheckedChanged, rbUseElectrum.CheckedChanged
-        Dim strLocation As String = "Address_CheckedChanged"
+    Private Sub btnWalletSetup_Click(sender As Object, e As EventArgs) Handles btnWalletSetup.Click
+        Dim strLocation As String = "btnWalletSetup_Click"
         Try
-            If rbUseElectrum.Checked Then
-                'check wallet is setup
-                Process.Start(".\address.vbs")
+            If Not My.Computer.FileSystem.FileExists(GetPathToElectrum) Then
+                MessageBox.Show("Electrum was not found.", PROGRAM_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Else
+                Process.Start(GetPathToElectrum)
+            End If
+        Catch ex As Exception
+            BuildErrorMessage(strModule, strLocation, ex.Message)
+        End Try
+    End Sub
+
+    Private Sub DisableEnableControls(ByVal blnEnabled As Boolean)
+        Dim strLocation As String = strModule & ":" & "DisableEnableControls"
+        Try
+            gbMethod.Enabled = blnEnabled
+            gbMiningPool.Enabled = blnEnabled
+            gbWallet.Enabled = blnEnabled
+        Catch ex As Exception
+            BuildErrorMessage(strModule, strLocation, ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        KillMiner()
+    End Sub
+
+    Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim strLocation As String = "frmMain_Load"
+        Try
+            MaximizeBox = False
+            rbGroestl.Checked = True
+
+            'get registry setting from last time.  Are we using a cutom address or the electrum wallet
+            Dim strRegAddress As String = GetSetting("Easyminer", "Settings", "CustomAddress")
+            Dim strRegUsername As String = GetSetting("Easyminer", "Settings", "CustomUsername")
+            Dim strRegPassword As String = GetSetting("Easyminer", "Settings", "CustomPassword")
+            If strRegAddress.Length > 0 Then 'saved a custom address previously
+                rbCustomAddress.Checked = True
+                txtAddress.Text = strRegAddress
+            Else
+                rbUseElectrum.Checked = True
             End If
 
-            While WalletAddress = ""
-                Threading.Thread.Sleep(500)
-            End While
-            If IsWalletSetup = True Then
-                txtAddress.Text = WalletAddress
-                txtAddress.ReadOnly = True
+            Dim strRegPool As String = GetSetting("Easyminer", "Settings", "CustomMiningPool")
+            If strRegPool.Length > 0 Then
+                rbCustomPool.Checked = True
+                txtPool.Text = strRegPool
+                txtUsername.Text = strRegUsername
+                txtPassword.Text = strRegPassword
+            Else
+                rbUsedwarfPool.Checked = True
             End If
+        Catch ex As Exception
+            BuildErrorMessage(strModule, strLocation, ex.Message)
+        End Try
+    End Sub
 
-            If rbCustomAddress.Checked Then
-                txtAddress.ReadOnly = False
-                txtAddress.Text = GetSetting("Easyminer", "Settings", "CustomAddress")
-                txtUsername.Text = GetSetting("Easyminer", "Settings", "CustomUsername")
-                txtPassword.Text = GetSetting("Easyminer", "Settings", "CustomPassword")
-
+    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        Dim strLocation As String = "frmMain_Resize"
+        Try
+            If Me.WindowState = FormWindowState.Minimized Then
+                NotifyIcon1.Visible = True
+                Me.Hide()
+                NotifyIcon1.BalloonTipText = PROGRAM_TITLE
+                NotifyIcon1.ShowBalloonTip(500)
             End If
+        Catch ex As Exception
+            BuildErrorMessage(strModule, strLocation, ex.Message)
+        End Try
+    End Sub
+
+    Private Sub KillMiner()
+        For Each p As Process In System.Diagnostics.Process.GetProcessesByName(GetMiningEXE.Replace(".exe", ""))
+            Try
+                p.Kill()
+            Catch ex As Exception
+            End Try
+        Next
+    End Sub
+
+    Private Sub llWebsite_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llWebsite.LinkClicked
+        Dim strLocation As String = "llWebsite_LinkClicked"
+        Try
+            System.Diagnostics.Process.Start(".\websiteredir.html")
+        Catch ex As Exception
+            BuildErrorMessage(strModule, strLocation, ex.Message)
+        End Try
+    End Sub
+
+    Private Sub NotifyIcon1_Click(sender As Object, e As EventArgs) Handles NotifyIcon1.DoubleClick, NotifyIcon1.Click
+        Dim strLocation As String = "NotifyIcon1_Click"
+        Try
+            Me.Show()
+            Me.WindowState = FormWindowState.Normal
+            NotifyIcon1.Visible = False
         Catch ex As Exception
             BuildErrorMessage(strModule, strLocation, ex.Message)
         End Try
@@ -267,205 +392,6 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub btnWalletSetup_Click(sender As Object, e As EventArgs) Handles btnWalletSetup.Click
-        Dim strLocation As String = "btnWalletSetup_Click"
-        Try
-            If Not My.Computer.FileSystem.FileExists(GetPathToElectrum) Then
-                MessageBox.Show("Electrum was not found.", PROGRAM_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Else
-                Process.Start(GetPathToElectrum)
-            End If
-
-        Catch ex As Exception
-            BuildErrorMessage(strModule, strLocation, ex.Message)
-        End Try
-    End Sub
-
-    Private Sub btnOpenHelp_Click(sender As Object, e As EventArgs) Handles btnOpenHelp.Click
-        Dim strLocation As String = "btnOpenHelp_Click"
-        Try
-            Process.Start(".\help.html")
-        Catch ex As Exception
-            BuildErrorMessage(strModule, strLocation, ex.Message)
-        End Try
-    End Sub
-
-
-#End Region
-
-#Region " Properties "
-
-    Private ReadOnly Property WalletFolder As String
-        Get
-            Return GetFolderPath(SpecialFolder.ApplicationData) & "\Electrum-GRS"
-        End Get
-    End Property
-
-
-    Private ReadOnly Property WalletAddress As String
-
-
-        Get
-            If rbUseElectrum.Checked Then
-                Dim strFileName As String = ".\Address.conf"
-                If System.IO.File.Exists(strFileName) = True Then
-
-                    'Copied similar hack from vbs files to grab the first address in the file.
-                    Dim objReader As New System.IO.StreamReader(strFileName)
-                    Dim strWalletAddress As String = objReader.ReadLine()
-                    objReader.Close()
-                    Return strWalletAddress
-
-                Else
-                    MessageBox.Show("Electrum Wallet Not found.  Make sure you have run the inital setup.", PROGRAM_TITLE)
-                    Return String.Empty
-                End If
-            Else 'Custom Address
-                Return txtAddress.Text
-            End If
-        End Get
-    End Property
-
-
-    Private ReadOnly Property IsWalletSetup As Boolean
-        Get
-            Return My.Computer.FileSystem.DirectoryExists(WalletFolder) And WalletAddress.Length > 0
-        End Get
-    End Property
-
-    Private ReadOnly Property IsX64 As Boolean
-        Get
-            Return Is64BitOperatingSystem
-
-        End Get
-    End Property
-
-    Private ReadOnly Property HasOpenCl As Boolean
-        Get
-            Return My.Computer.FileSystem.FileExists(Environment.SystemDirectory & "\OpenCL.DLL")
-        End Get
-    End Property
-
-    Private ReadOnly Property NVidiaCheck As Boolean
-        Get
-            Return My.Computer.FileSystem.FileExists(Environment.SystemDirectory & "\NVCuda.DLL")
-        End Get
-    End Property
-
-    Private ReadOnly Property VisualStudioRuntime As Boolean
-        Get
-            Return My.Computer.FileSystem.FileExists(Environment.SystemDirectory & "\MSVCR100.DLL")
-        End Get
-    End Property
-
-    Private ReadOnly Property LogFileLocation As String
-        Get
-            Return Application.StartupPath & "\scripts\minelog.txt"
-        End Get
-    End Property
-
-    Private ReadOnly Property IsAMDProcessor As Boolean
-        Get
-            Dim mosSearcher As New ManagementObjectSearcher("select * from Win32_Processor")
-            Dim moc As ManagementObjectCollection = mosSearcher.Get()
-            For Each mObject As ManagementObject In moc
-                If mObject("name") IsNot Nothing Then
-                    If mObject("name").ToString.ToUpper.Contains("INTEL") Then
-                        Return False
-                    End If
-                End If
-            Next
-            Return True
-        End Get
-    End Property
-
-    Private ReadOnly Property GetPathToMinerEXE() As String
-        Get
-            Dim strOutput As String = String.Empty
-            strOutput = Application.StartupPath & "\Scripts\"
-
-            Select Case _SelectedMiningMethod
-                'GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL GROESTL 
-                Case enumMiningMethod.GroestlCPU64, enumMiningMethod.GroestlCPU32, enumMiningMethod.GroestlGPU
-                    strOutput &= "groestl\"
-
-                    If HasOpenCl = False Then
-
-                        If Is64BitOperatingSystem Then
-                            _SelectedMiningMethod = (enumMiningMethod.GroestlCPU64)
-                        Else
-                            _SelectedMiningMethod = (enumMiningMethod.GroestlCPU32)
-                        End If
-
-                        If _SelectedMiningMethod = enumMiningMethod.GroestlCPU64 Then
-                            strOutput &= "GroestlCPU64.exe"
-                        End If
-                        If _SelectedMiningMethod = enumMiningMethod.GroestlCPU32 Then
-                            strOutput &= "Groestl32\GroestlCPU32.exe"
-
-                        End If
-                    End If
-                    If NVidiaCheck = True Then
-                        _SelectedMiningMethod = enumMiningMethod.GroestlNVGPU
-                        strOutput &= "GroestlGPU\GroestlNVGPU.exe"
-                    End If
-
-                    If HasOpenCl = True And NVidiaCheck = False Then
-                        _SelectedMiningMethod = enumMiningMethod.GroestlGPU
-                        strOutput &= "GroestlGPU\GroestlGPU.exe"
-                    End If
-            End Select
-
-            Return strOutput
-        End Get
-    End Property
-
-    Private ReadOnly Property GetMiningEXE As String
-        Get
-            Dim strExe As String = GetPathToMinerEXE
-            For I As Integer = strExe.Length - 1 To 0 Step -1
-                If strExe.ElementAt(I) = "\" Then
-                    strExe = strExe.Substring(I, strExe.Length - I).Replace("\", "")
-                    Exit For
-                End If
-            Next
-            Return strExe
-        End Get
-    End Property
-
-    Private ReadOnly Property GetMiningBatch As String
-        Get
-            Return Application.StartupPath & "\scripts\StartMining.bat"
-        End Get
-    End Property
-
-    Private ReadOnly Property GetPathToElectrum As String
-        Get
-            Return Application.StartupPath & "\Electrum-grsWallet.exe"
-        End Get
-    End Property
-
-    Public Property Result As DialogResult
-
-    Private Enum enumMiningMethod
-        GroestlCPU32
-        GroestlCPU64
-        GroestlGPU
-        GroestlNVGPU
-    End Enum
-
-    Private Enum enumRegistryValue
-        CustomAddress
-        CustomUsername
-        CustomPassword
-        CustomMiningPool
-        CustomSelectedAlgorithm
-    End Enum
-
-#End Region
-
-#Region " Functions and Subs "
-
     Private Sub StartMiningProcess()
         Dim strLocation As String = "StartMiningProcess"
         Try
@@ -502,108 +428,20 @@ Public Class frmMain
                     Throw New Exception(" StartMining.bat not found!")
                 End If
             End With
-
         Catch ex As Exception
             BuildErrorMessage(strModule, strLocation, ex.Message)
         End Try
     End Sub
 
-    Private Sub WriteBatchFile()
-        Dim strLocation As String = "StartMiningProcess"
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Dim strLocation As String = "Timer1_Tick"
         Try
-            Dim strFileLine As String = String.Empty
-            strFileLine &= """" & GetPathToMinerEXE & """"
-
-            '        'TODO Threads always 1 aparently?
-            Dim strAlgo As String = ""
-            '            If _SelectedMiningMethod.ToString.ToUpper.Contains("SKEIN") Then
-            '            If _SelectedMiningMethod = enumMiningMethod.SkeinGPU Then
-            '            strAlgo = "-k skein --intensity D"
-            '            Else
-            '            strAlgo = "-a skein"
-            '            End If
-            '           ElseIf _SelectedMiningMethod.ToString.ToUpper.Contains("QUBIT") Then
-            '           If _SelectedMiningMethod = enumMiningMethod.QubitCPU64 Or _SelectedMiningMethod = enumMiningMethod.QubitCPU32 Then
-            '           strAlgo = "-a qubit"
-            '           End If
-            '           If _SelectedMiningMethod = enumMiningMethod.QubitGPU And Not NVidiaCheck Then
-            '           strAlgo = "--kernel qubitcoin --intensity D"
-            '           End If
-            '           If _SelectedMiningMethod = enumMiningMethod.QubitGPU And NVidiaCheck Then
-            '           strAlgo = "--algo=qubit"
-            '           End If
-
-            'If IsAMDProcessor And Is64BitOperatingSystem And (_SelectedMiningMethod = enumMiningMethod.QubitCPU32 Or _SelectedMiningMethod = enumMiningMethod.QubitCPU64) Then
-            'strAlgo = "-a qubit"
-            'End If
-            '?
-            'If IsAMDProcessor And Not Is64BitOperatingSystem Then
-            'MessageBox.Show("Unable to do qubit CPU mining on AMD cpu's with a 32 bit OS at this time. Please upgrade to 64 bit and try again", PROGRAM_TITLE)
-            'Exit Sub 'will probably have more errors cause no batch
-            'End If
-            If _SelectedMiningMethod.ToString.ToUpper.Contains("GROESTL") Then
-
-
-                If _SelectedMiningMethod = enumMiningMethod.GroestlCPU32 Or _SelectedMiningMethod = enumMiningMethod.GroestlCPU64 Or _SelectedMiningMethod = enumMiningMethod.GroestlNVGPU Then
-                    strAlgo = "-a groestl"
-                End If
-                If _SelectedMiningMethod = enumMiningMethod.GroestlGPU Then
-                    strAlgo = "-k groestlcoin -I d"
-
-                End If
-            End If
-
-            '  ElseIf _Sel ectedMiningMethod.ToString.ToUpper.Contains("SCRYPT") Then
-            '     If _SelectedMiningMethod = enumMiningMethod.SkeinCPU32 Or _SelectedMiningMethod = enumMiningMethod.SkeinCPU64 Then
-            '     strAlgo = "-a scrypt"
-            ' End If
-            '    If _SelectedMiningMethod = enumMiningMethod.ScryptGPU Then
-            '    If NVidiaCheck Then
-            '    strAlgo = "-a scrypt"
-            'Else
-            '    strAlgo = "--Intensity D"
-            'End If
-            'End If
-            'End If
-            'Set proper port for mining method
-            If rbUsedwarfPool.Checked Then
-                Dim strPort As String = String.Empty
-                Select Case _SelectedMiningMethod
-                    '       Case enumMiningMethod.SkeinCPU32, enumMiningMethod.SkeinCPU64, enumMiningMethod.SkeinGPU
-                    '        strPort = "5589"
-                    Case enumMiningMethod.GroestlCPU64, enumMiningMethod.GroestlCPU32, enumMiningMethod.GroestlGPU, enumMiningMethod.GroestlNVGPU
-                        strPort = "3345"
-                        '      Case enumMiningMethod.QubitCPU32, enumMiningMethod.QubitCPU64, enumMiningMethod.QubitGPU
-                        '             strPort = "5567"
-                        '      Case enumMiningMethod.ScryptCPU32, enumMiningMethod.ScryptCPU64, enumMiningMethod.ScryptGPU
-                        '              strPort = "5556"
-                End Select
-
-                strFileLine &= String.Format(" {1} -o stratum+tcp://moria.dwarfpool.com:{0} -u " & WalletAddress & " -p x ", strPort, strAlgo)
-            Else
-                strFileLine &= String.Format(" {2} -o stratum+tcp://{0} -u " & txtUsername.Text & " -p {1}", txtPool.Text, txtPassword.Text, strAlgo)
-            End If
-
-            'Lazy removal - gpu has no threads
-            If _SelectedMiningMethod = enumMiningMethod.GroestlGPU Or _SelectedMiningMethod = enumMiningMethod.GroestlNVGPU Then
-                'Or _SelectedMiningMethod = enumMiningMethod.QubitGPU
-                'Or _SelectedMiningMethod = enumMiningMethod.SkeinGPU 
-                ' Or _SelectedMiningMethod = enumMiningMethod.ScryptGPU Then
-                strFileLine = strFileLine.Replace(" --threads 1", "")
-            End If
-
-            'Always
-            strFileLine &= " 2>""" & LogFileLocation & """"
-
-            Using writer As StreamWriter = New StreamWriter(GetMiningBatch)
-                writer.Write(strFileLine)
-                writer.Close() 'added this
-            End Using
+            UpdateOutputWindow()
+            Timer1.Start()
         Catch ex As Exception
             BuildErrorMessage(strModule, strLocation, ex.Message)
         End Try
     End Sub
-
     Private Sub UpdateOutputWindow()
         Dim strLocation As String = "UpdateOutputWindow"
         Try
@@ -647,6 +485,54 @@ Public Class frmMain
         End Try
     End Sub
 
+    Private Sub WriteBatchFile()
+        Dim strLocation As String = "StartMiningProcess"
+        Try
+            Dim strFileLine As String = String.Empty
+            strFileLine &= """" & GetPathToMinerEXE & """"
+
+            '        'TODO Threads always 1 aparently?
+            Dim strAlgo As String = ""
+            If _SelectedMiningMethod.ToString.ToUpper.Contains("GROESTL") Then
+
+                If _SelectedMiningMethod = enumMiningMethod.GroestlCPU32 Or _SelectedMiningMethod = enumMiningMethod.GroestlCPU64 Or _SelectedMiningMethod = enumMiningMethod.GroestlNVGPU Then
+                    strAlgo = "-a groestl"
+                End If
+                If _SelectedMiningMethod = enumMiningMethod.GroestlGPU Then
+                    strAlgo = "-k groestlcoin -I d"
+
+                End If
+            End If
+            'Set proper port for mining method
+            If rbUsedwarfPool.Checked Then
+                Dim strPort As String = String.Empty
+                Select Case _SelectedMiningMethod
+                    Case enumMiningMethod.GroestlCPU64, enumMiningMethod.GroestlCPU32, enumMiningMethod.GroestlGPU, enumMiningMethod.GroestlNVGPU
+                        strPort = "3345"
+                End Select
+
+                strFileLine &= String.Format(" {1} -o stratum+tcp://moria.dwarfpool.com:{0} -u " & WalletAddress & " -p x ", strPort, strAlgo)
+            Else
+                strFileLine &= String.Format(" {2} -o stratum+tcp://{0} -u " & txtUsername.Text & " -p {1}", txtPool.Text, txtPassword.Text, strAlgo)
+            End If
+
+            'Lazy removal - gpu has no threads
+            If _SelectedMiningMethod = enumMiningMethod.GroestlGPU Or _SelectedMiningMethod = enumMiningMethod.GroestlNVGPU Then
+                strFileLine = strFileLine.Replace(" --threads 1", "")
+            End If
+
+            'Always
+            strFileLine &= " 2>""" & LogFileLocation & """"
+
+            Using writer As StreamWriter = New StreamWriter(GetMiningBatch)
+                writer.Write(strFileLine)
+                writer.Close() 'added this
+            End Using
+        Catch ex As Exception
+            BuildErrorMessage(strModule, strLocation, ex.Message)
+        End Try
+    End Sub
+
     Private Sub WriteToRegistry(ByVal enumRegValue As enumRegistryValue)
         Dim strLocation As String = "WriteToRegistry"
         Try
@@ -682,29 +568,5 @@ Public Class frmMain
             BuildErrorMessage(strModule, strLocation, ex.Message)
         End Try
     End Sub
-
-    Private Sub DisableEnableControls(ByVal blnEnabled As Boolean)
-        Dim strLocation As String = strModule & ":" & "DisableEnableControls"
-        Try
-            gbMethod.Enabled = blnEnabled
-            gbMiningPool.Enabled = blnEnabled
-            gbWallet.Enabled = blnEnabled
-
-        Catch ex As Exception
-            BuildErrorMessage(strModule, strLocation, ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub KillMiner()
-        For Each p As Process In System.Diagnostics.Process.GetProcessesByName(GetMiningEXE.Replace(".exe", ""))
-            Try
-                p.Kill()
-            Catch ex As Exception
-            End Try
-        Next
-    End Sub
-
-#End Region
 
 End Class

@@ -35,8 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -67,6 +70,10 @@
       <DependentUpon>frmMain.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,11 +93,362 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Prerequisites\Electrum-GRS\bz2.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\darkcoin_hash.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\electrum-grs.exe.manifest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\groestlcoin_hash.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\address_dialog.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\amountedit.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\console.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\history_widget.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\icons_rc.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\network_dialog.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\password_dialog.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\paytoedit.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\qrcodewidget.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\qrtextedit.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\qrwindow.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\seed_dialog.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\transaction_dialog.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\qt\util.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\gui\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\hid.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\lib\account.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\asn1tinydecoder.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\bitcoin.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\blockchain.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\darkcoin_hash.pyd" />
+    <None Include="Prerequisites\Electrum-GRS\lib\groestlcoin_hash.pyd" />
+    <None Include="Prerequisites\Electrum-GRS\lib\hid.pyd" />
+    <None Include="Prerequisites\Electrum-GRS\lib\i18n.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\interface.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\ltc_scrypt.pyd" />
+    <None Include="Prerequisites\Electrum-GRS\lib\mnemonic.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\msqr.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\neoscrypt.pyd" />
+    <None Include="Prerequisites\Electrum-GRS\lib\old_mnemonic.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\paymentrequest.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\paymentrequest_pb2.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\pem.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\qubit_hash.pyd" />
+    <None Include="Prerequisites\Electrum-GRS\lib\ripemd.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\rsakey.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\simple_config.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\skeinhash.pyd" />
+    <None Include="Prerequisites\Electrum-GRS\lib\socks.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\synchronizer.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\transaction.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\verifier.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\version.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\wallet.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\x509.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\lib\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\ltc_scrypt.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\neoscrypt.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\aes.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\coinhash\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\dnssec.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\edns.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\entropy.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\exception.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\flags.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\hash.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\inet.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\ipv4.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\ipv6.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\message.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\name.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\node.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\opcode.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\query.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rcode.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdata.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdataclass.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdataset.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdatatype.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\AFSDB.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\CERT.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\CNAME.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\DLV.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\DNAME.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\DNSKEY.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\DS.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\GPOS.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\HINFO.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\HIP.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\ISDN.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\LOC.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\MX.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\NS.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\NSEC.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\NSEC3.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\NSEC3PARAM.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\PTR.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\RP.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\RRSIG.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\RT.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\SOA.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\SPF.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\SSHFP.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\TLSA.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\TXT.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\X25.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\dsbase.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\A.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\AAAA.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\mxbase.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\nsbase.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\txtbase.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\renderer.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\resolver.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\reversename.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\rrset.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\set.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\tokenizer.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\tsig.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\ttl.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\wiredata.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\dns\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\curves.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\der.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\ecdsa.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\ellipticcurve.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\keys.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\numbertheory.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\rfc6979.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\six.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\util.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\_version.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\ecdsa\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\descriptor.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\descriptor_pb2.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\api_implementation.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\containers.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\cpp_message.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\decoder.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\encoder.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\enum_type_wrapper.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\message_listener.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\python_message.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\type_checkers.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\wire_format.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\message.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\reflection.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\text_format.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\protobuf\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\google\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\pbkdf2.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\base.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\constants.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\exceptions.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\image\base.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\image\pil.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\image\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\main.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\util.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\qrcode\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\adapters.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\api.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\auth.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\cacert.pem" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\certs.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\compat.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\cookies.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\exceptions.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\hooks.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\models.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\big5freq.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\big5prober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\chardistribution.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\charsetgroupprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\charsetprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\codingstatemachine.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\compat.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\constants.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\cp949prober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\escprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\escsm.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\eucjpprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\euckrfreq.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\euckrprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\euctwfreq.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\euctwprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\gb2312freq.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\gb2312prober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\hebrewprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\jisfreq.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\jpcntx.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langbulgarianmodel.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langcyrillicmodel.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langgreekmodel.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langhebrewmodel.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langhungarianmodel.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langthaimodel.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\latin1prober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\mbcharsetprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\mbcsgroupprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\mbcssm.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\sbcharsetprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\sbcsgroupprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\sjisprober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\universaldetector.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\utf8prober.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\connection.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\connectionpool.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\contrib\pyopenssl.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\contrib\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\exceptions.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\fields.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\filepost.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\ordered_dict.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\six.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\ssl_match_hostname\_implementation.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\ssl_match_hostname\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\poolmanager.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\request.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\response.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\connection.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\request.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\response.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\retry.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\ssl_.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\timeout.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\url.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\_collections.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\packages\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\sessions.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\status_codes.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\structures.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\utils.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\requests\__init__.pyc" />
+    <None Include="Prerequisites\Electrum-GRS\packages\six.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\client.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\debuglink.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\mapping.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\messages_pb2.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\protobuf_json.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\tools.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_fake.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_hid.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_pipe.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_serial.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_socket.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\types_pb2.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\packages\trezorlib\__init__.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\plugins\__init__.pyc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\pyexpat.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\PyQt4.QtCore.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\PyQt4.QtGui.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\qubit_hash.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\requests\cacert.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\select.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\sip.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\skeinhash.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\unicodedata.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\win32api.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\win32pipe.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\win32wnet.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\_ctypes.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\_hashlib.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\_socket.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Prerequisites\Electrum-GRS\_ssl.pyd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Comfortaa-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -103,6 +461,534 @@
       <Project>{c37fb959-32e3-4a6e-b7c1-fa5ff766c686}</Project>
       <Name>BL_EasyMiner</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GRS-logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Prerequisites\Electrum-GRS\electrum-grs.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\gui\android.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\gtk.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\jsonrpc.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\main_window.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\nfc_scanner\scanner_android.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\nfc_scanner\scanner_dummy.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\nfc_scanner\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\qr_scanner\scanner_android.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\qr_scanner\scanner_camera.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\qr_scanner\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\combobox.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\dialogs\carousel_dialog.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\dialogs\create_restore.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\dialogs\installwizard.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\dialogs\new_contact.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\dialogs\nfc_transaction.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\dialogs\qr_scanner.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\dialogs\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\drawer.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\gridview.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\menus.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\qrcodewidget.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\screens.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\uix\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\kivy\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\address_dialog.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\amountedit.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\console.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\history_widget.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\icons_rc.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\installwizard.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\main_window.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\network_dialog.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\password_dialog.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\paytoedit.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\qrcodewidget.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\qrtextedit.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\qrwindow.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\seed_dialog.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\transaction_dialog.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\util.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\qt\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\stdio.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\text.py" />
+    <Content Include="Prerequisites\Electrum-GRS\gui\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\include\pyconfig.h" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\account.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\asn1tinydecoder.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\bitcoin.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\blockchain.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\bmp.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\commands.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\contacts.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\dnssec.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\i18n.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\interface.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\mnemonic.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\msqr.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\network.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\old_mnemonic.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\paymentrequest.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\paymentrequest_pb2.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\pem.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\plugins.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\qrscanner.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\ripemd.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\rsakey.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\simple_config.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\socks.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\synchronizer.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_account.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_bitcoin.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_interface.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_mnemonic.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_ripemd.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_simple_config.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_transaction.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_util.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\test_wallet.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\tests\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\transaction.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\util.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\verifier.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\version.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\wallet.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\websockets.py" />
+    <Resource Include="Prerequisites\Electrum-GRS\lib\wordlist\chinese_simplified.txt" />
+    <Resource Include="Prerequisites\Electrum-GRS\lib\wordlist\english.txt" />
+    <Resource Include="Prerequisites\Electrum-GRS\lib\wordlist\japanese.txt" />
+    <Resource Include="Prerequisites\Electrum-GRS\lib\wordlist\portuguese.txt" />
+    <Resource Include="Prerequisites\Electrum-GRS\lib\wordlist\spanish.txt" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\www\index.html" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\x509.py" />
+    <Content Include="Prerequisites\Electrum-GRS\lib\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\MSVCR90.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\aes.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\coinhash\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\dnssec.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\e164.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\edns.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\entropy.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\exception.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\flags.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\grange.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\hash.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\inet.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\ipv4.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\ipv6.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\message.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\name.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\namedict.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\node.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\opcode.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\query.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rcode.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdata.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdataclass.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdataset.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdatatype.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\AFSDB.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\CERT.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\CNAME.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\DLV.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\DNAME.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\DNSKEY.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\DS.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\GPOS.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\HINFO.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\HIP.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\ISDN.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\LOC.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\MX.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\NS.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\NSEC.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\NSEC3.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\NSEC3PARAM.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\PTR.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\RP.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\RRSIG.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\RT.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\SOA.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\SPF.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\SSHFP.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\TLSA.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\TXT.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\X25.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\ANY\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\dsbase.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\A.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\AAAA.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\APL.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\DHCID.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\IPSECKEY.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\KX.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\NAPTR.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\NSAP.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\NSAP_PTR.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\PX.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\SRV.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\WKS.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\IN\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\mxbase.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\nsbase.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\txtbase.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rdtypes\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\renderer.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\resolver.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\reversename.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\rrset.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\set.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\tokenizer.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\tsig.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\tsigkeyring.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\ttl.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\update.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\version.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\wiredata.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\zone.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\dns\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\easy_install.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\curves.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\der.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\ecdsa.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\ellipticcurve.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\keys.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\numbertheory.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\rfc6979.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\six.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\test_pyecdsa.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\util.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\_version.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\ecdsa\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\compiler\plugin_pb2.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\compiler\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\descriptor.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\descriptor_database.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\descriptor_pb2.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\descriptor_pool.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\api_implementation.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\containers.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\cpp_message.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\decoder.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\encoder.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\enum_type_wrapper.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\message_listener.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\python_message.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\type_checkers.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\wire_format.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\internal\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\message.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\message_factory.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\reflection.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\service.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\service_reflection.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\text_format.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\protobuf\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\google\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\mnemonic\mnemonic.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\mnemonic\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\pbkdf2.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\pkg_resources\_vendor\packaging\specifiers.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\pkg_resources\_vendor\packaging\version.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\pkg_resources\_vendor\packaging\_compat.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\pkg_resources\_vendor\packaging\_structures.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\pkg_resources\_vendor\packaging\__about__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\pkg_resources\_vendor\packaging\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\pkg_resources\_vendor\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\pkg_resources\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\base.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\console_scripts.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\constants.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\exceptions.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\image\base.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\image\pil.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\image\pure.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\image\svg.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\image\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\main.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\tests\svg.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\tests\test_example.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\tests\test_qrcode.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\tests\test_script.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\tests\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\util.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\qrcode\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\adapters.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\api.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\auth.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\certs.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\compat.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\cookies.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\exceptions.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\hooks.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\models.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\big5freq.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\big5prober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\chardetect.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\chardistribution.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\charsetgroupprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\charsetprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\codingstatemachine.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\compat.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\constants.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\cp949prober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\escprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\escsm.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\eucjpprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\euckrfreq.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\euckrprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\euctwfreq.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\euctwprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\gb2312freq.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\gb2312prober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\hebrewprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\jisfreq.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\jpcntx.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langbulgarianmodel.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langcyrillicmodel.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langgreekmodel.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langhebrewmodel.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langhungarianmodel.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\langthaimodel.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\latin1prober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\mbcharsetprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\mbcsgroupprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\mbcssm.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\sbcharsetprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\sbcsgroupprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\sjisprober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\universaldetector.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\utf8prober.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\chardet\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\connection.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\connectionpool.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\contrib\ntlmpool.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\contrib\pyopenssl.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\contrib\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\exceptions.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\fields.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\filepost.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\ordered_dict.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\six.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\ssl_match_hostname\_implementation.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\ssl_match_hostname\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\packages\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\poolmanager.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\request.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\response.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\connection.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\request.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\response.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\retry.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\ssl_.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\timeout.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\url.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\util\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\_collections.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\urllib3\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\packages\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\sessions.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\status_codes.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\structures.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\utils.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\requests\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\archive_util.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\alias.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\bdist_egg.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\bdist_rpm.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\bdist_wininst.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\build_ext.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\build_py.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\develop.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\easy_install.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\egg_info.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\install.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\install_egg_info.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\install_lib.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\install_scripts.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\register.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\rotate.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\saveopts.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\sdist.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\setopt.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\test.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\upload_docs.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\command\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\compat.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\depends.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\dist.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\extension.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\lib2to3_ex.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\msvc9_support.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\package_index.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\py26compat.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\py27compat.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\py31compat.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\sandbox.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\site-patch.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\ssl_support.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\unicode_utils.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\utils.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\version.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\windows_support.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\setuptools\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\six.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorctl.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\ckd_public.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\client.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\debuglink.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\mapping.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\messages_pb2.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\protobuf_json.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\qt\pinmatrix.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\qt\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\tools.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_fake.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_hid.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_pipe.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_serial.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\transport_socket.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\tx_api.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\types_pb2.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\trezorlib\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\packages\_markerlib\markers.py" />
+    <Content Include="Prerequisites\Electrum-GRS\packages\_markerlib\__init__.py" />
+    <Content Include="Prerequisites\Electrum-GRS\plugins\cosigner_pool.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\plugins\email_requests.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\plugins\exchange_rate.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\plugins\plot.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\plugins\virtualkeyboard.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\plugins\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\python27.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\pywintypes27.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\accessible\qtaccessiblewidgets4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\codecs\qcncodecs4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\codecs\qjpcodecs4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\codecs\qkrcodecs4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\codecs\qtwcodecs4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\graphicssystems\qglgraphicssystem4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\iconengines\qsvgicon4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\imageformats\qgif4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\imageformats\qico4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\imageformats\qjpeg4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\imageformats\qmng4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\imageformats\qsvg4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\imageformats\qtga4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\qt4_plugins\imageformats\qtiff4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\QtCore4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\QtGui4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\QtOpenGL4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\QtSvg4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\QtXml4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Prerequisites\Electrum-GRS\Uninstall.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

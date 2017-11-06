@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Helper\HelperLogic.cs" />
     <Compile Include="Helper\MiningOperation.cs" />
+    <Compile Include="Helper\SystemTypeCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -81,7 +81,7 @@ Partial Class frmMain
         Me.gbWallet.Controls.Add(Me.lblAddress)
         Me.gbWallet.Controls.Add(Me.btnWalletSetup)
         Me.gbWallet.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbWallet.Location = New System.Drawing.Point(176, 111)
+        Me.gbWallet.Location = New System.Drawing.Point(197, 111)
         Me.gbWallet.Name = "gbWallet"
         Me.gbWallet.Size = New System.Drawing.Size(315, 134)
         Me.gbWallet.TabIndex = 1
@@ -90,7 +90,7 @@ Partial Class frmMain
         '
         'btnOpenHelp
         '
-        Me.btnOpenHelp.Location = New System.Drawing.Point(12, 52)
+        Me.btnOpenHelp.Location = New System.Drawing.Point(18, 52)
         Me.btnOpenHelp.Name = "btnOpenHelp"
         Me.btnOpenHelp.Size = New System.Drawing.Size(136, 23)
         Me.btnOpenHelp.TabIndex = 12
@@ -100,7 +100,7 @@ Partial Class frmMain
         'rbCustomAddress
         '
         Me.rbCustomAddress.AutoSize = True
-        Me.rbCustomAddress.Location = New System.Drawing.Point(12, 53)
+        Me.rbCustomAddress.Location = New System.Drawing.Point(162, 27)
         Me.rbCustomAddress.Name = "rbCustomAddress"
         Me.rbCustomAddress.Size = New System.Drawing.Size(127, 20)
         Me.rbCustomAddress.TabIndex = 11
@@ -111,7 +111,7 @@ Partial Class frmMain
         'rbUseElectrum
         '
         Me.rbUseElectrum.AutoSize = True
-        Me.rbUseElectrum.Location = New System.Drawing.Point(77, 26)
+        Me.rbUseElectrum.Location = New System.Drawing.Point(9, 27)
         Me.rbUseElectrum.Name = "rbUseElectrum"
         Me.rbUseElectrum.Size = New System.Drawing.Size(137, 20)
         Me.rbUseElectrum.TabIndex = 10
