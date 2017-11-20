@@ -1,0 +1,1 @@
+ccminer.exe -a groestl -o stratum+tcp://moria.dwarfpool.com:3345 -u Fjp6rPKmdhM3vhJ6nFm5LQPed7kyn62wPY -p x >log.txt

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -34,6 +36,11 @@ namespace GroestlCoin_EasyMiner_2017 {
         private bool _minerStarted = false;
         public DialogResult Result;
         private Timer timer;
+        private Timer ProgressTimer = new Timer();
+
+        private readonly BackgroundWorker _cpuBg = new BackgroundWorker();
+        private readonly BackgroundWorker _amdBg = new BackgroundWorker();
+        private readonly BackgroundWorker _nVidiaBg = new BackgroundWorker();
 
         public MainWindow() {
             InitializeComponent();
@@ -42,6 +49,9 @@ namespace GroestlCoin_EasyMiner_2017 {
             MiningOperation.MiningBatch = executingAssembly + @"\Scripts\StartMining.bat";
             MiningOperation.ElectrumPath = executingAssembly + @"\Prerequisites\Electrum-GRS\electrum-grs.exe";
             MiningOperation.LogFileLocation = executingAssembly + @"\scripts\minelog.txt";
+
+            ConfigureBackgroundWorkers();
+
             try {
                 if (HelperLogic.RegAddress.Length > 0) {
                     RbCustomPool.IsChecked = true;
@@ -65,75 +75,83 @@ namespace GroestlCoin_EasyMiner_2017 {
             }
         }
 
+        private void ConfigureBackgroundWorkers() {
+            var executingAssembly = System.IO.Directory.GetCurrentDirectory();
+
+            _cpuBg.DoWork += (sender, args) => {
+                using (var process = new Process()) {
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = executingAssembly + @"\Resources\Miners\CPU Miner\minerd.exe";
+                    info.Arguments =
+                        $@"-a groestl -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString()} -p x >log.txt" ;
+                    process.StartInfo = info;
+                    process.Start();
+                }
+            };
+
+            _amdBg.DoWork += (sender, args) => {
+                using (var process = new Process()) {
+                    ProcessStartInfo info = new ProcessStartInfo {
+                        FileName = executingAssembly + @"\Resources\Miners\AMD Miner\sgminer.exe",
+                        Arguments =
+                            $"-I 19 -g 4 -w 64 -k groestlcoin --no-submit-stale -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString()} -p x >log.txt"
+                    };
+                    process.StartInfo = info;
+                    process.Start();
+                }
+            };
+
+            _nVidiaBg.DoWork += (sender, args) => {
+                using (var process = new Process()) {
+                    ProcessStartInfo info = new ProcessStartInfo {
+                        FileName = executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe",
+                        Arguments = $@"-a groestl -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString()} -p x",
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = false
+                    };
+                    process.StartInfo = info;
+                    process.OutputDataReceived += ProcessOnOutputDataReceived;
+                    process.Start();
+
+                    
+                }
+            };
+        }
+
+        private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
+        {
+                var text = dataReceivedEventArgs.ToString();
+        }
+
         private void UpdateOutputWindow() {
-            TxtOutput.Document.Blocks.Clear();
             var location = "UpdateOutputWindow";
             //Read in the last 10 lines
             List<string> text = File.ReadLines(MiningOperation.LogFileLocation).Reverse().Take(10).ToList();
-            TextRange range = new TextRange(TxtOutput.Document.ContentStart, TxtOutput.Document.ContentEnd);
-            range.Text = text.ToString();
+
         }
 
 
         private void BtnStart_OnClick(object sender, RoutedEventArgs e) {
             _minerStarted = !_minerStarted;
-            var location = "startMiningBtn_Click " + (_minerStarted ? "started" : "ending");
-            try {
-                if (_minerStarted) {
-                    if (RbCustomPool.IsChecked == true && TxtPool.Text.Length == 0) {
-                        MessageBox.Show("You must enter a custom pool address to continue.", ProgramTitle,
-                            MessageBoxButton.OK, MessageBoxImage.Stop);
-                    }
-                    BtnStart.Content = "Stop Mining";
-                    //DisableEnableControls(false);
-                    if (RbCustomAddress.IsChecked == true) {
-                        HelperLogic.WriteToRegistry(HelperLogic.RegistryValue.CustomAddress, TxtAddress.Text);
-                    }
-                    else {
-                        if (HelperLogic.GetSetting("Easyminer", "Settings", "CustomAddress", "").Length > 0) {
-                            Interaction.DeleteSetting("Easyminer", "Settings", "CustomAddress");
-                        }
-                    }
-                    if (RbCustomPool.IsChecked == true) {
-                        HelperLogic.WriteToRegistry(HelperLogic.RegistryValue.CustomMiningPool, TxtPool.Text);
-                        HelperLogic.WriteToRegistry(HelperLogic.RegistryValue.CustomUsername, TxtUsername.Text);
-                        HelperLogic.WriteToRegistry(HelperLogic.RegistryValue.CustomPassword, TxtPassword.Text);
-                    }
-                    else {
-                        Interaction.DeleteSetting("easyminer", "Settings", "CustomMiningPool");
-                        Interaction.DeleteSetting("easyminer", "Settings", "CustomUsername");
-                        Interaction.DeleteSetting("easyminer", "Settings", "CustomPassword");
-                    }
-                    TxtOutput.AppendText(Environment.NewLine + "Mining Started at " + DateTime.Now);
+            if (_minerStarted) {
+                BtnStart.Content = "Stop Mining";
+                var addr = string.IsNullOrEmpty(TxtAddress.Text) ? "Fjp6rPKmdhM3vhJ6nFm5LQPed7kyn62wPY" : TxtAddress.Text;
 
-                    switch (Result) {
-                        case System.Windows.Forms.DialogResult.Yes:
-                            if (SystemTypeCheck.InternalCheckIsWow64()) {
-                                MiningOperation.MiningMethod = MiningOperation.MiningMethods.GroestlCPU64;
-                            }
-                            else {
-                                MiningOperation.MiningMethod = MiningOperation.MiningMethods.GroestlCPU32;
-                            }
-                            break;
-                        case System.Windows.Forms.DialogResult.No:
-                            MiningOperation.MiningMethod = MiningOperation.MiningMethods.GroestlGPU;
-                            break;
-                    }
-                    MiningOperation.WriteBatchFile((bool)RbUsedwarfPool.IsChecked, TxtPool.Text, TxtUsername.Text,
-                        TxtPassword.Text, TxtAddress.Text);
-                    MiningOperation.StartMiningProcess();
-                    timer.Start();
-                    ProgressBar.Visibility = Visibility.Visible;
+                if (UxCpuTgl.IsChecked == true) {
+                    _cpuBg.RunWorkerAsync(addr);
                 }
-                else {
-                    BtnStart.Content = "Start Miner";
-                    MiningOperation.KillMiner();
-                    ProgressBar.Visibility = Visibility.Hidden;
-                    //DisableEnableControls(true);
+                if (uxnAMDRb.IsChecked == true) {
+                    _amdBg.RunWorkerAsync(addr);
                 }
+                if (uxnVidiaRb.IsChecked == true) {
+                    _nVidiaBg.RunWorkerAsync(addr);
+                }
+            ProgressBar.IsIndeterminate = true;
             }
-            catch {
-                //ToDo: Build error message
+            else {
+                BtnStart.Content = "Start Mining";
+                ProgressBar.IsIndeterminate = false;
             }
         }
 
@@ -170,24 +188,35 @@ namespace GroestlCoin_EasyMiner_2017 {
             catch (Exception ex) {
                 //ToDo: Throw exception
             }
+        }
 
+
+        private static void Watch() {
+            var watch = new FileSystemWatcher();
+            watch.Path = @"D:\tmp";
+            watch.Filter = "file.txt";
+            watch.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite; //more options
+            watch.Changed += new FileSystemEventHandler(OnChanged);
+            watch.EnableRaisingEvents = true;
+        }
+
+        private static void OnChanged(object source, FileSystemEventArgs e) {
+            if (e.FullPath == @"D:\tmp\file.txt") {
+                // do stuff
+            }
         }
 
         private void BtnWalletSetup_OnClick(object sender, RoutedEventArgs e) {
             var strLocation = "btnWalletSetup_Click";
-            try
-            {
-                if (!File.Exists(MiningOperation.ElectrumPath))
-                {
+            try {
+                if (!File.Exists(MiningOperation.ElectrumPath)) {
                     MessageBox.Show("Electrum was not found.", ProgramTitle, MessageBoxButton.OK, MessageBoxImage.Stop);
                 }
-                else
-                {
+                else {
                     Process.Start(MiningOperation.ElectrumPath);
                 }
             }
-            catch
-            {
+            catch {
                 //ToDo: Stuff
             }
         }

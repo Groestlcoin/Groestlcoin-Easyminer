@@ -17,11 +17,11 @@
     <Grid Margin="0,0,2,1">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="75"/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="180"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -31,13 +31,89 @@
             <Rectangle Grid.Column="0" Fill="{StaticResource GrsLogo}" HorizontalAlignment="Center" Width="64" Height="64"></Rectangle>
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" FontSize="42">Groestlcoin EasyMiner</Label>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-
-        </StackPanel>
-
         <GroupBox Grid.Row="1" Header="Wallet Address">
-            <StackPanel HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Stretch" Height="90px">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60px"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <CheckBox Name="UxCpuTgl" Height="50px" Width="70px" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="CPU Mining">
+                        <ToggleButton.Content>
+                            <Grid>
+                                <Grid Name="BgCpu" Width="48" Height="48" Visibility="Collapsed" />
+                                <Path Data="M21.600037,26.700007L21.700012,26.700007 24.400024,26.700007 24.400024,30.400004C24.400024,31.200007 23.800049,31.8 23,31.8 22.200012,31.8 21.600037,31.200007 21.600037,30.400004z M16.900024,26.700007L17,26.700007 19.700012,26.700007 19.700012,30.400004C19.700012,31.200007 19.100037,31.8 18.300049,31.8 17.5,31.8 16.900024,31.200007 16.900024,30.400004z M12,26.700007L12.100037,26.700007 14.800049,26.700007 14.800049,30.400004C14.800049,31.200007 14.200012,31.8 13.400024,31.8 12.600037,31.8 12,31.200007 12,30.400004z M7.2000122,26.700007L7.3000488,26.700007 10,26.700007 10,30.400004C10,31.200007 9.4000244,31.8 8.6000366,31.8 7.8000488,31.8 7.2000122,31.200007 7.2000122,30.400004z M26.900024,21.599999L30.600037,21.599999C31.400024,21.599999 32,22.200005 32,23.000009 32,23.799996 31.400024,24.400002 30.600037,24.400002L26.900024,24.400002z M1.4000244,21.599999L5.1000366,21.599999 5.1000366,24.299996 1.4000244,24.299996C0.60003662,24.299996 0,23.700005 0,22.900002 0,22.200005 0.60003662,21.599999 1.4000244,21.599999z M26.900024,16.799994L30.600037,16.799994C31.400024,16.799994 32,17.400001 32,18.200004 32,19.000007 31.400024,19.599997 30.600037,19.599997L26.900024,19.599997z M1.4000244,16.799994L5.1000366,16.799994 5.1000366,19.500007 1.4000244,19.500007C0.60003662,19.500007 0,18.900001 0,18.099997 0,17.400001 0.60003662,16.799994 1.4000244,16.799994z M15.100037,14.700003L15.5,14.700003C16,14.700003 16.300049,14.9 16.300049,15.299993 16.300049,15.700003 16,16.000007 15.5,16.000007L15.100037,16.000007z M14.100037,14.099996L14.100037,18.200004 15,18.200004 15,16.799994 15.5,16.799994C16,16.799994 16.400024,16.700004 16.700012,16.400001 17,16.099997 17.200012,15.799993 17.200012,15.4 17.200012,14.500006 16.700012,14.099996 15.600037,14.099996z M17.800049,14.000005L17.800049,16.400001C17.800049,17.599997 18.400024,18.200004 19.5,18.200004 20.700012,18.200004 21.300049,17.599997 21.300049,16.299994L21.300049,14.000005 20.400024,14.000005 20.400024,16.500007C20.400024,17.200004 20.100037,17.500007 19.600037,17.500007 19.100037,17.500007 18.800049,17.200004 18.800049,16.500007L18.800049,14.000005z M12.400024,13.899999C11.700012,13.899999 11.200012,14.099996 10.800049,14.500006 10.400024,14.9 10.200012,15.500006 10.200012,16.099997 10.200012,16.700004 10.400024,17.200004 10.800049,17.599997 11.200012,18.000007 11.700012,18.200004 12.300049,18.200004 12.800049,18.200004 13.200012,18.099997 13.5,18.000007L13.5,17.099997C13.200012,17.299994 12.900024,17.400001 12.5,17.400001 12.100037,17.400001 11.800049,17.299994 11.600037,17.000007 11.400024,16.799994 11.300049,16.400001 11.300049,16.000007 11.300049,15.599996 11.400024,15.200003 11.700012,15.000006 11.900024,14.799993 12.300049,14.599996 12.700012,14.599996 13.100037,14.599996 13.400024,14.700003 13.700012,14.9L13.700012,14.000005C13.100037,14.000005,12.800049,13.899999,12.400024,13.899999z M26.900024,11.899999L30.600037,11.899999C31.400024,11.899999 32,12.500005 32,13.299992 32,14.099996 31.400024,14.700003 30.600037,14.700003L26.900024,14.700003z M1.4000244,11.899999L5.1000366,11.899999 5.1000366,14.599996 1.4000244,14.599996C0.60003662,14.599996 0,14.000005 0,13.299992 0,12.599996 0.60003662,11.899999 1.4000244,11.899999z M7.3000488,7.1999997L24.5,7.1999997 24.5,24.500009 7.3000488,24.500009z M26.900024,7.0999936L30.600037,7.0999936C31.400024,7.0999936 32,7.6999997 32,8.5000028 32,9.2999915 31.400024,9.8999976 30.600037,9.8999976L26.900024,9.8999976z M1.4000244,7.0999936L5.1000366,7.0999936 5.1000366,9.7999915 1.4000244,9.7999915C0.60003662,9.8999976 0,9.2999915 0,8.5000028 0,7.7999906 0.60003662,7.0999936 1.4000244,7.0999936z M23.100037,0C23.900024,7.1437171E-08,24.5,0.59999113,24.5,1.3999944L24.5,5.0000018 21.800049,5.0000018 21.800049,1.3999944C21.700012,0.59999113,22.300049,7.1437171E-08,23.100037,0z M18.300049,0C19.100037,7.1437171E-08,19.700012,0.59999113,19.700012,1.3999944L19.700012,5.0000018 17,5.0000018 17,1.3999944C17,0.59999113,17.600037,7.1437171E-08,18.300049,0z M13.400024,0C14.200012,7.1437171E-08,14.800049,0.59999113,14.800049,1.3999944L14.800049,5.0000018 12.100037,5.0000018 12.100037,1.3999944C12.100037,0.59999113,12.700012,7.1437171E-08,13.400024,0z M8.6000366,0C9.4000244,7.1437171E-08,10,0.59999113,10,1.3999944L10,5.0000018 7.3000488,5.0000018 7.3000488,1.3999944C7.3000488,0.59999113,7.9000244,7.1437171E-08,8.6000366,0z" Stretch="Uniform" Fill="#9A16333B" Width="48" Height="48" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <TransformGroup.Children>
+                                                <RotateTransform Angle="0" />
+                                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                                            </TransformGroup.Children>
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Grid>
+                        </ToggleButton.Content>
+                    </CheckBox>
+                    <RadioButton Name="uxnVidiaRb" GroupName="GPU" Grid.Column="2" Height="50px" Width="70px" ToolTip="nVidia Mining">
+                        <RadioButton.Content>
+                            <Viewbox  Stretch="Uniform">
+                                <Canvas Name="svg2999" Width="50" Height="50">
+                                    <Canvas.RenderTransform>
+                                        <TranslateTransform X="0" Y="0"/>
+                                    </Canvas.RenderTransform>
+                                    <Canvas.Resources/>
+                                    <!--Unknown tag: metadata-->
+                                    <!--Unknown tag: sodipodi:namedview-->
+                                    <Canvas Name="g3001" Opacity="1">
+                                        <Canvas.RenderTransform>
+                                            <MatrixTransform Matrix="0.0771765 0 0 0.09968702 0 1.28937"/>
+                                        </Canvas.RenderTransform>
+                                        <Path Name="Path3003" Fill="#9A16333B">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m 258.646 365.957 0.012 116.419 32.878 0 0 -116.417 -32.89 -0.002 z M 0 365.799 l 0 116.577 33.171 0 0 -88.519 25.698 0.009 c 8.512 0 14.575 2.118 18.677 6.495 5.201 5.542 7.323 14.476 7.323 30.825 l 0 51.19 32.14 0 0 -64.408 c 0 -45.97 -29.303 -52.169 -57.969 -52.169 l -59.04 0 z m 311.585 0.162 0 116.415 53.329 0 c 28.413 0 37.686 -4.726 47.715 -15.32 7.09 -7.438 11.67 -23.765 11.67 -41.608 0 -16.363 -3.877 -30.962 -10.641 -40.053 -12.181 -16.256 -29.73 -19.434 -55.928 -19.434 l -46.145 0 z m 32.615 25.348 14.136 0 c 20.509 0 33.773 9.21 33.773 33.107 0 23.902 -13.264 33.112 -33.773 33.112 l -14.136 0 0 -66.219 z m -132.959 -25.348 -27.44 92.265 -26.294 -92.259 -35.492 -0.006 37.551 116.415 47.388 0 37.845 -116.415 -33.558 0 z m 228.358 116.415 32.884 0 0 -116.409 -32.892 -0.006 0.008 116.415 z m 92.17 -116.373 -45.911 116.333 32.42 0 7.264 -20.562 54.333 0 6.876 20.562 35.2 0 -46.262 -116.343 -43.92 0.01 z m 21.343 21.223 19.917 54.5 -40.463 0 20.546 -54.5 0 0 z" FillRule="evenodd"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <Path Name="Path3005" Fill="#9A16333B">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m 215.177 93.258 0 -27.969 c 2.714 -0.192 5.457 -0.337 8.253 -0.425 76.493 -2.404 126.678 65.727 126.678 65.727 0 0 -54.202 75.283 -112.317 75.283 -8.371 0 -15.861 -1.349 -22.614 -3.616 l 0 -84.81 c 29.779 3.597 35.766 16.752 53.674 46.594 l 39.818 -33.572 c 0 0 -29.065 -38.122 -78.063 -38.122 -5.332 0 -10.427 0.376 -15.429 0.91 l 0 0 z m 0 -92.389 0 41.776 c 2.745 -0.217 5.494 -0.391 8.253 -0.491 106.375 -3.584 175.678 87.24 175.678 87.24 0 0 -79.604 96.797 -162.532 96.797 -7.599 0 -14.714 -0.701 -21.399 -1.885 l 0 25.823 c 5.718 0.727 11.639 1.155 17.82 1.155 77.175 0 132.986 -39.409 187.03 -86.057 8.953 7.175 45.639 24.628 53.182 32.277 -51.388 43.016 -171.137 77.686 -239.025 77.686 -6.542 0 -12.834 -0.394 -19.007 -0.988 l 0 36.292 293.324 0 0 -309.625 -293.324 0 z m 0 201.389 0 22.048 c -71.379 -12.726 -91.19 -86.924 -91.19 -86.924 0 0 34.27 -37.971 91.19 -44.124 l 0 24.19 c -0.044 0 -0.073 -0.011 -0.112 -0.011 -29.867 -3.588 -53.205 24.321 -53.205 24.321 0 0 13.075 46.979 53.317 60.5 l 0 0 z M 88.401 134.167 c 0 0 42.304 -62.424 126.776 -68.878 l 0 -22.644 c -93.561 7.509 -174.582 86.749 -174.582 86.749 0 0 45.885 132.663 174.582 144.808 l 0 -24.073 C 120.737 238.247 88.401 134.167 88.401 134.167 l 0 0 z" FillRule="evenodd"/>
+                                            </Path.Data>
+                                        </Path>
+                                    </Canvas>
+                                </Canvas>
+                            </Viewbox>
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton Name="uxnAMDRb" GroupName="GPU" Grid.Column="3" Width="70px" Height="50px" ToolTip="AMD Mining">
+                        <RadioButton.Content>
+                            <Grid>
+                                <Grid Name="BgAmd" Width="48" Height="48" Visibility="Collapsed" />
+                                <Path Data="M4.4719839,25.827989L3.2819817,28.979997 5.7800284,28.979997z M22.450008,25.375001L22.450008,30.513001 23.770016,30.513001C25.803036,30.513001 26.41003,29.134995 26.41003,27.944001 26.41003,26.554002 25.661007,25.375001 23.746029,25.375001z M20.426998,23.888995L24.007015,23.888995C26.968988,23.888995 28.491999,25.731995 28.491999,27.957002 28.491999,30.287995 27.015986,31.999999 23.781979,31.999999L20.426998,31.999999z M10.15399,23.888995L11.914,23.888995 14.51904,26.899003 17.122982,23.888995 18.882992,23.888995 18.882992,31.999999 16.861019,31.999999 16.861019,26.933 14.673032,29.47899 14.364011,29.47899 12.176024,26.933 12.176024,31.999999 10.15399,31.999999z M3.2700188,23.888995L5.6140127,23.888995 9.2170391,31.999999 7.0410142,31.999999 6.3749991,30.39499 2.7479854,30.39499 2.1400142,31.999999 0,31.999999z M9.6310406,6.3940033L9.6749859,14.343999 17.605038,14.343999 12.124022,19.823993 4.0510245,19.823993 4.0510245,11.972997z M23.900997,0L23.900997,19.675998 18.419979,14.170995 18.419979,5.4070038 9.6050396,5.4070038 4.1799917,0.025001525z" Stretch="Uniform" Fill="#9A16333B" Width="48" Height="48" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <TransformGroup.Children>
+                                                <RotateTransform Angle="0" />
+                                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                                            </TransformGroup.Children>
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Grid>
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Grid.Column="0" Grid.Row="1">Address:</Label>
+                        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Width="400" Name="TxtAddress" Height="20" ></TextBox>
+                    </StackPanel>
+                    
+                </Grid>
+                    <!--
                     <Button  Margin="5" Name="BtnOpenHelp" Width="120" Height="25" Visibility="Collapsed">
                         <Button.Content>
                             <Grid Width="110">
@@ -91,24 +167,24 @@
                             </Grid>
                         </Button.Content>
                     </Button>
-
-                    <ToggleButton Name="uxCPUTgl">CPU</ToggleButton>
-                    <RadioButton Name="uxnVidiaRb" GroupName="GPU">nVidia</RadioButton>
-                    <RadioButton Name="uxnAMDRb" GroupName="GPU">AMD</RadioButton>
-                </StackPanel>
+                    -->
+                
+                
                 <WrapPanel HorizontalAlignment="Center">
                     <RadioButton Name="RbUseElectrum" GroupName="AddressConf" IsChecked="False" Checked="AddressRadioButtons_OnChecked" Margin="0,0,10,0" Visibility="Collapsed">Electrum Address</RadioButton>
                     <RadioButton Name="RbCustomAddress" GroupName="AddressConf" IsChecked="True" Checked="AddressRadioButtons_OnChecked" Visibility="Collapsed">Custom Address</RadioButton>
                 </WrapPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label>Address:</Label>
-                    <TextBox Width="200" Name="TxtAddress"  Height="20"></TextBox>
+                    
                 </StackPanel>
             </StackPanel>
         </GroupBox>
-        <Expander x:Name="UxAdvancedSettings" IsExpanded="True" Grid.Row="2" Header="Advanced Settings" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <ScrollViewer>
-                <Grid Background="#FFE5E5E5">
+        <Expander x:Name="UxAdvancedSettings" IsExpanded="True" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Top" MaxHeight="200">
+            <Expander.Header>
+                <Label>Advanced Settings</Label>
+            </Expander.Header>
+            <ScrollViewer HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -135,16 +211,16 @@
                             <TextBlock>Donate to the GRS Marketing or Development Funds for...</TextBlock>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition Width="40"></ColumnDefinition>
                                     <ColumnDefinition Width="100"></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Name="UxDonationMinutesTxt" Height="25">0</TextBox>
+                                <TextBox Name="UxDonationMinutesTxt" Height="25" Width="40">0</TextBox>
                                 <Label Grid.Column="1">minutes/hr</Label>
                                 <StackPanel Orientation="Horizontal" Grid.Column="2">
-                                    <Label>
+                                    <Label FontWeight="Bold">
                                         <Label.Resources>
-                                            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MenuLabel}">
+                                            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding ElementName=UxFundSwitchRb, Path=IsChecked}" Value="True">
                                                         <Setter Property="Content" Value="Marketing"></Setter>
@@ -165,10 +241,6 @@
                 </Grid>
             </ScrollViewer>
         </Expander>
-
-        <GroupBox Grid.Row="3" Header="Mining Status">
-            <RichTextBox Name="TxtOutput" Background="{StaticResource Back150}"></RichTextBox>
-        </GroupBox>
         <ProgressBar Grid.Row="4" Name="ProgressBar"></ProgressBar>
         <StackPanel Grid.Row="5" Width="100" VerticalAlignment="Center">
             <Button Name="BtnStart" Click="BtnStart_OnClick">Start Mining</Button>
