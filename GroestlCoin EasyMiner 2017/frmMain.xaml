@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GroestlCoin_EasyMiner_2017"
         mc:Ignorable="d" Style="{DynamicResource {x:Type Window}}"
         Icon="/Resources/GRS-logo.ico"
-        Title="EasyMiner 2017" Height="613.362" Width="578.333">
+        Title="EasyMiner 2017" Height="802.537" Width="578.333">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,7 +17,7 @@
     <Grid Margin="0,0,2,1">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition/>
+            <RowDefinition Height="75"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition Height="10"/>
@@ -32,13 +32,13 @@
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" FontSize="42">Groestlcoin EasyMiner</Label>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-            
+
         </StackPanel>
-        
+
         <GroupBox Grid.Row="1" Header="Wallet Address">
             <StackPanel HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button  Margin="5" Name="BtnOpenHelp" Width="120" Height="25">
+                    <Button  Margin="5" Name="BtnOpenHelp" Width="120" Height="25" Visibility="Collapsed">
                         <Button.Content>
                             <Grid Width="110">
                                 <Grid.ColumnDefinitions>
@@ -65,7 +65,7 @@
 
                         </Button.Content>
                     </Button>
-                    <Button Margin="5" Name="BtnWalletSetup" Width="120" Height="25" Click="BtnWalletSetup_OnClick">
+                    <Button Margin="5" Name="BtnWalletSetup" Width="120" Height="25" Click="BtnWalletSetup_OnClick" Visibility="Collapsed">
                         <Button.Content>
                             <Grid Width="110">
                                 <Grid.ColumnDefinitions>
@@ -91,34 +91,81 @@
                             </Grid>
                         </Button.Content>
                     </Button>
+
+                    <ToggleButton Name="uxCPUTgl">CPU</ToggleButton>
+                    <RadioButton Name="uxnVidiaRb" GroupName="GPU">nVidia</RadioButton>
+                    <RadioButton Name="uxnAMDRb" GroupName="GPU">AMD</RadioButton>
                 </StackPanel>
                 <WrapPanel HorizontalAlignment="Center">
-                    <RadioButton Name="RbUseElectrum" GroupName="AddressConf" IsChecked="True" Checked="AddressRadioButtons_OnChecked" Margin="0,0,10,0">Electrum Address</RadioButton>
-                    <RadioButton Name="RbCustomAddress" GroupName="AddressConf" Checked="AddressRadioButtons_OnChecked">Custom Address</RadioButton>
+                    <RadioButton Name="RbUseElectrum" GroupName="AddressConf" IsChecked="False" Checked="AddressRadioButtons_OnChecked" Margin="0,0,10,0" Visibility="Collapsed">Electrum Address</RadioButton>
+                    <RadioButton Name="RbCustomAddress" GroupName="AddressConf" IsChecked="True" Checked="AddressRadioButtons_OnChecked" Visibility="Collapsed">Custom Address</RadioButton>
                 </WrapPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label>Selected Address:</Label>
+                    <Label>Address:</Label>
                     <TextBox Width="200" Name="TxtAddress"  Height="20"></TextBox>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
-        <GroupBox Grid.Row="2" Header="Mining Pool">
-            <StackPanel HorizontalAlignment="Center">
-                <RadioButton GroupName="Pool" Name="RbUsedwarfPool" IsChecked="True">Use DwarfPool (default)</RadioButton>
-                <RadioButton GroupName="Pool" Name="RbCustomPool">Custom Pool</RadioButton>
-                <WrapPanel>
-                    <Label>Address:</Label>
-                    <TextBox Height="20" Width="400" Name="TxtPool"></TextBox>
-                </WrapPanel>
-                <WrapPanel>
-                    <Label>User Name:</Label>
-                    <TextBox  Height="20" Width="150" Name="TxtUsername"></TextBox>
-                    <Label>Password:</Label>
-                    <TextBox  Height="20" Width="150" Name="TxtPassword"></TextBox>
-                </WrapPanel>
+        <Expander x:Name="UxAdvancedSettings" IsExpanded="True" Grid.Row="2" Header="Advanced Settings" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <ScrollViewer>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="0" Header="Mining Pool">
+                        <StackPanel HorizontalAlignment="Center">
+                            <RadioButton GroupName="Pool" Name="RbUsedwarfPool" IsChecked="True">Use DwarfPool (default)</RadioButton>
+                            <RadioButton GroupName="Pool" Name="RbCustomPool">Custom Pool</RadioButton>
+                            <WrapPanel>
+                                <Label>Address:</Label>
+                                <TextBox Height="20" Width="400" Name="TxtPool"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label>User Name:</Label>
+                                <TextBox  Height="20" Width="150" Name="TxtUsername"></TextBox>
+                                <Label>Password:</Label>
+                                <TextBox  Height="20" Width="150" Name="TxtPassword"></TextBox>
+                            </WrapPanel>
 
-            </StackPanel>
-        </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Row="1" Header="Donations">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock>Donate to the GRS Marketing or Development Funds for...</TextBlock>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Name="UxDonationMinutesTxt" Height="25">0</TextBox>
+                                <Label Grid.Column="1">minutes/hr</Label>
+                                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                    <Label>
+                                        <Label.Resources>
+                                            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MenuLabel}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=UxFundSwitchRb, Path=IsChecked}" Value="True">
+                                                        <Setter Property="Content" Value="Marketing"></Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=UxFundSwitchRb, Path=IsChecked}" Value="False">
+                                                        <Setter Property="Content" Value="Development"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Resources>
+                                    </Label>
+                                    <RadioButton Grid.Column="2" Name="UxFundSwitchRb" Style="{StaticResource AnimatedSwitch}"></RadioButton>
+                                </StackPanel>
+                                
+                            </Grid>
+                        </StackPanel>
+                        </GroupBox>
+                </Grid>
+            </ScrollViewer>
+        </Expander>
+
         <GroupBox Grid.Row="3" Header="Mining Status">
             <RichTextBox Name="TxtOutput" Background="{StaticResource Back150}"></RichTextBox>
         </GroupBox>
