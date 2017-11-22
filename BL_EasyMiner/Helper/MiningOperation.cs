@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace BL_EasyMiner.Helper {
     public class MiningOperation {
@@ -41,7 +42,7 @@ namespace BL_EasyMiner.Helper {
         public static string LogFileLocation { get; set; }
 
         public static string WalletFolder
-            => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Electrum-GRS";
+            => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Electrum-grs\wallets\default_wallet";
 
         public static bool IsWalletSetup => Directory.Exists(WalletFolder) && WalletAddress.Length > 0;
 
@@ -109,6 +110,55 @@ namespace BL_EasyMiner.Helper {
             }
             catch {
                 //ToDo: Error Handling
+            }
+        }
+
+        public static string GetAddress() {
+            //Get the pubkey
+            var pubkey = string.Empty;
+            //If electrum default wallet exists, read the file. 
+            if (File.Exists(MiningOperation.WalletFolder)) {
+                using (StreamReader r = new StreamReader(MiningOperation.WalletFolder)) {
+                    string json = r.ReadToEnd();
+                    //Deserialize the json string to a dynamic array.
+                    dynamic array = JsonConvert.DeserializeObject(json);
+                    foreach (var item in array) {
+                        //Deserialise the inner json string to get the receiving addresses
+                        dynamic line = JsonConvert.DeserializeObject(item.Value.ToString());
+                        foreach (var item2 in line) {
+                            //Get the first address and break from loop
+                            pubkey = item2.Value.receiving.First;
+                            break;
+                        }
+                        break;
+                    }
+                }
+            }
+            //If it didn't manage to get any public key, give up..
+            if (string.IsNullOrEmpty(pubkey)) return string.Empty;
+
+            //Get coin util directory
+            var coinUtilLocation = $@"{Directory.GetCurrentDirectory()}\Resources\coin-util.exe";
+
+            //if CoinUtil file doesn't exist (AV?) then give up..
+            if (!File.Exists(coinUtilLocation)) return string.Empty;
+
+            //Fire up coin util to get the public key. Return the output.
+            using (var process = new Process()) {
+                ProcessStartInfo info = new ProcessStartInfo {
+                    FileName = @"cmd.exe",
+                    Arguments = $@"/C " + "\"" + coinUtilLocation + "\"" + $" -a GRS pubkey-to-addr {pubkey}",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                };
+                process.StartInfo = info;
+                process.EnableRaisingEvents = true;
+                process.Start();
+                var address = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+                //MessageBox.Show(info.Arguments); //Debug
+                return address;
             }
         }
 

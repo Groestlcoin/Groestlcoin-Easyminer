@@ -16,9 +16,17 @@ namespace BL_EasyMiner.Helper
             CustomSelectedAlgorithm
         }
 
+        public enum GPUMiningSettings
+        {
+            None = 0,
+            NVidia = 1,
+            Amd = 2
+        }
+
+        
 
 
-        public static string RegAddress => GetSetting("Easyminer", "Settings", "CustomAddress", null);
+        public static string RegAddress =>  GetSetting("Easyminer", "Settings", "CustomAddress", null);
         public static string RegUserName => GetSetting("Easyminer", "Settings", "CustomUsername", null);
         public static string RegPassword => GetSetting("Easyminer", "Settings", "CustomUsername", null);
         public static string RegPool => GetSetting("Easyminer", "Settings", "CustomMiningPool", null);
