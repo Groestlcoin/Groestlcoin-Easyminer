@@ -50,8 +50,7 @@ namespace GroestlCoin_EasyMiner_2017 {
                 MiningOperations.GpuStarted = false;
             }
             if (MiningOperations.CpuStarted || MiningOperations.GpuStarted) return;
-            if (_minerStarted)
-            {
+            if (_minerStarted) {
                 BtnStart_OnClick(null, null);
             }
         }
@@ -135,8 +134,7 @@ namespace GroestlCoin_EasyMiner_2017 {
                     args.Cancel = true;
                     return;
                 }
-                if (File.Exists(executingAssembly + @"\Resources\Miners\CPU Miner\minerd.exe"))
-                {
+                if (File.Exists(executingAssembly + @"\Resources\Miners\CPU Miner\minerd.exe")) {
                     using (var process = new Process()) {
                         ProcessStartInfo info = new ProcessStartInfo {
                             FileName = "cmd.exe",
@@ -200,11 +198,11 @@ namespace GroestlCoin_EasyMiner_2017 {
                 using (var process = new Process()) {
                     ProcessStartInfo info = new ProcessStartInfo {
                         FileName = "cmd.exe",
-                        Arguments = "/C " + "\""+ executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe"  + "\"" + $@" -a groestl -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} -i {MiningOperations.MiningIntensity}",
+                        Arguments = "/C " + "\"" + executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe" + "\"" + $@" -a groestl -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} -i {MiningOperations.MiningIntensity}",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
-                        CreateNoWindow = false,
-                        UseShellExecute = true
+                        CreateNoWindow = true,
+                        UseShellExecute = false
                     };
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
@@ -298,8 +296,7 @@ namespace GroestlCoin_EasyMiner_2017 {
             }
         }
 
-        private void KillProcesses()
-        {
+        private void KillProcesses() {
             var processes = Process.GetProcessesByName("minerd");
             foreach (var process in processes) {
                 process.Kill();
