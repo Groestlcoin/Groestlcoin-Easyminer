@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Icon="/Resources/GRS-logo.ico"
-        Title="EasyMiner 2017" Height="602.537" Width="578.333" SizeToContent="Height" MaxHeight="750">
+        Title="EasyMiner 2017" Height="602.537" Width="575" SizeToContent="Height" MaxHeight="750" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -28,7 +28,7 @@
     </Window.Resources>
     <Grid Margin="5,10,5,10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="80px"/>
             <RowDefinition Height="145"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

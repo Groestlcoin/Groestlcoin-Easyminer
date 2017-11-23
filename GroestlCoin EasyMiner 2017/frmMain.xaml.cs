@@ -102,18 +102,7 @@ namespace GroestlCoin_EasyMiner_2017 {
             else {
                 BtnStart.Content = "Start Mining";
 
-                var processes = Process.GetProcessesByName("minerd");
-                foreach (var process in processes) {
-                    process.Kill();
-                }
-                processes = Process.GetProcessesByName("ccminer");
-                foreach (var process in processes) {
-                    process.Kill();
-                }
-                processes = Process.GetProcessesByName("sgminer");
-                foreach (var process in processes) {
-                    process.Kill();
-                }
+                KillProcesses();
 
                 UxCpuTgl.IsEnabled = true;
                 uxnVidiaRb.IsEnabled = true;
@@ -309,6 +298,21 @@ namespace GroestlCoin_EasyMiner_2017 {
             }
         }
 
+        private void KillProcesses()
+        {
+            var processes = Process.GetProcessesByName("minerd");
+            foreach (var process in processes) {
+                process.Kill();
+            }
+            processes = Process.GetProcessesByName("ccminer");
+            foreach (var process in processes) {
+                process.Kill();
+            }
+            processes = Process.GetProcessesByName("sgminer");
+            foreach (var process in processes) {
+                process.Kill();
+            }
+        }
         private void UxIntensityHelp_OnMouseEnter(object sender, MouseEventArgs e) {
             UxIntensityPopup.IsOpen = true;
         }
@@ -348,6 +352,10 @@ namespace GroestlCoin_EasyMiner_2017 {
                 errors.Add("Please select what to mine with (CPU, AMD / nVidia)");
             }
             return !errors.Any();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e) {
+            KillProcesses();
         }
     }
 }
