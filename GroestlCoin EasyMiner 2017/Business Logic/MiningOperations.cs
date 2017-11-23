@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 using SlimDX.Direct3D9;
@@ -23,9 +25,17 @@ namespace GroestlCoin_EasyMiner_2017.Business_Logic {
 
         public static AdapterCollection GpuModels => new Direct3D().Adapters;
 
-        public static bool HasNVidia => GpuModels.Any(d => d.Details.Description.ToLower().Contains("nvidia"));
+        public static List<string> GpuModels2 {
+            get {
+                ManagementObjectSearcher searcher =
+    new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+                return (from ManagementBaseObject mo in searcher.Get() select mo.Properties["Description"].ToString()).ToList();
+            }
+        }
 
-        public static bool HasAmd => GpuModels.Any(d => d.Details.Description.ToLower().Contains("amd"));
+        public static bool HasNVidia => GpuModels.Any(d => d.Details.Description.ToLower().Contains("nvidia")) || GpuModels2.Any(d => d.ToLower().Contains("nvidia"));
+
+        public static bool HasAmd => GpuModels.Any(d => d.Details.Description.ToLower().Contains("amd")) || GpuModels2.Any(d => d.ToLower().Contains("amd"));
 
         public static bool CpuStarted { get; set; } = false;
         public static bool GpuStarted { get; set; } = false;
