@@ -22,6 +22,11 @@ EasyMiner
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:EasyMiner.My.Resources.Resources.EasyMiner">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:EasyMiner.My.Resources.Resources.header_logo2">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
