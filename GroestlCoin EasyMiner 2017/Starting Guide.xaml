@@ -12,7 +12,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Icon="/Resources/GRS-logo.ico"
-        Title="Starting Guide" Height="602.537" Width="578.333" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+        Title="Starting Guide" Height="602.537" Width="500" SizeToContent="Height" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -45,6 +45,16 @@
                     <Label Margin="0" Height="25" Foreground="White">Hardware</Label>
                 </GroupBox.Header>
                 <TextBlock TextWrapping="Wrap" TextAlignment="Center" Name="uxHardwareTxt">Setup has detected that you are using an nVidia graphics card. This will be automatically set. If this is wrong, please change before starting to mine.</TextBlock>
+            </GroupBox>
+            <GroupBox>
+                <GroupBox.Header>
+                    <Label Margin="0" Height="25" Foreground="White">Antivirus - False Negatives</Label>
+                </GroupBox.Header>
+                    <TextBlock Name="uxFirewallCheck" TextAlignment="Center" TextWrapping="Wrap">
+                        Some antivirus applications will flag the mining applications as viruses. 
+                        This is what is known as a false positive. 
+                        Please add antivirus exceptions for this application. 
+                        If your antivirus deletes the file, re-reun the installer and select 'Repair'.</TextBlock>
             </GroupBox>
             <Button Name="uxContinueBtn" Width="120" Click="UxContinueBtn_OnClick" Margin="10"  Foreground="White">Continue</Button>
         </StackPanel>

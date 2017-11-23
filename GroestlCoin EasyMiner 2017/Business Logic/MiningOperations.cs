@@ -2,11 +2,14 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 using SlimDX.Direct3D9;
+using GroestlCoin_EasyMiner_2017.Business_Logic;
+using GroestlCoin_EasyMiner_2017.Properties;
 
-namespace BL_EasyMiner.Helper {
-    public class MiningOperation {
+namespace GroestlCoin_EasyMiner_2017.Business_Logic {
+    class MiningOperations {
         public enum GpuMiningSettings {
             None = 0,
             NVidia = 1,
@@ -28,13 +31,45 @@ namespace BL_EasyMiner.Helper {
         public static bool GpuStarted { get; set; } = false;
 
 
+        public static bool UseDwarfPool => Settings.Default.UseDwarfPool;
+        public static string WalletAddress => Settings.Default.GrsWalletAddress;
+        public static int MiningIntensity => Settings.Default.MineIntensity;
+        public static string MiningPoolAddress => UseDwarfPool ? GetBestDwarfServer() : Settings.Default.MiningPoolAddress;
+        public static string MiningPoolUsername => UseDwarfPool ? WalletAddress : Settings.Default.MiningPoolUsername;
+        public static string MiningPoolPassword => UseDwarfPool ? "x" : Settings.Default.MiningPoolPassword;
+
+
+        public static string GetBestDwarfServer() {
+            var usAddress = "moria.dwarfpool.com";
+            var euAddress = "erebor.dwarfpool.com";
+
+            var ping = new Ping();
+            var americanServer = ping.Send(usAddress);
+            var europeanServer = ping.Send(euAddress);
+
+            long usTime = 9999;
+            long euTime = 9999;
+
+            if (americanServer?.Status == IPStatus.Success) {
+                usTime = americanServer.RoundtripTime;
+            }
+            if (europeanServer?.Status == IPStatus.Success) {
+                euTime = europeanServer.RoundtripTime;
+            }
+            if (usTime <= euTime) {
+                return usAddress + ":3345";
+            }
+            else {
+                return euAddress + ":3345";
+            }
+        }
 
         public static string GetAddress() {
             //Get the pubkey
             var pubkey = String.Empty;
             //If electrum default wallet exists, read the file. 
-            if (File.Exists(MiningOperation.WalletFolder)) {
-                using (StreamReader r = new StreamReader(MiningOperation.WalletFolder)) {
+            if (File.Exists(WalletFolder)) {
+                using (StreamReader r = new StreamReader(WalletFolder)) {
                     string json = r.ReadToEnd();
                     //Deserialize the json string to a dynamic array.
                     dynamic array = JsonConvert.DeserializeObject(json);

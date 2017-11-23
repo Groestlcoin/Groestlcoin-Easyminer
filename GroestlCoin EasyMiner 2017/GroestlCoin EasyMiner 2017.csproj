@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Business Logic\MiningOperations.cs" />
     <Compile Include="Starting Guide.xaml.cs">
       <DependentUpon>Starting Guide.xaml</DependentUpon>
     </Compile>
@@ -134,12 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BL_EasyMiner\BL_EasyMiner.csproj">
-      <Project>{c37fb959-32e3-4a6e-b7c1-fa5ff766c686}</Project>
-      <Name>BL_EasyMiner</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\GRS-logo.ico">

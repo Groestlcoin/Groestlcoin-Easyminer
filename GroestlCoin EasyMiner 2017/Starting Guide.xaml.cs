@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Windows;
-using BL_EasyMiner.Helper;
+using GroestlCoin_EasyMiner_2017.Business_Logic;
 using GroestlCoin_EasyMiner_2017.Properties;
 
 namespace GroestlCoin_EasyMiner_2017 {
@@ -20,9 +20,9 @@ namespace GroestlCoin_EasyMiner_2017 {
         }
 
         private void Populate() {
-            if (File.Exists(MiningOperation.WalletFolder)) {
+            if (File.Exists(MiningOperations.WalletFolder)) {
                 uxStepContent.Text =
-                    "GroeslMiner has detected your receiving address from your default Electrum-GRS wallet. You can change this at any time if required." + Environment.NewLine + Environment.NewLine + "Receiving Address: " + MiningOperation.GetAddress();
+                    "GroeslMiner has detected your receiving address from your default Electrum-GRS wallet. You can change this at any time if required." + Environment.NewLine + Environment.NewLine + "Receiving Address: " + MiningOperations.GetAddress();
                 uxCheckInstallBtn.Visibility = Visibility.Collapsed;
             }
             else {
@@ -36,10 +36,10 @@ namespace GroestlCoin_EasyMiner_2017 {
             }
 
 
-            if (MiningOperation.HasNVidia) {
+            if (MiningOperations.HasNVidia) {
                 uxHardwareTxt.Text = "Setup has detected that you are using an nVidia graphics card. This will be automatically set. If this is wrong, please change before starting to mine.";
             }
-            else if (MiningOperation.HasAmd) {
+            else if (MiningOperations.HasAmd) {
                 uxHardwareTxt.Text = "Setup has detected that you are using an AMD graphics card. This will be automatically set. If this is wrong, please change before starting to mine.";
             }
             else {
@@ -57,17 +57,17 @@ namespace GroestlCoin_EasyMiner_2017 {
         private void ShowMainWindow() {
             //Set defaults for GPUs
             if (Settings.Default.FirstLaunch) {
-                if (MiningOperation.HasNVidia) {
-                    Settings.Default.GPUMining = (byte)MiningOperation.GpuMiningSettings.NVidia;
+                if (MiningOperations.HasNVidia) {
+                    Settings.Default.GPUMining = (byte)MiningOperations.GpuMiningSettings.NVidia;
                 }
-                else if (MiningOperation.HasAmd) {
-                    Settings.Default.GPUMining = (byte)MiningOperation.GpuMiningSettings.Amd;
+                else if (MiningOperations.HasAmd) {
+                    Settings.Default.GPUMining = (byte)MiningOperations.GpuMiningSettings.Amd;
                 }
                 else {
                     Settings.Default.CPUMining = true;
-                    Settings.Default.GPUMining = (byte)MiningOperation.GpuMiningSettings.None;
+                    Settings.Default.GPUMining = (byte)MiningOperations.GpuMiningSettings.None;
                 }
-                Settings.Default.GrsWalletAddress = MiningOperation.GetAddress();
+                Settings.Default.GrsWalletAddress = MiningOperations.GetAddress();
                 Settings.Default.FirstLaunch = false;
                 Settings.Default.Save();
             }
