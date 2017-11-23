@@ -210,22 +210,23 @@ namespace GroestlCoin_EasyMiner_2017 {
                 }
                 using (var process = new Process()) {
                     ProcessStartInfo info = new ProcessStartInfo {
-                        FileName = executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe",
-                        Arguments = $@"-a groestl -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p", //{MiningOperations.MiningPoolPassword} -i  {MiningOperations.MiningIntensity}
+                        FileName = "cmd.exe",
+                        Arguments = "/C " + "\""+ executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe"  + "\"" + $@" -a groestl -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} -i {MiningOperations.MiningIntensity}",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
-                        CreateNoWindow = true,
-                        UseShellExecute = false
+                        CreateNoWindow = false,
+                        UseShellExecute = true
                     };
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
-                    process.ErrorDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
+                    process.OutputDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
                         uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
                         uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                     }
                     );
                     process.Start();
                     MiningOperations.GpuStarted = true;
+                    process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
                     process.WaitForExit();
                     Dispatcher.Invoke(() => OnGpuMinerClosed(new EventArgs()));
