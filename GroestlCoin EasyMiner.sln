@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroestlCoin EasyMiner 2017"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL_EasyMiner", "BL_EasyMiner\BL_EasyMiner.csproj", "{C37FB959-32E3-4A6E-B7C1-FA5FF766C686}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Easyminer Installer", "..\Easyminer Installer\Easyminer Installer.vdproj", "{6404B71E-DBF9-4B81-8958-5522ECBB35F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,8 @@ Global
 		{C37FB959-32E3-4A6E-B7C1-FA5FF766C686}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C37FB959-32E3-4A6E-B7C1-FA5FF766C686}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C37FB959-32E3-4A6E-B7C1-FA5FF766C686}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6404B71E-DBF9-4B81-8958-5522ECBB35F5}.Debug|Any CPU.ActiveCfg = Debug
+		{6404B71E-DBF9-4B81-8958-5522ECBB35F5}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

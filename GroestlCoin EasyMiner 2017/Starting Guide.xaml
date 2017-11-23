@@ -36,7 +36,7 @@
                       <RowDefinition Height="55"/>
                   </Grid.RowDefinitions>
                     <TextBlock Name="uxStepContent" TextAlignment="Center" TextWrapping="Wrap">[Step Content]</TextBlock>
-                    <Button Width="180" Grid.Row="2" Name="uxCheckInstallBtn" Margin="10" Click="UxCheckInstallBtn_OnClick">Check Electrum Install</Button>
+                    <Button Width="180" Grid.Row="2" Name="uxCheckInstallBtn" Margin="10" Click="UxCheckInstallBtn_OnClick" Foreground="White">Check Electrum Install</Button>
                 </Grid>
                 
             </GroupBox>
@@ -44,9 +44,9 @@
                 <GroupBox.Header>
                     <Label Margin="0" Height="25" Foreground="White">Hardware</Label>
                 </GroupBox.Header>
-                <TextBlock TextWrapping="Wrap" TextAlignment="Center">Setup has detected that you are using an nVidia graphics card. This will be automatically set. If this is wrong, please change before starting to mine.</TextBlock>
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Name="uxHardwareTxt">Setup has detected that you are using an nVidia graphics card. This will be automatically set. If this is wrong, please change before starting to mine.</TextBlock>
             </GroupBox>
-            <Button Name="uxContinueBtn" Width="120" Click="UxContinueBtn_OnClick" Margin="10">Continue</Button>
+            <Button Name="uxContinueBtn" Width="120" Click="UxContinueBtn_OnClick" Margin="10"  Foreground="White">Continue</Button>
         </StackPanel>
 
     </Grid>

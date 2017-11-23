@@ -1,79 +1,254 @@
-﻿using System;
+﻿using BL_EasyMiner.Helper;
+using GroestlCoin_EasyMiner_2017.Properties;
+using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BL_EasyMiner;
-using BL_EasyMiner.Helper;
-using GroestlCoin_EasyMiner_2017.Properties;
-using Microsoft.Win32;
-using Microsoft.VisualBasic;
-using Newtonsoft.Json;
-using MessageBox = System.Windows.MessageBox;
-using MouseEventArgs = System.Windows.Input.MouseEventArgs;
-using Timer = System.Windows.Forms.Timer;
+using System.Windows;
+using System;
 
 namespace GroestlCoin_EasyMiner_2017 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
-    /// </summary>d
-    public partial class MainWindow : Window {
+    /// </summary>
+    public partial class MainWindow {
         public DialogResult Result;
-        private const string ProgramTitle = "GroestlCoin Easyminer 2017";
         private readonly BackgroundWorker _amdBg = new BackgroundWorker();
         private readonly BackgroundWorker _cpuBg = new BackgroundWorker();
         private readonly BackgroundWorker _nVidiaBg = new BackgroundWorker();
-        private bool _minerStarted = false;
-        private Timer ProgressTimer = new Timer();
-        private Timer timer;
+        private bool _minerStarted;
+
         public MainWindow() {
             InitializeComponent();
-            var executingAssembly = System.IO.Directory.GetCurrentDirectory();
-            MiningOperation.MinerExePath = executingAssembly + @"\Scripts\";
-            MiningOperation.MiningBatch = executingAssembly + @"\Scripts\StartMining.bat";
-            MiningOperation.ElectrumPath = executingAssembly + @"\Prerequisites\Electrum-GRS\electrum-grs.exe";
-            MiningOperation.LogFileLocation = executingAssembly + @"\scripts\minelog.txt";
-
-
-            UxIntensityPopupText.Text =
-                 "Maximum Intensity Should be around 20.\nLower this if you still want to use your PC.";
+            UxIntensityPopupText.Text = "Maximum Intensity Should be around 20.\nLower this if you still want to use your PC.";
 
             ConfigureBackgroundWorkers();
             PopulatePage();
-
-
         }
 
-        protected void Timer_Tick(object sender, EventArgs e) {
-            string location = "Timer_Tick";
-            try {
-                UpdateOutputWindow();
-                timer.Start();
+        public event EventHandler CpuMinerClosed;
+
+        public event EventHandler GpuMinerClosed;
+
+        protected virtual void OnCpuMinerClosed(EventArgs e) {
+            if (CpuMinerClosed != null) {
+                MiningOperation.CpuStarted = false;
             }
-            catch (Exception ex) {
-                //ToDO: Build error message
+            if (MiningOperation.CpuStarted || MiningOperation.GpuStarted) return;
+            if (_minerStarted) {
+                BtnStart_OnClick(null, null);
             }
+        }
+
+        protected virtual void OnGpuMinerClosed(EventArgs e) {
+            if (GpuMinerClosed != null) {
+                MiningOperation.GpuStarted = false;
+            }
+            if (MiningOperation.CpuStarted || MiningOperation.GpuStarted) return;
+            if (_minerStarted)
+            {
+                BtnStart_OnClick(null, null);
+            }
+        }
+
+        private void BtnStart_OnClick(object sender, RoutedEventArgs e) {
+            _minerStarted = !_minerStarted;
+            if (_minerStarted) {
+                List<string> errors;
+                if (!ValidateSettings(out errors)) {
+                    MessageBox.Show(this,
+                        $"Unable to start miner, please rectify the following issues and try again:{Environment.NewLine + string.Join(Environment.NewLine, errors)} ");
+                    return;
+                }
+                SaveSettings();
+
+                BtnStart.Content = "Stop Mining";
+
+                UxLogsExpander.Visibility = Visibility.Visible;
+
+                UxCpuTgl.IsEnabled = false;
+                uxnVidiaRb.IsEnabled = false;
+                uxnAMDRb.IsEnabled = false;
+                TxtAddress.IsEnabled = false;
+                TxtPool.IsEnabled = false;
+                TxtUsername.IsEnabled = false;
+                TxtPassword.IsEnabled = false;
+                UxDonationMinutesTxt.IsEnabled = false;
+                UxFundSwitchRb.IsEnabled = false;
+                UxIntensityTxt.IsEnabled = false;
+
+                UxAdvancedSettings.IsExpanded = false;
+                UxLogsExpander.IsExpanded = true;
+
+                var addr = TxtAddress.Text;
+
+                if (UxCpuTgl.IsChecked == true) {
+                    _cpuBg.RunWorkerAsync(addr);
+                    uxCpuMiningLogGroup.Visibility = Visibility.Visible;
+                }
+                if (uxnAMDRb.IsChecked == true) {
+                    _amdBg.RunWorkerAsync(addr);
+                    uxGpuMiningLog.Visibility = Visibility.Visible;
+                }
+                if (uxnVidiaRb.IsChecked == true) {
+                    _nVidiaBg.RunWorkerAsync(addr);
+                    uxGpuMiningLog.Visibility = Visibility.Visible;
+                }
+                ProgressBar.IsIndeterminate = true;
+            }
+            else {
+                BtnStart.Content = "Start Mining";
+
+                var processes = Process.GetProcessesByName("minerd");
+                foreach (var process in processes) {
+                    process.Kill();
+                }
+                processes = Process.GetProcessesByName("ccminer");
+                foreach (var process in processes) {
+                    process.Kill();
+                }
+                processes = Process.GetProcessesByName("sgminer");
+                foreach (var process in processes) {
+                    process.Kill();
+                }
+
+                UxCpuTgl.IsEnabled = true;
+                uxnVidiaRb.IsEnabled = true;
+                uxnAMDRb.IsEnabled = true;
+                TxtAddress.IsEnabled = true;
+                TxtPool.IsEnabled = true;
+                TxtUsername.IsEnabled = true;
+                TxtPassword.IsEnabled = true;
+                UxDonationMinutesTxt.IsEnabled = true;
+                UxFundSwitchRb.IsEnabled = true;
+                UxIntensityTxt.IsEnabled = true;
+
+                UxLogsExpander.IsExpanded = false;
+                ProgressBar.IsIndeterminate = false;
+            }
+        }
+
+        private void ConfigureBackgroundWorkers() {
+            var executingAssembly = Directory.GetCurrentDirectory();
+            _cpuBg.WorkerSupportsCancellation = true;
+            _nVidiaBg.WorkerSupportsCancellation = true;
+            _amdBg.WorkerSupportsCancellation = true;
+
+
+
+            #region Complete Tasks
+
+            _cpuBg.DoWork += (sender, args) => {
+                if (_cpuBg.CancellationPending) {
+                    args.Cancel = true;
+                    return;
+                }
+
+                using (var process = new Process()) {
+                    ProcessStartInfo info = new ProcessStartInfo {
+                        FileName = "cmd.exe",
+                        Arguments = "/C " + "\"" + executingAssembly + @"\Resources\Miners\CPU Miner\minerd.exe" + "\"" + $@" -a groestl -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString().Trim().Replace(Environment.NewLine, " ")} -p x",
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    };
+                    process.StartInfo = info;
+                    process.EnableRaisingEvents = true;
+                    process.ErrorDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
+                        uxCpuLog.Text += eventArgs.Data + Environment.NewLine;
+                        uxCpuScroller.ScrollToVerticalOffset(uxCpuScroller.ExtentHeight);
+                    }
+                    );
+                    process.Start();
+                    process.BeginErrorReadLine();
+                    MiningOperation.CpuStarted = true;
+                    process.WaitForExit();
+                    Dispatcher.Invoke(() => OnCpuMinerClosed(new EventArgs()));
+                }
+            };
+
+            _amdBg.DoWork += (sender, args) => {
+                if (_amdBg.CancellationPending) {
+                    args.Cancel = true;
+                    return;
+                }
+
+                using (var process = new Process()) {
+                    ProcessStartInfo info = new ProcessStartInfo {
+                        FileName = executingAssembly + @"\Resources\Miners\AMD Miner\sgminer.exe",
+                        Arguments = $"-I 19 -g 4 -w 64 -k groestlcoin --no-submit-stale -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString().Trim().Replace(Environment.NewLine, " ")} -p x ",
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    };
+                    process.StartInfo = info;
+                    process.EnableRaisingEvents = true;
+                    process.ErrorDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
+                        uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
+                        uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                    }
+                    );
+                    process.Start();
+                    MiningOperation.GpuStarted = true;
+                    process.BeginErrorReadLine();
+                    process.WaitForExit();
+                    Dispatcher.Invoke(() => OnGpuMinerClosed(new EventArgs()));
+                }
+            };
+
+            _nVidiaBg.DoWork += (sender, args) => {
+                if (_nVidiaBg.CancellationPending) {
+                    args.Cancel = true;
+                    return;
+                }
+                using (var process = new Process()) {
+                    ProcessStartInfo info = new ProcessStartInfo {
+                        FileName = executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe",
+                        Arguments = $@"-a groestl -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString().Trim().Replace(Environment.NewLine, " ")} -p x",
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    };
+                    process.StartInfo = info;
+                    process.EnableRaisingEvents = true;
+                    process.ErrorDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
+                        uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
+                        uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                    }
+                    );
+                    process.Start();
+                    MiningOperation.GpuStarted = true;
+                    process.BeginErrorReadLine();
+                    process.WaitForExit();
+                    Dispatcher.Invoke(() => OnGpuMinerClosed(new EventArgs()));
+                }
+            };
+        }
+
+        #endregion Complete Tasks
+
+        private void PoolRadioOptions(object sender, RoutedEventArgs e) {
+            if (RbUsedwarfPool == null || RbCustomPool == null) return;
+            if (RbUsedwarfPool.IsChecked == true) {
+                WpCustom1.Visibility = Visibility.Collapsed;
+                WpCustom2.Visibility = Visibility.Collapsed;
+            }
+            if (RbCustomPool.IsChecked != true) return;
+            WpCustom1.Visibility = Visibility.Visible;
+            WpCustom2.Visibility = Visibility.Visible;
         }
 
         private void PopulatePage() {
             TxtAddress.Text = string.IsNullOrEmpty(Settings.Default.GrsWalletAddress) ? MiningOperation.GetAddress() : Settings.Default.GrsWalletAddress;
-            RbUsedwarfPool.IsChecked = Properties.Settings.Default.UseDwarfPool;
+            RbUsedwarfPool.IsChecked = Settings.Default.UseDwarfPool;
             TxtPool.Text = Settings.Default.MiningPoolAddress;
             TxtUsername.Text = Settings.Default.MiningPoolUsername;
             TxtPassword.Text = Settings.Default.MiningPoolPassword;
@@ -81,11 +256,10 @@ namespace GroestlCoin_EasyMiner_2017 {
             UxDonationMinutesTxt.Text = Settings.Default.DonateDuration.ToString();
             UxFundSwitchRb.IsChecked = Settings.Default.DonationFund;
             UxCpuTgl.IsChecked = Settings.Default.CPUMining;
-            uxnVidiaRb.IsChecked = (HelperLogic.GPUMiningSettings)Settings.Default.GPUMining == HelperLogic.GPUMiningSettings.NVidia;
-            uxnAMDRb.IsChecked = (HelperLogic.GPUMiningSettings)Settings.Default.GPUMining == HelperLogic.GPUMiningSettings.Amd;
+            uxnVidiaRb.IsChecked = (MiningOperation.GpuMiningSettings)Settings.Default.GPUMining == MiningOperation.GpuMiningSettings.NVidia;
+            uxnAMDRb.IsChecked = (MiningOperation.GpuMiningSettings)Settings.Default.GPUMining == MiningOperation.GpuMiningSettings.Amd;
         }
 
-      
         private void SaveSettings() {
             Settings.Default.GrsWalletAddress = TxtAddress.Text;
             Settings.Default.UseDwarfPool = RbUsedwarfPool.IsChecked == true;
@@ -98,182 +272,40 @@ namespace GroestlCoin_EasyMiner_2017 {
             Settings.Default.CPUMining = UxCpuTgl.IsChecked == true;
 
             if (uxnVidiaRb.IsChecked == true) {
-                Settings.Default.GPUMining = (byte)HelperLogic.GPUMiningSettings.NVidia;
+                Settings.Default.GPUMining = (byte)MiningOperation.GpuMiningSettings.NVidia;
             }
             else if (uxnAMDRb.IsChecked == true) {
-                Settings.Default.GPUMining = (byte)HelperLogic.GPUMiningSettings.Amd;
+                Settings.Default.GPUMining = (byte)MiningOperation.GpuMiningSettings.Amd;
             }
             else {
-                Settings.Default.GPUMining = (byte)HelperLogic.GPUMiningSettings.None;
+                Settings.Default.GPUMining = (byte)MiningOperation.GpuMiningSettings.None;
             }
             Settings.Default.Save();
         }
 
-        private static void OnChanged(object source, FileSystemEventArgs e) {
-            if (e.FullPath == @"D:\tmp\file.txt") {
-                // do stuff
-            }
+        private void UxAdvancedSettings_OnExpanded(object sender, RoutedEventArgs e) {
+            UxLogsExpander.IsExpanded = false;
         }
 
-        private static void Watch() {
-            var watch = new FileSystemWatcher();
-            watch.Path = @"D:\tmp";
-            watch.Filter = "file.txt";
-            watch.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite; //more options
-            watch.Changed += new FileSystemEventHandler(OnChanged);
-            watch.EnableRaisingEvents = true;
+        private void UxAmdRb_OnChecked(object sender, RoutedEventArgs e) {
+            if (uxnVidiaRb.IsChecked != true) return;
+            uxnVidiaRb.Checked -= UxnVidiaRb_OnChecked;
+            uxnVidiaRb.IsChecked = false;
+            uxnVidiaRb.Checked += UxnVidiaRb_OnChecked;
         }
 
-        private void AddressRadioButtons_OnChecked(object sender, RoutedEventArgs e) {
-            try {
-                if (RbUseElectrum.IsChecked == true) {
-                    ////Check if wallet is set up
-                    //Process.Start(".\address.vbs");
-                    //while (MiningOperation.WalletAddress == "") {
-                    //    Thread.Sleep(500);
-                    //}
-                    //if (MiningOperation.IsWalletSetup) {
-                    //    TxtAddress.Text = MiningOperation.WalletAddress;
-                    //    TxtAddress.IsReadOnly = true;
-                    //}
-                }
-                if (RbCustomAddress.IsChecked != true) return;
-                TxtAddress.IsReadOnly = false;
-                TxtAddress.Text = HelperLogic.GetSetting("Easyminer", "Settings", "CustomAddress", "");
-                TxtUsername.Text = HelperLogic.GetSetting("Easyminer", "Settings", "CustomUsername", "");
-                TxtPassword.Text = HelperLogic.GetSetting("Easyminer", "Settings", "CustomPassword", "");
-            }
-            catch (Exception ex) {
-                //ToDo: Throw exception
-            }
-        }
-
-        private void BtnStart_OnClick(object sender, RoutedEventArgs e) {
-            _minerStarted = !_minerStarted;
-            if (_minerStarted) {
-                List<string> errors = new List<string>();
-                if (!ValidateSettings(out errors)) {
-                    MessageBox.Show(this,
-                        $"Unable to start miner, please rectify the following issues and try again:{Environment.NewLine + string.Join(Environment.NewLine, errors)} ");
-                    return;
-                }
-
-                SaveSettings();
-
-                BtnStart.Content = "Stop Mining";
-                var addr = TxtAddress.Text;
-
-                if (UxCpuTgl.IsChecked == true) {
-                    _cpuBg.RunWorkerAsync(addr);
-                }
-                if (uxnAMDRb.IsChecked == true) {
-                    _amdBg.RunWorkerAsync(addr);
-                }
-                if (uxnVidiaRb.IsChecked == true) {
-                    _nVidiaBg.RunWorkerAsync(addr);
-                }
-                ProgressBar.IsIndeterminate = true;
+        private void UxGetWalletAddressTxt_Click(object sender, RoutedEventArgs e) {
+            if (!MiningOperation.WalletFileExists) {
+                StartingGuide guide = new StartingGuide {
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = this,
+                };
+                guide.ShowDialog();
             }
             else {
-                BtnStart.Content = "Start Mining";
-                ProgressBar.IsIndeterminate = false;
+                TxtAddress.Text = MiningOperation.GetAddress();
+                MessageBox.Show("Address Updated");
             }
-        }
-
-        private void BtnWalletSetup_OnClick(object sender, RoutedEventArgs e) {
-            var strLocation = "btnWalletSetup_Click";
-            try {
-                if (!File.Exists(MiningOperation.ElectrumPath)) {
-                    MessageBox.Show("Electrum was not found.", ProgramTitle, MessageBoxButton.OK, MessageBoxImage.Stop);
-                }
-                else {
-                    Process.Start(MiningOperation.ElectrumPath);
-                }
-            }
-            catch {
-                //ToDo: Stuff
-            }
-        }
-
-        private void ConfigureBackgroundWorkers() {
-            var executingAssembly = System.IO.Directory.GetCurrentDirectory();
-
-            _cpuBg.DoWork += (sender, args) => {
-                using (var process = new Process()) {
-                    ProcessStartInfo info = new ProcessStartInfo {
-                        FileName = executingAssembly + @"\Resources\Miners\CPU Miner\minerd.exe",
-                        Arguments =
-                            $@"-a groestl -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString().Trim().Replace(Environment.NewLine, " ")} -p x"
-                    };
-                    process.StartInfo = info;
-                    process.Start();
-                }
-            };
-
-            _amdBg.DoWork += (sender, args) => {
-                using (var process = new Process()) {
-                    ProcessStartInfo info = new ProcessStartInfo {
-                        FileName = executingAssembly + @"\Resources\Miners\AMD Miner\sgminer.exe",
-                        Arguments = $"-I 19 -g 4 -w 64 -k groestlcoin --no-submit-stale -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString().Trim().Replace(Environment.NewLine, " ")} -p x "
-                    };
-                    process.StartInfo = info;
-                    process.Start();
-                }
-            };
-
-            _nVidiaBg.DoWork += (sender, args) => {
-                using (var process = new Process()) {
-                    ProcessStartInfo info = new ProcessStartInfo {
-                        FileName = executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe",
-                        Arguments = $@"-a groestl -o stratum+tcp://moria.dwarfpool.com:3345 -u {args.Argument.ToString().Trim().Replace(Environment.NewLine, " ")} -p x",
-                        RedirectStandardOutput = true,
-                        UseShellExecute = false,
-                        CreateNoWindow = false
-                    };
-                    MessageBox.Show(info.FileName + " " + info.Arguments);
-                    process.StartInfo = info;
-                    process.Start();
-
-
-                }
-            };
-        }
-
-        private void UpdateOutputWindow() {
-            var location = "UpdateOutputWindow";
-            //Read in the last 10 lines
-            List<string> text = File.ReadLines(MiningOperation.LogFileLocation).Reverse().Take(10).ToList();
-
-        }
-        private bool ValidateSettings(out List<string> errors) {
-            errors = new List<string>();
-
-            if (string.IsNullOrEmpty(TxtAddress.Text)) {
-                errors.Add("Please specify an address before starting to mine.");
-            }
-            if (RbUsedwarfPool.IsChecked == false) {
-                if (string.IsNullOrEmpty(TxtAddress.Text)) {
-                    errors.Add("Please specify a mining pool address or use Dwarfpool");
-                }
-                if (string.IsNullOrEmpty(TxtUsername.Text)) {
-                    errors.Add("Please specify a mining pool username or use Dwarfpool");
-                }
-                if (string.IsNullOrEmpty(TxtPassword.Text)) {
-                    errors.Add("Please specify a mining pool password or use Dwarfpool");
-                }
-                if (uxnAMDRb.IsChecked == false && uxnVidiaRb.IsChecked == false && UxCpuTgl.IsChecked == false) {
-                    errors.Add("Please select what to mine with (CPU, AMD / nVidia)");
-                }
-            }
-            return !errors.Any();
-        }
-
-        private void UxFundSwitchRb_OnChecked(object sender, RoutedEventArgs e) {
-            //       throw new NotImplementedException();
-        }
-
-        private void UxFundSwitchRb_OnUnchecked(object sender, RoutedEventArgs e) {
-            //       throw new NotImplementedException();
         }
 
         private void UxIntensityHelp_OnMouseEnter(object sender, MouseEventArgs e) {
@@ -284,44 +316,37 @@ namespace GroestlCoin_EasyMiner_2017 {
             UxIntensityPopup.IsOpen = false;
         }
 
-        private void PoolRadioOptions(object sender, RoutedEventArgs e) {
-            if (RbUsedwarfPool != null && RbCustomPool != null) {
-                if (RbUsedwarfPool.IsChecked == true) {
-                    WpCustom1.Visibility = Visibility.Collapsed;
-                    WpCustom2.Visibility = Visibility.Collapsed;
-                }
-                if (RbCustomPool.IsChecked == true) {
-                    WpCustom1.Visibility = Visibility.Visible;
-                    WpCustom2.Visibility = Visibility.Visible;
-                }
-            }
-
-        }
-
-        private void UxAmdRb_OnChecked(object sender, RoutedEventArgs e) {
-            if (uxnVidiaRb.IsChecked == true) {
-                uxnVidiaRb.Checked -= UxnVidiaRb_OnChecked;
-                uxnVidiaRb.IsChecked = false;
-                uxnVidiaRb.Checked += UxnVidiaRb_OnChecked;
-            }
-
+        private void UxLogsExpander_OnExpanded(object sender, RoutedEventArgs e) {
+            UxAdvancedSettings.IsExpanded = false;
         }
 
         private void UxnVidiaRb_OnChecked(object sender, RoutedEventArgs e) {
-            if (uxnAMDRb.IsChecked == true) {
-                uxnAMDRb.Checked -= UxAmdRb_OnChecked;
-                uxnAMDRb.IsChecked = false;
-                uxnAMDRb.Checked += UxAmdRb_OnChecked;
-            }
+            if (uxnAMDRb.IsChecked != true) return;
+            uxnAMDRb.Checked -= UxAmdRb_OnChecked;
+            uxnAMDRb.IsChecked = false;
+            uxnAMDRb.Checked += UxAmdRb_OnChecked;
         }
 
-        private void UxGetWalletAddressTxt_Click(object sender, RoutedEventArgs e) {
-            StartingGuide guide = new StartingGuide
-            {
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Owner = this,
-            };
-            guide.ShowDialog();
+        private bool ValidateSettings(out List<string> errors) {
+            errors = new List<string>();
+
+            if (string.IsNullOrEmpty(TxtAddress.Text)) {
+                errors.Add("Please specify an address before starting to mine.");
+            }
+            if (RbUsedwarfPool.IsChecked != false) return !errors.Any();
+            if (string.IsNullOrEmpty(TxtAddress.Text)) {
+                errors.Add("Please specify a mining pool address or use Dwarfpool");
+            }
+            if (string.IsNullOrEmpty(TxtUsername.Text)) {
+                errors.Add("Please specify a mining pool username or use Dwarfpool");
+            }
+            if (string.IsNullOrEmpty(TxtPassword.Text)) {
+                errors.Add("Please specify a mining pool password or use Dwarfpool");
+            }
+            if (uxnAMDRb.IsChecked == false && uxnVidiaRb.IsChecked == false && UxCpuTgl.IsChecked == false) {
+                errors.Add("Please select what to mine with (CPU, AMD / nVidia)");
+            }
+            return !errors.Any();
         }
     }
 }

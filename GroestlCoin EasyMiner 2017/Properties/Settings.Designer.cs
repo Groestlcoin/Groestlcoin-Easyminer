@@ -145,7 +145,7 @@ namespace GroestlCoin_EasyMiner_2017.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool FirstLaunch {
             get {
                 return ((bool)(this["FirstLaunch"]));

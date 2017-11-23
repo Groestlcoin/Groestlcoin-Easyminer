@@ -54,6 +54,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -138,11 +142,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\GRS-logo.ico" />
+    <Resource Include="Resources\GRS-logo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
     <Content Include="Resources\coin-util.exe">

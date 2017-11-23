@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Icon="/Resources/GRS-logo.ico"
-        Title="EasyMiner 2017" Height="602.537" Width="578.333" SizeToContent="Height">
+        Title="EasyMiner 2017" Height="602.537" Width="578.333" SizeToContent="Height" MaxHeight="750">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,6 +30,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="145"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
@@ -76,19 +77,19 @@
                     </CheckBox>
                     <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Label Grid.Column="0" Grid.Row="0">Address:</Label>
-                        <TextBox Width="300" Name="TxtAddress" Height="25" ></TextBox>
+                        <TextBox Width="280" Name="TxtAddress" Height="25" ></TextBox>
                         <Label>Intensity</Label>
                         <TextBox Width="25" MaxLength="2" Name="UxIntensityTxt" Height="25">19</TextBox>
                         <Image Name="UxIntensityHelp" Source="{StaticResource HelpIcon}" Margin="5,0,0,0"  Width="16" Height="16" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave"></Image>
                         <Popup x:Name="UxIntensityPopup" Opacity="20" Placement="Right" VerticalOffset="-1" HorizontalOffset="5" Height="Auto" AllowsTransparency="True" Margin="10,0,0,0" PlacementTarget="{Binding ElementName=uxHelpIconImg}" IsOpen="False" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave">
                             <Border BorderThickness="2" CornerRadius="5" Margin="10,0,0,0">
                                 <Border.BorderBrush>
-                                        <LinearGradientBrush StartPoint="0.146446,0.146446" EndPoint="0.853541,0.853541">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop Color="#FF33ACC3" Offset="0"/>
-                                                <GradientStop Color="#FF367E93" Offset="1"/>
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
+                                    <LinearGradientBrush StartPoint="0.146446,0.146446" EndPoint="0.853541,0.853541">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStop Color="#FF33ACC3" Offset="0"/>
+                                            <GradientStop Color="#FF367E93" Offset="1"/>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
                                 </Border.BorderBrush>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0.146446,0.146446" EndPoint="0.853541,0.853541">
@@ -97,7 +98,6 @@
                                             <GradientStop Color="#B3E5FC" Offset="1"/>
                                         </LinearGradientBrush.GradientStops>
                                     </LinearGradientBrush>
-
                                 </Border.Background>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -110,85 +110,20 @@
                             </Border>
                         </Popup>
                     </StackPanel>
-
                 </Grid>
-                <!--
-                    <Button  Margin="5" Name="BtnOpenHelp" Width="120" Height="25" Visibility="Collapsed">
-                        <Button.Content>
-                            <Grid Width="110">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Viewbox Grid.Column="0" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-                                    <Grid>
-                                        <Grid Name="backgroundGrid" Width="48" Height="48" Visibility="Collapsed" />
-                                        <Path Data="M26.529999,23.245018C26.323997,23.245018 26.149002,23.315025 26.005997,23.454002 25.864998,23.594017 25.792999,23.764 25.792999,23.969017 25.792999,24.198021 25.866997,24.377006 26.014,24.505028 26.162003,24.633018 26.333,24.696007 26.529999,24.696007 26.721001,24.696007 26.889999,24.631004 27.035004,24.502006 27.181,24.373009 27.253998,24.194023 27.253998,23.969017 27.253998,23.764 27.183998,23.594017 27.044998,23.454002 26.905998,23.315025 26.735001,23.245018 26.529999,23.245018z M26.647003,17.351C26.141998,17.351 25.701004,17.456011 25.322998,17.662004 24.944,17.869005 24.655998,18.130998 24.459,18.444994 24.262001,18.761005 24.163002,19.07201 24.163002,19.380024 24.163002,19.528004 24.224998,19.667011 24.349998,19.795002 24.473999,19.922016 24.627998,19.985004 24.807999,19.985004 25.115997,19.985004 25.323997,19.802997 25.433998,19.438007 25.551003,19.089008 25.693001,18.823994 25.861,18.643999 26.028999,18.465013 26.291,18.375017 26.647003,18.375017 26.951004,18.375017 27.198997,18.465013 27.390999,18.642015 27.584,18.819996 27.68,19.03902 27.68,19.297016 27.68,19.430012 27.649002,19.552021 27.585999,19.666004 27.523003,19.779011 27.445999,19.881 27.352997,19.973011 27.261002,20.065998 27.112,20.202015 26.903999,20.384022 26.667999,20.590015 26.480003,20.769003 26.341003,20.920004 26.203003,21.069998 26.091003,21.245016 26.005997,21.444021 25.923004,21.642019 25.880997,21.878012 25.880997,22.150015 25.880997,22.366018 25.938004,22.529013 26.052002,22.638998 26.167999,22.749014 26.308998,22.804008 26.476997,22.804008 26.801003,22.804008 26.993004,22.636007 27.054001,22.300009 27.090004,22.142019 27.116997,22.03002 27.135002,21.968008 27.152,21.904013 27.178001,21.841024 27.209999,21.778005 27.241997,21.716024 27.291,21.646017 27.358002,21.569021 27.424004,21.494009 27.512001,21.40502 27.622002,21.305014 28.020004,20.950003 28.294998,20.696003 28.448997,20.546009 28.602997,20.396015 28.735001,20.216999 28.847,20.009998 28.959,19.802997 29.014,19.563007 29.014,19.287006 29.014,18.938007 28.916,18.615007 28.721001,18.317003 28.525002,18.018999 28.248001,17.785021 27.889,17.611009 27.529999,17.438005 27.115997,17.351 26.647003,17.351z M26.670998,15.470993C29.613998,15.470993 32,17.856005 32,20.799002 32,23.74102 29.613998,26.126001 26.670998,26.126001 23.730003,26.126001 21.344002,23.74102 21.344002,20.799002 21.344002,17.856005 23.730003,15.470993 26.670998,15.470993z M19.546997,12.206005C21,12.813001 22.340004,13.69499 23.557999,14.764998 21.375,15.897018 19.877998,18.173998 19.877998,20.799002 19.877998,22.572012 20.566002,24.183006 21.681,25.394007 9.7450027,27.386013 0,23.431023 0,23.431023 1.552002,18.26201 4.9540024,14.162001 9.2430038,12.289014 10.271004,14.056013 12.179001,15.244002 14.369003,15.244002 16.595001,15.244002 18.531998,14.017988 19.546997,12.206005z M14.495003,0C17.772003,1.1950033E-07 20.43,2.6569852 20.43,5.9350032 20.43,9.2139977 17.772003,11.870006 14.495003,11.870006 11.216003,11.870006 8.5599976,9.2139977 8.5599976,5.9350032 8.5599976,2.6569852 11.216003,1.1950033E-07 14.495003,0z" Stretch="Uniform" Fill="#9A16333B" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
-                                            <Path.RenderTransform>
-                                                <TransformGroup>
-                                                    <TransformGroup.Children>
-                                                        <RotateTransform Angle="0" />
-                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
-                                                    </TransformGroup.Children>
-                                                </TransformGroup>
-                                            </Path.RenderTransform>
-                                        </Path>
-                                    </Grid>
-                                </Viewbox>
-                                <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">Display Help</Label>
-                            </Grid>
-
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="5" Name="BtnWalletSetup" Width="120" Height="25" Click="BtnWalletSetup_OnClick" Visibility="Collapsed">
-                        <Button.Content>
-                            <Grid Width="110">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Viewbox Grid.Row="0" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-                                    <Grid>
-                                        <Grid Name="backgroundGrid2" Width="16" Height="16" Visibility="Collapsed" />
-                                        <Path Data="M22.854972,19.412021C23.271966,19.412021 23.610961,19.750022 23.610961,20.168024 23.610961,20.586025 23.271966,20.924028 22.854972,20.924028 22.436979,20.924028 22.098985,20.586025 22.098985,20.168024 22.098985,19.750022 22.436979,19.412021 22.854972,19.412021z M22.226959,17.795007C20.918958,17.795007 19.854959,18.859008 19.854959,20.168006 19.854959,21.477006 20.918958,22.541006 22.226959,22.541006L29.96936,22.541006 29.953679,17.795007z M2.1950511,8.8539195C2.2120188,13.688922 2.240034,24.470962 2.1760689,26.924978 2.1240674,28.963983 3.7560223,29.802974 4.2290438,30.001979L29.994008,30.001979 29.972663,23.541006 22.226959,23.541006C20.367959,23.541006 18.854959,22.028007 18.854959,20.168006 18.854959,18.308008 20.367959,16.795007 22.226959,16.795007L29.950376,16.795007 29.926017,9.4219137C25.346008,9.4279256 6.9900249,9.4579254 5.3270644,9.439919 4.42106,9.4319234 3.2300223,9.3479391 2.1950511,8.8539195z M18.859022,2.0029204C14.044028,2.0029204 8.6300367,2.0459199 6.3010615,2.1399143 5.0340351,2.1919163 2.0740186,2.5728987 2.0030349,4.9769268 1.9790481,5.7349239 2.1420118,6.2849131 2.4990665,6.6569233 2.9920467,7.1699253 3.923014,7.4269143 5.3460463,7.4399147 6.6520127,7.455906 18.768995,7.4399147 25.846008,7.4279213L26.789976,2.062918C25.260986,2.0239168,22.205022,2.0029204,18.859022,2.0029204z M21.301263,8.9476089E-08C28.680154,-9.7636677E-05,28.710163,0.079730608,28.934015,0.86091957L29.148979,1.6179097 28.870965,1.7769066 27.877986,7.4249306C29.697013,7.4219094,30.869985,7.4199257,30.921987,7.4199257L31.921008,7.4179116 31.999986,32.001985 3.7360641,31.952974C2.470014,31.540985 0.097032671,29.949977 0.17607306,26.873983 0.25602894,23.781965 0.18705935,6.6959248 0.18602194,6.5239272L0.18907342,6.5239272C0.047044975,6.0409246 -0.014966628,5.5049124 0.0030386363,4.9159217 0.088060518,2.0829072 2.4130684,0.29789937 6.2200068,0.14189322 8.5550245,0.046891708 14.205038,0.0029157729 18.766981,0.0019085101 19.695953,0.0008758586 20.537931,1.0397087E-05 21.301263,8.9476089E-08z" Stretch="Uniform" Fill="#9A16333B" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
-                                            <Path.RenderTransform>
-                                                <TransformGroup>
-                                                    <TransformGroup.Children>
-                                                        <RotateTransform Angle="0" />
-                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
-                                                    </TransformGroup.Children>
-                                                </TransformGroup>
-                                            </Path.RenderTransform>
-                                        </Path>
-                                    </Grid>
-                                </Viewbox>
-                                <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">Open Wallet</Label>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    -->
-
-
-                <WrapPanel HorizontalAlignment="Center">
-                    <RadioButton Name="RbUseElectrum" GroupName="AddressConf" IsChecked="False" Checked="AddressRadioButtons_OnChecked" Margin="0,0,10,0" Visibility="Collapsed">Electrum Address</RadioButton>
-                    <RadioButton Name="RbCustomAddress" GroupName="AddressConf" IsChecked="True" Checked="AddressRadioButtons_OnChecked" Visibility="Collapsed">Custom Address</RadioButton>
-                </WrapPanel>
-                <StackPanel Orientation="Horizontal">
-
-                </StackPanel>
             </StackPanel>
         </GroupBox>
-        <Expander x:Name="UxAdvancedSettings" IsExpanded="False" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <Expander x:Name="UxAdvancedSettings" IsExpanded="False" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Expanded="UxAdvancedSettings_OnExpanded">
             <Expander.Header>
-                <Label>Advanced Settings</Label>
+                <Label>Advanced</Label>
             </Expander.Header>
-            <ScrollViewer HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer HorizontalAlignment="Stretch" MaxHeight="400" VerticalScrollBarVisibility="Auto">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <GroupBox Grid.Row="0">
+                    <GroupBox Grid.Row="0" Name="uxMiningPoolGroup">
                         <GroupBox.Header>
                             <Label Margin="0" Height="25" Foreground="White">Mining Pool</Label>
                         </GroupBox.Header>
@@ -208,7 +143,7 @@
 
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Grid.Row="1">
+                    <GroupBox Grid.Row="1" Name="uxDonationsGroup">
                         <GroupBox.Header>
                             <Label Margin="0" Height="25" Foreground="White">Donations</Label>
                         </GroupBox.Header>
@@ -239,7 +174,7 @@
                                             </Style>
                                         </Label.Resources>
                                     </Label>
-                                    <ToggleButton HorizontalAlignment="Right" Name="UxFundSwitchRb" Style="{StaticResource AnimatedSwitch}" Margin="10,0,20,0" Checked="UxFundSwitchRb_OnChecked" Unchecked="UxFundSwitchRb_OnUnchecked"></ToggleButton>
+                                    <ToggleButton HorizontalAlignment="Right" Name="UxFundSwitchRb" Style="{StaticResource AnimatedSwitch}" Margin="10,0,20,0"></ToggleButton>
                                     <Label HorizontalAlignment="Right" Content="Marketing Fund">
                                         <Label.Resources>
                                             <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
@@ -264,10 +199,41 @@
                 </Grid>
             </ScrollViewer>
         </Expander>
-        <ProgressBar Grid.Row="4" Name="ProgressBar" Margin="10,5,10,5"></ProgressBar>
-        <StackPanel Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
-            <Button Margin="0,0,10,0" Name="UxGetWalletAddressTxt" ToolTip="If you use Electrum-GRS, the application will populate the receiving address for you." Click="UxGetWalletAddressTxt_Click">Get Wallet Address</Button>
-            <Button Name="BtnStart" Click="BtnStart_OnClick">Start Mining</Button>
+        <Expander x:Name="UxLogsExpander" IsExpanded="False" Grid.Row="4"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Expanded="UxLogsExpander_OnExpanded" Visibility="Collapsed">
+            <Expander.Header>
+                <Label>Logs</Label>
+            </Expander.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Row="0" Name="uxCpuMiningLogGroup" Visibility="Collapsed">
+                    <GroupBox.Header>
+                        <Label Margin="0" Height="26" Foreground="White">CPU Mining Log</Label>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <ScrollViewer Height="80" Name="uxCpuScroller">
+                            <TextBlock TextWrapping="Wrap" Name="uxCpuLog"></TextBlock>
+                        </ScrollViewer>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Row="1" Name="uxGpuMiningLog" Visibility="Collapsed">
+                    <GroupBox.Header>
+                        <Label Margin="0" Height="26" Foreground="White">GPU Mining Log</Label>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <ScrollViewer Height="80" Name="uxGpuScroller">
+                            <TextBlock TextWrapping="Wrap" Name="uxGpuLog"></TextBlock>
+                        </ScrollViewer>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        </Expander>
+            <ProgressBar Grid.Row="5" Name="ProgressBar" Margin="10,5,10,5"></ProgressBar>
+        <StackPanel Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
+            <Button Margin="0,0,10,0" Name="UxGetWalletAddressTxt"  Foreground="White" ToolTip="If you use Electrum-GRS, the application will populate the receiving address for you." Click="UxGetWalletAddressTxt_Click">Get Wallet Address</Button>
+            <Button Name="BtnStart" Click="BtnStart_OnClick"  Foreground="White">Start Mining</Button>
         </StackPanel>
     </Grid>
 </Window>
