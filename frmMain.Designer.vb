@@ -62,9 +62,10 @@ Partial Class frmMain
         '
         'pbGroestl
         '
+        Me.pbGroestl.BackColor = System.Drawing.Color.Transparent
         Me.pbGroestl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pbGroestl.Image = Global.EasyMiner.My.Resources.Resources.header_logo2
-        Me.pbGroestl.Location = New System.Drawing.Point(176, 1)
+        Me.pbGroestl.Location = New System.Drawing.Point(178, -1)
         Me.pbGroestl.Name = "pbGroestl"
         Me.pbGroestl.Size = New System.Drawing.Size(313, 91)
         Me.pbGroestl.TabIndex = 0
@@ -80,7 +81,7 @@ Partial Class frmMain
         Me.gbWallet.Controls.Add(Me.lblAddress)
         Me.gbWallet.Controls.Add(Me.btnWalletSetup)
         Me.gbWallet.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbWallet.Location = New System.Drawing.Point(176, 111)
+        Me.gbWallet.Location = New System.Drawing.Point(197, 111)
         Me.gbWallet.Name = "gbWallet"
         Me.gbWallet.Size = New System.Drawing.Size(315, 134)
         Me.gbWallet.TabIndex = 1
@@ -89,7 +90,7 @@ Partial Class frmMain
         '
         'btnOpenHelp
         '
-        Me.btnOpenHelp.Location = New System.Drawing.Point(12, 52)
+        Me.btnOpenHelp.Location = New System.Drawing.Point(18, 52)
         Me.btnOpenHelp.Name = "btnOpenHelp"
         Me.btnOpenHelp.Size = New System.Drawing.Size(136, 23)
         Me.btnOpenHelp.TabIndex = 12
@@ -99,7 +100,7 @@ Partial Class frmMain
         'rbCustomAddress
         '
         Me.rbCustomAddress.AutoSize = True
-        Me.rbCustomAddress.Location = New System.Drawing.Point(12, 53)
+        Me.rbCustomAddress.Location = New System.Drawing.Point(162, 27)
         Me.rbCustomAddress.Name = "rbCustomAddress"
         Me.rbCustomAddress.Size = New System.Drawing.Size(127, 20)
         Me.rbCustomAddress.TabIndex = 11
@@ -110,7 +111,7 @@ Partial Class frmMain
         'rbUseElectrum
         '
         Me.rbUseElectrum.AutoSize = True
-        Me.rbUseElectrum.Location = New System.Drawing.Point(12, 23)
+        Me.rbUseElectrum.Location = New System.Drawing.Point(9, 27)
         Me.rbUseElectrum.Name = "rbUseElectrum"
         Me.rbUseElectrum.Size = New System.Drawing.Size(137, 20)
         Me.rbUseElectrum.TabIndex = 10
@@ -181,7 +182,7 @@ Partial Class frmMain
         Me.gbStatus.Controls.Add(Me.ProgressBar)
         Me.gbStatus.Controls.Add(Me.txtOutput)
         Me.gbStatus.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbStatus.Location = New System.Drawing.Point(23, 362)
+        Me.gbStatus.Location = New System.Drawing.Point(22, 370)
         Me.gbStatus.Name = "gbStatus"
         Me.gbStatus.Size = New System.Drawing.Size(628, 91)
         Me.gbStatus.TabIndex = 7

@@ -33,3 +33,11 @@ C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.exe.config
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\EasyMiner.exe
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\EasyMiner.xml
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\EasyMiner.pdb
+C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\EasyMiner.frmMain.resources
+C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\EasyMiner.Resources.resources
+C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\GroestlCoin EasyMiner.vbproj.GenerateResource.Cache
+C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\EasyMiner.exe.licenses
+C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.exe
+C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.pdb
+C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.xml
+C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\GroestlCoin EasyMiner.vbprojResolveAssemblyReference.cache
