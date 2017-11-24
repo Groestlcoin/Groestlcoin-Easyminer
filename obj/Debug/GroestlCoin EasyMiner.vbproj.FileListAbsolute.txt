@@ -40,4 +40,3 @@ C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\EasyMiner.exe.licens
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.exe
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.pdb
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.xml
-C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\GroestlCoin EasyMiner.vbprojResolveAssemblyReference.cache

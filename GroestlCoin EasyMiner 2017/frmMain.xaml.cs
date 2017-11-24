@@ -9,6 +9,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows;
 using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 using GroestlCoin_EasyMiner_2017.Business_Logic;
 
 namespace GroestlCoin_EasyMiner_2017 {
@@ -25,7 +28,7 @@ namespace GroestlCoin_EasyMiner_2017 {
 
         public MainWindow() {
             InitializeComponent();
-            UxIntensityPopupText.Text = "Maximum Intensity Should be around 20.\nLower this if you still want to use your PC.";
+            UxIntensityPopupText.Text = "Select lower values if you still want to use your PC.\nRaise the intensity if you are idle.";
 
             ConfigureBackgroundWorkers();
             PopulatePage();
@@ -71,14 +74,13 @@ namespace GroestlCoin_EasyMiner_2017 {
                 UxLogsExpander.Visibility = Visibility.Visible;
 
                 UxCpuTgl.IsEnabled = false;
+                uxIntervalSlider.IsEnabled = false;
                 uxnVidiaRb.IsEnabled = false;
                 uxnAMDRb.IsEnabled = false;
                 TxtAddress.IsEnabled = false;
                 TxtPool.IsEnabled = false;
                 TxtUsername.IsEnabled = false;
                 TxtPassword.IsEnabled = false;
-                UxDonationMinutesTxt.IsEnabled = false;
-                UxFundSwitchRb.IsEnabled = false;
                 UxIntensityTxt.IsEnabled = false;
 
                 UxAdvancedSettings.IsExpanded = false;
@@ -103,6 +105,7 @@ namespace GroestlCoin_EasyMiner_2017 {
 
                 KillProcesses();
 
+                uxIntervalSlider.IsEnabled = true;
                 UxCpuTgl.IsEnabled = true;
                 uxnVidiaRb.IsEnabled = true;
                 uxnAMDRb.IsEnabled = true;
@@ -110,8 +113,6 @@ namespace GroestlCoin_EasyMiner_2017 {
                 TxtPool.IsEnabled = true;
                 TxtUsername.IsEnabled = true;
                 TxtPassword.IsEnabled = true;
-                UxDonationMinutesTxt.IsEnabled = true;
-                UxFundSwitchRb.IsEnabled = true;
                 UxIntensityTxt.IsEnabled = true;
 
                 UxLogsExpander.IsExpanded = false;
@@ -207,8 +208,14 @@ namespace GroestlCoin_EasyMiner_2017 {
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
                     process.OutputDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
-                        uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
-                        uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                        try {
+                            uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
+                            uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                        }
+                        catch {
+                            //Do Nothing
+                        }
+
                     }
                     );
                     process.Start();
@@ -234,15 +241,15 @@ namespace GroestlCoin_EasyMiner_2017 {
             WpCustom2.Visibility = Visibility.Visible;
         }
 
-        private void PopulatePage() {
+        private void PopulatePage()
+        {
+            uxIntervalSlider.Value = Settings.Default.MineIntensity;
             TxtAddress.Text = string.IsNullOrEmpty(Settings.Default.GrsWalletAddress) ? MiningOperations.GetAddress() : Settings.Default.GrsWalletAddress;
             RbUsedwarfPool.IsChecked = Settings.Default.UseDwarfPool;
             TxtPool.Text = Settings.Default.MiningPoolAddress;
             TxtUsername.Text = Settings.Default.MiningPoolUsername;
             TxtPassword.Text = Settings.Default.MiningPoolPassword;
             UxIntensityTxt.Text = Settings.Default.MineIntensity.ToString();
-            UxDonationMinutesTxt.Text = Settings.Default.DonateDuration.ToString();
-            UxFundSwitchRb.IsChecked = Settings.Default.DonationFund;
             UxCpuTgl.IsChecked = Settings.Default.CPUMining;
             uxnVidiaRb.IsChecked = (MiningOperations.GpuMiningSettings)Settings.Default.GPUMining == MiningOperations.GpuMiningSettings.NVidia;
             uxnAMDRb.IsChecked = (MiningOperations.GpuMiningSettings)Settings.Default.GPUMining == MiningOperations.GpuMiningSettings.Amd;
@@ -251,12 +258,10 @@ namespace GroestlCoin_EasyMiner_2017 {
         private void SaveSettings() {
             Settings.Default.GrsWalletAddress = TxtAddress.Text;
             Settings.Default.UseDwarfPool = RbUsedwarfPool.IsChecked == true;
-            Settings.Default.MiningPoolAddress = TxtAddress.Text;
+            Settings.Default.MiningPoolAddress = TxtPool.Text;
             Settings.Default.MiningPoolUsername = TxtUsername.Text;
             Settings.Default.MiningPoolPassword = TxtPassword.Text;
             Settings.Default.MineIntensity = int.Parse(UxIntensityTxt.Text);
-            Settings.Default.DonateDuration = int.Parse(UxDonationMinutesTxt.Text);
-            Settings.Default.DonationFund = UxFundSwitchRb.IsChecked == true;
             Settings.Default.CPUMining = UxCpuTgl.IsChecked == true;
 
             if (uxnVidiaRb.IsChecked == true) {
@@ -288,11 +293,11 @@ namespace GroestlCoin_EasyMiner_2017 {
                     WindowStartupLocation = WindowStartupLocation.CenterOwner,
                     Owner = this,
                 };
+                guide.FromMainWindow = true;
                 guide.ShowDialog();
             }
             else {
                 TxtAddress.Text = MiningOperations.GetAddress();
-                MessageBox.Show("Address Updated");
             }
         }
 
@@ -353,6 +358,16 @@ namespace GroestlCoin_EasyMiner_2017 {
 
         private void Window_Closing(object sender, CancelEventArgs e) {
             KillProcesses();
+        }
+
+        private void UxIntensityTxt_OnPreviewTextInput(object sender, TextCompositionEventArgs e) {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void RangeBase_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            UxIntensityTxt.Text = e.NewValue.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

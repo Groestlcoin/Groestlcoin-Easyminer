@@ -8,56 +8,70 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
+        TextOptions.TextRenderingMode="Auto"      
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="{StaticResource DarkColor}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Icon="/Resources/GRS-logo.ico"
-        Title="Starting Guide" Height="602.537" Width="500" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+        Title="Starting Guide" Height="602.537" Width="500" SizeToContent="Height" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.LightBlue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Teal.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Teal.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="5,10,5,10">
-        <StackPanel>
-            <GroupBox>
-                <GroupBox.Header>
-                    <Label Margin="0" Height="25" Foreground="White">Electrum Wallet</Label>
-                </GroupBox.Header>
-                <Grid>
-                  <Grid.RowDefinitions>
-                      <RowDefinition/>
-                      <RowDefinition/>
-                      <RowDefinition Height="55"/>
-                  </Grid.RowDefinitions>
-                    <TextBlock Name="uxStepContent" TextAlignment="Center" TextWrapping="Wrap">[Step Content]</TextBlock>
-                    <Button Width="180" Grid.Row="2" Name="uxCheckInstallBtn" Margin="10" Click="UxCheckInstallBtn_OnClick" Foreground="White">Check Electrum Install</Button>
-                </Grid>
-                
-            </GroupBox>
-            <GroupBox>
-                <GroupBox.Header>
-                    <Label Margin="0" Height="25" Foreground="White">Hardware</Label>
-                </GroupBox.Header>
-                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Name="uxHardwareTxt">Setup has detected that you are using an nVidia graphics card. This will be automatically set. If this is wrong, please change before starting to mine.</TextBlock>
-            </GroupBox>
-            <GroupBox>
-                <GroupBox.Header>
-                    <Label Margin="0" Height="25" Foreground="White">Antivirus - False Negatives</Label>
-                </GroupBox.Header>
-                    <TextBlock Name="uxFirewallCheck" TextAlignment="Center" TextWrapping="Wrap">
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25px"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <local:Titlebar BorderThickness="0" IsMainWindow="False"></local:Titlebar>
+        <Grid Margin="5,10,5,10" Grid.Row="1">
+            <StackPanel>
+                <GroupBox  Style="{DynamicResource GroupBoxStyle1}" Height="Auto">
+                    <GroupBox.Header>
+                        <Label Margin="0" Height="25" Style="{StaticResource LabelDark}">Electrum Wallet</Label>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="55"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel>
+                            <TextBlock Name="uxStepContent" TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource LightColor}">[Step Content]</TextBlock>
+                            <TextBlock Name="uxStepContent2" TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource LightColor}"></TextBlock>
+                            <TextBlock Name="uxStepContent3" TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource LightColor}">[Step Content 3]</TextBlock>
+                        </StackPanel>
+                        
+                        <Button  Width="180" Grid.Row="2" Name="uxCheckInstallBtn" Margin="10" Click="UxCheckInstallBtn_OnClick" Foreground="{StaticResource DarkColor}" Background="{StaticResource LightColor}">Check Electrum Install</Button>
+                    </Grid>
+
+                </GroupBox>
+                <GroupBox Style="{DynamicResource GroupBoxStyle1}">
+                    <GroupBox.Header>
+                        <Label Margin="0" Height="25" Style="{StaticResource LabelDark}">Hardware</Label>
+                    </GroupBox.Header>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Name="uxHardwareTxt" Foreground="{StaticResource LightColor}">Setup has detected that you are using an nVidia graphics card. This will be automatically set. If this is wrong, please change before starting to mine.</TextBlock>
+                </GroupBox>
+                <GroupBox  Style="{DynamicResource GroupBoxStyle1}">
+                    <GroupBox.Header>
+                        <Label Margin="0" Height="25" Style="{StaticResource LabelDark}">Antivirus - False Positives</Label>
+                    </GroupBox.Header>
+                    <TextBlock Name="uxFirewallCheck" TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource LightColor}">
                         Some antivirus applications will flag the mining applications as viruses. 
                         This is what is known as a false positive. 
                         Please add antivirus exceptions for this application. 
                         If your antivirus deletes the file, re-reun the installer and select 'Repair'.</TextBlock>
-            </GroupBox>
-            <Button Name="uxContinueBtn" Width="120" Click="UxContinueBtn_OnClick" Margin="10"  Foreground="White">Continue</Button>
-        </StackPanel>
+                </GroupBox>
+                <Button Name="uxContinueBtn" Width="120" Click="UxContinueBtn_OnClick" Margin="10"  Foreground="{StaticResource DarkColor}" Background="{StaticResource LightColor}">Continue</Button>
+            </StackPanel>
 
+        </Grid>
     </Grid>
 </Window>
