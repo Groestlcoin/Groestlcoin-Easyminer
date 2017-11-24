@@ -77,8 +77,6 @@ namespace GroestlCoin_EasyMiner_2017 {
                 TxtPool.IsEnabled = false;
                 TxtUsername.IsEnabled = false;
                 TxtPassword.IsEnabled = false;
-                UxDonationMinutesTxt.IsEnabled = false;
-                UxFundSwitchRb.IsEnabled = false;
                 UxIntensityTxt.IsEnabled = false;
 
                 UxAdvancedSettings.IsExpanded = false;
@@ -110,8 +108,6 @@ namespace GroestlCoin_EasyMiner_2017 {
                 TxtPool.IsEnabled = true;
                 TxtUsername.IsEnabled = true;
                 TxtPassword.IsEnabled = true;
-                UxDonationMinutesTxt.IsEnabled = true;
-                UxFundSwitchRb.IsEnabled = true;
                 UxIntensityTxt.IsEnabled = true;
 
                 UxLogsExpander.IsExpanded = false;
@@ -241,8 +237,6 @@ namespace GroestlCoin_EasyMiner_2017 {
             TxtUsername.Text = Settings.Default.MiningPoolUsername;
             TxtPassword.Text = Settings.Default.MiningPoolPassword;
             UxIntensityTxt.Text = Settings.Default.MineIntensity.ToString();
-            UxDonationMinutesTxt.Text = Settings.Default.DonateDuration.ToString();
-            UxFundSwitchRb.IsChecked = Settings.Default.DonationFund;
             UxCpuTgl.IsChecked = Settings.Default.CPUMining;
             uxnVidiaRb.IsChecked = (MiningOperations.GpuMiningSettings)Settings.Default.GPUMining == MiningOperations.GpuMiningSettings.NVidia;
             uxnAMDRb.IsChecked = (MiningOperations.GpuMiningSettings)Settings.Default.GPUMining == MiningOperations.GpuMiningSettings.Amd;
@@ -255,8 +249,6 @@ namespace GroestlCoin_EasyMiner_2017 {
             Settings.Default.MiningPoolUsername = TxtUsername.Text;
             Settings.Default.MiningPoolPassword = TxtPassword.Text;
             Settings.Default.MineIntensity = int.Parse(UxIntensityTxt.Text);
-            Settings.Default.DonateDuration = int.Parse(UxDonationMinutesTxt.Text);
-            Settings.Default.DonationFund = UxFundSwitchRb.IsChecked == true;
             Settings.Default.CPUMining = UxCpuTgl.IsChecked == true;
 
             if (uxnVidiaRb.IsChecked == true) {
@@ -288,11 +280,11 @@ namespace GroestlCoin_EasyMiner_2017 {
                     WindowStartupLocation = WindowStartupLocation.CenterOwner,
                     Owner = this,
                 };
+                guide.FromMainWindow = true;
                 guide.ShowDialog();
             }
             else {
                 TxtAddress.Text = MiningOperations.GetAddress();
-                MessageBox.Show("Address Updated");
             }
         }
 

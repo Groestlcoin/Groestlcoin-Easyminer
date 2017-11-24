@@ -1,7 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Forms;
+using System.Windows.Media;
 using GroestlCoin_EasyMiner_2017.Business_Logic;
 using GroestlCoin_EasyMiner_2017.Properties;
 
@@ -10,29 +15,54 @@ namespace GroestlCoin_EasyMiner_2017 {
     /// Interaction logic for Starting_Guide.xaml
     /// </summary>
     public partial class StartingGuide {
+
+
+
+        public bool FromMainWindow { get; set; }
+
+        public byte Attempts = 0;
+
         public StartingGuide() {
             InitializeComponent();
-            if (!Settings.Default.FirstLaunch) {
-                ShowMainWindow();
-                Close();
-            }
-            Populate();
         }
+
+
 
         private void Populate() {
             if (File.Exists(MiningOperations.WalletFolder)) {
                 uxStepContent.Text =
-                    "GroeslMiner has detected your receiving address from your default Electrum-GRS wallet. You can change this at any time if required." + Environment.NewLine + Environment.NewLine + "Receiving Address: " + MiningOperations.GetAddress();
+                    "Groestlcoin EasyMiner has detected your receiving address from your default Electrum-GRS wallet. You can change this at any time if required." + Environment.NewLine + Environment.NewLine + "Receiving Address: " + MiningOperations.GetAddress();
                 uxCheckInstallBtn.Visibility = Visibility.Collapsed;
+                uxStepContent2.Visibility = Visibility.Collapsed;
+                uxStepContent3.Visibility = Visibility.Collapsed;
             }
             else {
+                uxStepContent2.Inlines.Clear();
                 StringBuilder sb = new StringBuilder();
-                sb.Append("GroestlMiner will automatically detect a receiving address from your Electrum-GRS Wallet." + Environment.NewLine);
-                sb.Append("Download the Electrum-GRS Wallet from here: https://www.groestlcoin.org/groestlcoin-electrum-wallet/" + Environment.NewLine);
-                sb.Append(
-                    "Install the Electrum-GRS Wallet. Once it is installed, click 'Check Electrum Install'. This should find your receiving address.");
+                sb.Append("Groestlcoin EasyMiner will automatically detect a receiving address from your Electrum-GRS Wallet.");
+                sb.Append("You can download the Electrum-GRS Wallet from here:" + Environment.NewLine);
                 uxStepContent.Text = sb.ToString();
                 uxCheckInstallBtn.Visibility = Visibility.Visible;
+                uxStepContent2.Visibility = Visibility.Visible;
+                uxStepContent3.Visibility = Visibility.Visible;
+
+                Hyperlink link = new Hyperlink {
+                    NavigateUri = new Uri("https://www.groestlcoin.org/groestlcoin-electrum-wallet/"),
+                    Foreground = Brushes.White
+                };
+                link.RequestNavigate += (sender, args) => {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(args.Uri.AbsoluteUri));
+                    args.Handled = true;
+                };
+                link.Inlines.Add("Electrum GRS");
+                uxStepContent2.Inlines.Add(link);
+                uxStepContent3.Text =
+                    "Install the Electrum-GRS Wallet. Once it is installed, click 'Check Electrum Install'. This should find your receiving address.";
+
+                if (Attempts >= 5) {
+                    System.Windows.MessageBox.Show(
+                        "Electrum-GRS has not been found. Please ensure you have the latest Electrum-GRS wallet installed.");
+                }
             }
 
 
@@ -45,13 +75,17 @@ namespace GroestlCoin_EasyMiner_2017 {
             else {
                 uxHardwareTxt.Text = "Setup has not detected any graphics card. CPU mining will be automatically set. If this is wrong, please change before starting to mine.";
             }
+
+
         }
 
         private void UxContinueBtn_OnClick(object sender, RoutedEventArgs e) {
-            if (Settings.Default.FirstLaunch) {
-                ShowMainWindow();
+            if (this.Owner == null) {
+                if (Settings.Default.FirstLaunch) {
+                    ShowMainWindow();
+                }
             }
-            Close();
+            Hide();
         }
 
         private void ShowMainWindow() {
@@ -76,6 +110,16 @@ namespace GroestlCoin_EasyMiner_2017 {
         }
 
         private void UxCheckInstallBtn_OnClick(object sender, RoutedEventArgs e) {
+            Attempts++;
+            Populate();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            if (!Settings.Default.FirstLaunch && this.Owner == null) {
+                ShowMainWindow();
+                this.Close();
+            }
+            Attempts = 0;
             Populate();
         }
     }
