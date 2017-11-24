@@ -9,6 +9,7 @@
         TextElement.Foreground="{DynamicResource  SecondaryAccentBrush}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
+        BorderBrush="Transparent"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"
         WindowStartupLocation="CenterScreen"
@@ -27,6 +28,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Border CornerRadius="5" BorderThickness="2" BorderBrush="#263238">
     <Grid Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="25px"></RowDefinition>
@@ -204,5 +206,5 @@
             </StackPanel>
         </Grid>
     </Grid>
-
+    </Border>
 </Window>

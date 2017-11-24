@@ -25,7 +25,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border BorderThickness="2" BorderBrush="White" CornerRadius="2">
+    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5">
     <Grid Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="25px"></RowDefinition>

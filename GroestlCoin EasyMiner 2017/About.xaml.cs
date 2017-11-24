@@ -31,7 +31,15 @@ namespace GroestlCoin_EasyMiner_2017 {
 
         private void About_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            try
+            {
+                this.DragMove();
+            }
+            catch
+            {
+                
+            }
+            
         }
     }
 }
