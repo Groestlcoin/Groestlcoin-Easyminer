@@ -32,6 +32,22 @@ namespace GroestlCoin_EasyMiner_2017 {
                 _isMainWindow = value;
             }
         }
+        private bool _isAbout = false;
+
+        public bool IsAbout {
+            get {
+                return _isMainWindow;
+            }
+            set {
+                if (value == false) {
+                    uxMinimiseBtn.Visibility = Visibility.Hidden;
+                    uxMinimiseBtn.IsEnabled = false;
+                    uxAboutBtn.Visibility = Visibility.Hidden;
+                    uxAboutBtn.IsEnabled = false;
+                }
+                _isMainWindow = value;
+            }
+        }
 
 
         public Titlebar() {
@@ -55,6 +71,21 @@ namespace GroestlCoin_EasyMiner_2017 {
             var win = Window.GetWindow(this);
             if (win != null) {
                 win.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = Window.GetWindow(this);
+            if (win != null)
+            {
+                var about = new About
+                {
+                    Owner = win,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                };
+                about.ShowDialog();
+
             }
         }
     }

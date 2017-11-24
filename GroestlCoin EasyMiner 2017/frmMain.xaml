@@ -16,7 +16,7 @@
         ResizeMode="NoResize"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Icon="/Resources/GRS-logo.ico" BorderThickness="0"
-        Title="Groestlcoin EasyMiner 2018" Height="602.537" Width="575" SizeToContent="Height" MaxHeight="750" Closing="Window_Closing">
+        Title="Groestlcoin EasyMiner 2018" Height="500" Width="575" SizeToContent="Height" MaxHeight="750" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -91,35 +91,20 @@
                                 <Label Grid.Column="0" Grid.Row="0" Style="{DynamicResource LabelLight}" HorizontalAlignment="Left">Address:</Label>
                                 <TextBox Width="260" Name="TxtAddress" Height="25" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" HorizontalAlignment="Left"></TextBox>
                             </StackPanel>
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0">
                                 <Label Style="{DynamicResource LabelLight}" HorizontalAlignment="Right">Intensity</Label>
-                                <TextBox Width="20" MaxLength="2" TextAlignment="Center" Name="UxIntensityTxt" Height="25" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}">19</TextBox>
-                                <Image Name="UxIntensityHelp" HorizontalAlignment="Right" Source="{StaticResource HelpIcon}" Margin="5,0,0,0"  Width="16" Height="16" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave"></Image>
+                                <Slider Name="uxIntervalSlider" Margin="5,0,10,0" IsSnapToTickEnabled="True"  Width="100" Maximum="20" Minimum="0" ValueChanged="RangeBase_OnValueChanged" SmallChange="0" Foreground="{StaticResource LightColor}" VerticalAlignment="Center"/>
+                                <TextBox Width="20" MaxLength="2" BorderThickness="0" IsReadOnly="True" Margin="0,0,0,0" TextAlignment="Center" PreviewTextInput="UxIntensityTxt_OnPreviewTextInput" Name="UxIntensityTxt" Height="25" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}">19</TextBox>
+                                <Image x:Name="UxIntensityHelp" HorizontalAlignment="Right" Source="{StaticResource HelpIcon}" Margin="5,0,0,0"  Width="16" Height="16" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave"/>
                                 <Popup x:Name="UxIntensityPopup" Opacity="20" Placement="Right" VerticalOffset="-1" HorizontalOffset="5" Height="Auto" AllowsTransparency="True" Margin="10,0,0,0" PlacementTarget="{Binding ElementName=uxHelpIconImg}" IsOpen="False" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave">
-                                    <Border BorderThickness="2" CornerRadius="5" Margin="10,0,0,0">
-                                        <Border.BorderBrush>
-                                            <LinearGradientBrush StartPoint="0.146446,0.146446" EndPoint="0.853541,0.853541">
-                                                <LinearGradientBrush.GradientStops>
-                                                    <GradientStop Color="#FF33ACC3" Offset="0"/>
-                                                    <GradientStop Color="#FF367E93" Offset="1"/>
-                                                </LinearGradientBrush.GradientStops>
-                                            </LinearGradientBrush>
-                                        </Border.BorderBrush>
-                                        <Border.Background>
-                                            <LinearGradientBrush StartPoint="0.146446,0.146446" EndPoint="0.853541,0.853541">
-                                                <LinearGradientBrush.GradientStops>
-                                                    <GradientStop Color="#B3E5FC" Offset="0"/>
-                                                    <GradientStop Color="#B3E5FC" Offset="1"/>
-                                                </LinearGradientBrush.GradientStops>
-                                            </LinearGradientBrush>
-                                        </Border.Background>
+                                    <Border BorderThickness="2" CornerRadius="5" Margin="10,0,0,0" BorderBrush="{StaticResource LightColor}" Background="{StaticResource DarkColor}">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <Image Source="{StaticResource InformationIcon}" Grid.Column="0" Height="19.5" Margin="-2,-2,0,-2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                            <TextBlock x:Name="UxIntensityPopupText" TextWrapping="Wrap" Grid.Column="1" Height="Auto" Background="Transparent" Foreground="Black" Padding="5,0,5,0"></TextBlock>
+                                            <TextBlock x:Name="UxIntensityPopupText" TextWrapping="Wrap" Grid.Column="1" Height="Auto" Background="Transparent" Foreground="{StaticResource LightColor}" Padding="5,2,5,2"></TextBlock>
                                         </Grid>
                                     </Border>
                                 </Popup>
@@ -147,13 +132,13 @@
                                 <RadioButton GroupName="Pool" Name="RbUsedwarfPool" IsChecked="True" Checked="PoolRadioOptions">Use DwarfPool (default)</RadioButton>
                                 <RadioButton GroupName="Pool" Name="RbCustomPool" Checked="PoolRadioOptions">Custom Pool</RadioButton>
                                 <WrapPanel Name="WpCustom1" Visibility="Collapsed">
-                                    <Label>Address:</Label>
+                                    <Label  Style="{DynamicResource LabelLight}">Pool Address:</Label>
                                     <TextBox Height="25" Width="400" Name="TxtPool" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
                                 </WrapPanel>
                                 <WrapPanel Name="WpCustom2" Visibility="Collapsed">
-                                    <Label>User Name:</Label>
+                                    <Label  Style="{DynamicResource LabelLight}">User Name:</Label>
                                     <TextBox  Height="25" Width="150" Name="TxtUsername" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
-                                    <Label>Password:</Label>
+                                    <Label  Style="{DynamicResource LabelLight}">Password:</Label>
                                     <TextBox  Height="25" Width="150" Name="TxtPassword" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
                                 </WrapPanel>
 
@@ -190,7 +175,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <GroupBox Grid.Row="0" Name="uxCpuMiningLogGroup" Visibility="Collapsed">
+                    <GroupBox Grid.Row="0" Name="uxCpuMiningLogGroup" Visibility="Collapsed" Style="{DynamicResource GroupBoxStyle1}">
                         <GroupBox.Header>
                             <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">CPU Mining Log</Label>
                         </GroupBox.Header>
