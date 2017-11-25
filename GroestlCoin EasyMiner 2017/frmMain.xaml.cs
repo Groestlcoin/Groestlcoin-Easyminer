@@ -266,7 +266,7 @@ namespace GroestlCoin_EasyMiner_2017 {
             uxIntervalSlider.Value = Settings.Default.MineIntensity;
             TxtAddress.Text = string.IsNullOrEmpty(Settings.Default.GrsWalletAddress) ? MiningOperations.GetAddress() : Settings.Default.GrsWalletAddress;
             RbUsedwarfPool.IsChecked = Settings.Default.UseDwarfPool;
-            RbUsedwarfPool.IsChecked = !Settings.Default.UseDwarfPool;
+            RbCustomPool.IsChecked = !Settings.Default.UseDwarfPool;
             TxtPool.Text = Settings.Default.MiningPoolAddress;
             TxtUsername.Text = Settings.Default.MiningPoolUsername;
             TxtPassword.Text = Settings.Default.MiningPoolPassword;
