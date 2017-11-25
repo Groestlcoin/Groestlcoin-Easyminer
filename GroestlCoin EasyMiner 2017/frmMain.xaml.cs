@@ -12,6 +12,7 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using GroestlCoin_EasyMiner_2017.Business_Logic;
 
 namespace GroestlCoin_EasyMiner_2017 {
@@ -147,11 +148,17 @@ namespace GroestlCoin_EasyMiner_2017 {
                         };
                         process.StartInfo = info;
                         process.EnableRaisingEvents = true;
-                        process.ErrorDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
-                            uxCpuLog.Text += eventArgs.Data + Environment.NewLine;
-                            uxCpuScroller.ScrollToVerticalOffset(uxCpuScroller.ExtentHeight);
-                        }
-                        );
+                        process.ErrorDataReceived += (o, eventArgs) => {
+                            if (!_cpuBg.CancellationPending) {
+                                Dispatcher.Invoke(() => {
+                                    uxCpuLog.Text += eventArgs.Data + Environment.NewLine;
+                                    uxCpuScroller.ScrollToVerticalOffset(uxCpuScroller.ExtentHeight);
+                                }
+                         );
+                            }
+                        };
+
+
                         process.Start();
                         process.BeginErrorReadLine();
                         MiningOperations.CpuStarted = true;
@@ -170,7 +177,8 @@ namespace GroestlCoin_EasyMiner_2017 {
                 using (var process = new Process()) {
                     ProcessStartInfo info = new ProcessStartInfo {
                         FileName = executingAssembly + @"\Resources\Miners\AMD Miner\sgminer.exe",
-                        Arguments = $"-I {MiningOperations.MiningIntensity} -g 4 -w 64 -k groestlcoin --no-submit-stale -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} ",
+                        Arguments =
+                            $"-I {MiningOperations.MiningIntensity} -g 4 -w 64 -k groestlcoin --no-submit-stale -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} ",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
                         CreateNoWindow = true,
@@ -178,11 +186,14 @@ namespace GroestlCoin_EasyMiner_2017 {
                     };
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
-                    process.ErrorDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
-                        uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
-                        uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
-                    }
-                    );
+                    process.ErrorDataReceived += (o, eventArgs) => {
+                        if (!_amdBg.CancellationPending) {
+                            Dispatcher.Invoke(() => {
+                                uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
+                                uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                            });
+                        }
+                    };
                     process.Start();
                     MiningOperations.GpuStarted = true;
                     process.BeginErrorReadLine();
@@ -196,10 +207,21 @@ namespace GroestlCoin_EasyMiner_2017 {
                     args.Cancel = true;
                     return;
                 }
+                var intensity = 8;
+                if (MiningOperations.MiningIntensity < 8) {
+                    intensity = 8;
+                }
+                else {
+                    intensity = MiningOperations.MiningIntensity;
+                }
+
                 using (var process = new Process()) {
                     ProcessStartInfo info = new ProcessStartInfo {
                         FileName = "cmd.exe",
-                        Arguments = "/C " + "\"" + executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe" + "\"" + $@" -a groestl -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} -i {MiningOperations.MiningIntensity}",
+                        Arguments =
+                            "/C " + "\"" + executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe" + "\"" +
+                            $@" -a groestl  -i {intensity} -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations
+                                .MiningPoolUsername} -p {MiningOperations.MiningPoolPassword}",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
                         CreateNoWindow = true,
@@ -207,17 +229,14 @@ namespace GroestlCoin_EasyMiner_2017 {
                     };
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
-                    process.OutputDataReceived += (o, eventArgs) => Dispatcher.Invoke(() => {
-                        try {
-                            uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
-                            uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                    process.ErrorDataReceived += (o, eventArgs) => {
+                        if (!_amdBg.CancellationPending) {
+                            Dispatcher.Invoke(() => {
+                                uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
+                                uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                            });
                         }
-                        catch {
-                            //Do Nothing
-                        }
-
-                    }
-                    );
+                    };
                     process.Start();
                     MiningOperations.GpuStarted = true;
                     process.BeginOutputReadLine();
@@ -235,14 +254,15 @@ namespace GroestlCoin_EasyMiner_2017 {
             if (RbUsedwarfPool.IsChecked == true) {
                 WpCustom1.Visibility = Visibility.Collapsed;
                 WpCustom2.Visibility = Visibility.Collapsed;
+                uxViewdwarfPool.Visibility = Visibility.Visible;
             }
             if (RbCustomPool.IsChecked != true) return;
             WpCustom1.Visibility = Visibility.Visible;
             WpCustom2.Visibility = Visibility.Visible;
+            uxViewdwarfPool.Visibility = Visibility.Collapsed;
         }
 
-        private void PopulatePage()
-        {
+        private void PopulatePage() {
             uxIntervalSlider.Value = Settings.Default.MineIntensity;
             TxtAddress.Text = string.IsNullOrEmpty(Settings.Default.GrsWalletAddress) ? MiningOperations.GetAddress() : Settings.Default.GrsWalletAddress;
             RbUsedwarfPool.IsChecked = Settings.Default.UseDwarfPool;
@@ -365,9 +385,16 @@ namespace GroestlCoin_EasyMiner_2017 {
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void RangeBase_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void RangeBase_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            if (UxIntensityTxt != null) {
+                UxIntensityTxt.Text = e.NewValue.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        private void UxViewDwarfPoolHl_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            UxIntensityTxt.Text = e.NewValue.ToString(CultureInfo.InvariantCulture);
+            System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri + TxtAddress.Text));
+            e.Handled = true;
         }
     }
 }
