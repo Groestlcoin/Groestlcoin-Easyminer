@@ -12,6 +12,7 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using GroestlCoin_EasyMiner_2017.Business_Logic;
 
 namespace GroestlCoin_EasyMiner_2017 {
@@ -253,10 +254,12 @@ namespace GroestlCoin_EasyMiner_2017 {
             if (RbUsedwarfPool.IsChecked == true) {
                 WpCustom1.Visibility = Visibility.Collapsed;
                 WpCustom2.Visibility = Visibility.Collapsed;
+                uxViewdwarfPool.Visibility = Visibility.Visible;
             }
             if (RbCustomPool.IsChecked != true) return;
             WpCustom1.Visibility = Visibility.Visible;
             WpCustom2.Visibility = Visibility.Visible;
+            uxViewdwarfPool.Visibility = Visibility.Collapsed;
         }
 
         private void PopulatePage() {
@@ -386,6 +389,12 @@ namespace GroestlCoin_EasyMiner_2017 {
             if (UxIntensityTxt != null) {
                 UxIntensityTxt.Text = e.NewValue.ToString(CultureInfo.InvariantCulture);
             }
+        }
+
+        private void UxViewDwarfPoolHl_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri + TxtAddress.Text));
+            e.Handled = true;
         }
     }
 }
