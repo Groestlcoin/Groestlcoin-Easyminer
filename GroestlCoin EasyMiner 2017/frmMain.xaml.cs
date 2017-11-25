@@ -29,7 +29,7 @@ namespace GroestlCoin_EasyMiner_2017 {
 
         public MainWindow() {
             InitializeComponent();
-            UxIntensityPopupText.Text = "Select lower values if you still want to use your PC.\nRaise the intensity if you are idle.";
+            UxIntensityPopupText.Text = "Select lower values if you still want to use your PC.\nRaise the intensity if you are idle. (GPU Only)";
 
             ConfigureBackgroundWorkers();
             PopulatePage();
@@ -140,7 +140,7 @@ namespace GroestlCoin_EasyMiner_2017 {
                     using (var process = new Process()) {
                         ProcessStartInfo info = new ProcessStartInfo {
                             FileName = "cmd.exe",
-                            Arguments = "/C " + "\"" + executingAssembly + @"\Resources\Miners\CPU Miner\minerd.exe" + "\"" + $@" -a groestl -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} -i {MiningOperations.MiningIntensity}",
+                            Arguments = "/C " + "\"" + executingAssembly + @"\Resources\Miners\CPU Miner\minerd.exe" + "\"" + $@" -a groestl -o stratum+tcp://{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword}",
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
                             CreateNoWindow = true,
@@ -178,7 +178,7 @@ namespace GroestlCoin_EasyMiner_2017 {
                     ProcessStartInfo info = new ProcessStartInfo {
                         FileName = executingAssembly + @"\Resources\Miners\AMD Miner\sgminer.exe",
                         Arguments =
-                            $"-I {MiningOperations.MiningIntensity} -g 4 -w 64 -k groestlcoin --no-submit-stale -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} ",
+                            $"-I {MiningOperations.MiningIntensity} -g 4 -w 64 -k groestlcoin --no-submit-stale -o stratum+tcp://{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} ",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
                         CreateNoWindow = true,
@@ -220,7 +220,7 @@ namespace GroestlCoin_EasyMiner_2017 {
                         FileName = "cmd.exe",
                         Arguments =
                             "/C " + "\"" + executingAssembly + @"\Resources\Miners\nVidia Miner\ccminer.exe" + "\"" +
-                            $@" -a groestl  -i {intensity} -o stratum+tcp://{MiningOperations.MiningPoolAddress} -u {MiningOperations
+                            $@" -a groestl  -i {intensity} -o stratum+tcp://{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()} -u {MiningOperations
                                 .MiningPoolUsername} -p {MiningOperations.MiningPoolPassword}",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
@@ -229,8 +229,8 @@ namespace GroestlCoin_EasyMiner_2017 {
                     };
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
-                    process.ErrorDataReceived += (o, eventArgs) => {
-                        if (!_amdBg.CancellationPending) {
+                    process.OutputDataReceived += (o, eventArgs) => {
+                        if (!_nVidiaBg.CancellationPending) {
                             Dispatcher.Invoke(() => {
                                 uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
                                 uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
@@ -266,6 +266,7 @@ namespace GroestlCoin_EasyMiner_2017 {
             uxIntervalSlider.Value = Settings.Default.MineIntensity;
             TxtAddress.Text = string.IsNullOrEmpty(Settings.Default.GrsWalletAddress) ? MiningOperations.GetAddress() : Settings.Default.GrsWalletAddress;
             RbUsedwarfPool.IsChecked = Settings.Default.UseDwarfPool;
+            RbUsedwarfPool.IsChecked = !Settings.Default.UseDwarfPool;
             TxtPool.Text = Settings.Default.MiningPoolAddress;
             TxtUsername.Text = Settings.Default.MiningPoolUsername;
             TxtPassword.Text = Settings.Default.MiningPoolPassword;
@@ -391,8 +392,7 @@ namespace GroestlCoin_EasyMiner_2017 {
             }
         }
 
-        private void UxViewDwarfPoolHl_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
+        private void UxViewDwarfPoolHl_OnRequestNavigate(object sender, RequestNavigateEventArgs e) {
             System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri + TxtAddress.Text));
             e.Handled = true;
         }
