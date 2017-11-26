@@ -33,9 +33,42 @@ namespace GroestlCoin_EasyMiner_2017.Business_Logic {
             }
         }
 
-        public static bool HasNVidia => GpuModels.Any(d => d.Details.Description.ToLower().Contains("nvidia")) || GpuModels2.Any(d => d.ToLower().Contains("nvidia"));
+        public static bool HasNVidia {
+            get {
+                var hasGpu = false;
+                try {
+                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("nvidia"));
+                }
+                catch {
+                    hasGpu = false;
+                }
+                finally {
+                    if (hasGpu == false) {
+                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("nvidia"));
+                    }
+                }
+                return hasGpu;
+            }
+        }
 
-        public static bool HasAmd => GpuModels.Any(d => d.Details.Description.ToLower().Contains("amd")) || GpuModels2.Any(d => d.ToLower().Contains("amd"));
+        public static bool HasAmd {
+            get {
+                var hasGpu = false;
+                try {
+                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("amd"));
+                }
+                catch {
+                    hasGpu = false;
+                }
+                finally {
+                    if (hasGpu == false) {
+                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("amd"));
+                    }
+                }
+                return hasGpu;
+            }
+        }
+
 
         public static bool CpuStarted { get; set; } = false;
         public static bool GpuStarted { get; set; } = false;

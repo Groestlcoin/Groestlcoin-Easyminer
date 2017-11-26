@@ -178,7 +178,7 @@ namespace GroestlCoin_EasyMiner_2017 {
                     ProcessStartInfo info = new ProcessStartInfo {
                         FileName = executingAssembly + @"\Resources\Miners\AMD Miner\sgminer.exe",
                         Arguments =
-                            $"-I {MiningOperations.MiningIntensity} -g 4 -w 64 -k groestlcoin --no-submit-stale -o stratum+tcp://{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()} -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword} ",
+                            $"-g 4 -w 64 -k groestlcoin --no-submit-stale -o \"{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()}\" -u {MiningOperations.MiningPoolUsername} -p {MiningOperations.MiningPoolPassword}  --gpu-platform 1 -I {MiningOperations.MiningIntensity}",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
                         CreateNoWindow = true,

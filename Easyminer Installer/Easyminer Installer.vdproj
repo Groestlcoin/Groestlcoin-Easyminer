@@ -16,12 +16,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0FA81B5AAF814188B452DDB70A9A83EA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_2C1F4EF9E77DA2E04CE21C523F00597D"
         "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
         "MsmSig" = "8:_UNDEFINED"
@@ -30,12 +24,6 @@
         {
         "MsmKey" = "8:_2EA729DE4DEDE836237814F0F75EF1E1"
         "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9DC08482275244A085D595C1657FFEF7"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -193,26 +181,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0FA81B5AAF814188B452DDB70A9A83EA"
-            {
-            "SourcePath" = "8:..\\GroestlCoin EasyMiner 2017\\Resources\\GRS-logo.ico"
-            "TargetName" = "8:GRS-logo.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_2174E1FE6A5448D2984FD288C740A104"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2C1F4EF9E77DA2E04CE21C523F00597D"
             {
             "AssemblyRegister" = "3:1"
@@ -273,26 +241,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9DC08482275244A085D595C1657FFEF7"
-            {
-            "SourcePath" = "8:..\\GroestlCoin EasyMiner 2017\\Resources\\GRS-logo.ico"
-            "TargetName" = "8:GRS-logo.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_C4050D5F9B324E15AA08EC0573F30803"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CDEE25BD7CCA9394E462BD153556077F"
@@ -488,15 +436,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Groestlcoin Easyminer 2018"
-        "ProductCode" = "8:{CF742F17-E3C0-4F1E-86BA-C33196219156}"
-        "PackageCode" = "8:{52C5B79E-F392-4484-8A71-556711699ACA}"
+        "ProductCode" = "8:{17C4A872-8E35-41FB-9445-CB80A7B7AF48}"
+        "PackageCode" = "8:{96C8974C-B83E-4558-849C-C1F5AE12F68F}"
         "UpgradeCode" = "8:{1EFF111F-04AC-49BD-BFEF-AC3FA1186970}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.7"
+        "ProductVersion" = "8:1.0.9"
         "Manufacturer" = "8:Groestlcoin"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -506,8 +454,8 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_9DC08482275244A085D595C1657FFEF7"
-        "ARPIconIndex" = "3:0"
+        "ARPPRODUCTICON" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+        "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
@@ -609,6 +557,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0F179131B369449B9D88E06BDB7B445A"
+            {
+            "Name" = "8:Groestlcoin Easyminer 2018"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:32512"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+            "Folder" = "8:_96C9E1EA59C54DEAA1018E4D3FB11A4F"
+            "WorkingFolder" = "8:_A6604F32A1494E57AA41A0C56B1AC222"
+            "Icon" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C65B1EC6D63A452383526BFCD401F77B"
+            {
+            "Name" = "8:Groestlcoin Easyminer 2018"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:32512"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+            "Folder" = "8:_7E83D4DB27B5452C9FB845083661A32B"
+            "WorkingFolder" = "8:_A6604F32A1494E57AA41A0C56B1AC222"
+            "Icon" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -1066,7 +1042,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F76F036ACD6E4B6AB95EA57FAA62CC42"
             {
-            "SourcePath" = "8:..\\GroestlCoin EasyMiner 2017\\obj\\Debug\\GroestlCoin EasyMiner 2017.exe"
+            "SourcePath" = "8:..\\GroestlCoin EasyMiner 2017\\obj\\Release\\GroestlCoin EasyMiner 2017.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A6604F32A1494E57AA41A0C56B1AC222"
