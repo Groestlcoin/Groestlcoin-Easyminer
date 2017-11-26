@@ -149,16 +149,20 @@ namespace GroestlCoin_EasyMiner_2017 {
                         process.StartInfo = info;
                         process.EnableRaisingEvents = true;
                         process.ErrorDataReceived += (o, eventArgs) => {
-                            if (!_cpuBg.CancellationPending) {
-                                Dispatcher.Invoke(() => {
+                            try
+                            {
+                                Dispatcher.Invoke(() =>
+                                {
                                     uxCpuLog.Text += eventArgs.Data + Environment.NewLine;
                                     uxCpuScroller.ScrollToVerticalOffset(uxCpuScroller.ExtentHeight);
-                                }
-                         );
+                                });
                             }
+                            catch
+                            {
+                                //Do Nothing
+                            }
+                          
                         };
-
-
                         process.Start();
                         process.BeginErrorReadLine();
                         MiningOperations.CpuStarted = true;
@@ -187,11 +191,17 @@ namespace GroestlCoin_EasyMiner_2017 {
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
                     process.ErrorDataReceived += (o, eventArgs) => {
-                        if (!_amdBg.CancellationPending) {
-                            Dispatcher.Invoke(() => {
+                        try
+                        {
+                            Dispatcher.Invoke(() =>
+                            {
                                 uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
                                 uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                             });
+                        }
+                        catch
+                        {
+                            //Do Nothing
                         }
                     };
                     process.Start();
@@ -230,19 +240,28 @@ namespace GroestlCoin_EasyMiner_2017 {
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
                     process.OutputDataReceived += (o, eventArgs) => {
-                        if (!_nVidiaBg.CancellationPending) {
+                        try {
                             Dispatcher.Invoke(() => {
                                 uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
                                 uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                             });
                         }
+                        catch {
+                            //Do Nothing
+                        }
+
                     };
                     process.Start();
                     MiningOperations.GpuStarted = true;
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
                     process.WaitForExit();
-                    Dispatcher.Invoke(() => OnGpuMinerClosed(new EventArgs()));
+                    try {
+                        Dispatcher.Invoke(() => OnGpuMinerClosed(new EventArgs()));
+                    }
+                    catch {
+                        //Do Nothing
+                    }
                 }
             };
         }
