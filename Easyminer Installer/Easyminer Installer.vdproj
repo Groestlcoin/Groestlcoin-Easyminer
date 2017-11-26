@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:Easyminer Installer"
+"ProjectName" = "8:GroestlcoinEasyminer2018"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -16,43 +16,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0FA81B5AAF814188B452DDB70A9A83EA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3BF6C2D6F8681AF04CE3F5E6BFFE3C38"
+        "MsmKey" = "8:_2C1F4EF9E77DA2E04CE21C523F00597D"
         "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_95E1B9C705AE108DDE2C9DC6432B23A2"
+        "MsmKey" = "8:_2EA729DE4DEDE836237814F0F75EF1E1"
         "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9DC08482275244A085D595C1657FFEF7"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A4760823988BC914B5400E60734090F4"
-        "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AD2EEE07E8473F02E5C7AEA628DB8B9A"
-        "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AF8C4A1CB6668BCF17B4CC46F645D5AE"
+        "MsmKey" = "8:_CDEE25BD7CCA9394E462BD153556077F"
         "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -64,6 +40,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F78A0FB969885A8054CC10FC6620C7BA"
+        "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F80B3D5460C628CA40A1C3474303F8C7"
+        "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
         "MsmSig" = "8:_UNDEFINED"
@@ -71,31 +59,31 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3BF6C2D6F8681AF04CE3F5E6BFFE3C38"
+        "OwnerKey" = "8:_2C1F4EF9E77DA2E04CE21C523F00597D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AF8C4A1CB6668BCF17B4CC46F645D5AE"
+        "OwnerKey" = "8:_F78A0FB969885A8054CC10FC6620C7BA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_95E1B9C705AE108DDE2C9DC6432B23A2"
+        "OwnerKey" = "8:_F80B3D5460C628CA40A1C3474303F8C7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A4760823988BC914B5400E60734090F4"
+        "OwnerKey" = "8:_CDEE25BD7CCA9394E462BD153556077F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AD2EEE07E8473F02E5C7AEA628DB8B9A"
+        "OwnerKey" = "8:_2EA729DE4DEDE836237814F0F75EF1E1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -155,6 +143,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -185,34 +181,14 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0FA81B5AAF814188B452DDB70A9A83EA"
-            {
-            "SourcePath" = "8:..\\GroestlCoin EasyMiner 2017\\Resources\\GRS-logo.ico"
-            "TargetName" = "8:GRS-logo.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_2174E1FE6A5448D2984FD288C740A104"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3BF6C2D6F8681AF04CE3F5E6BFFE3C38"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2C1F4EF9E77DA2E04CE21C523F00597D"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_3BF6C2D6F8681AF04CE3F5E6BFFE3C38"
+                    "_2C1F4EF9E77DA2E04CE21C523F00597D"
                     {
                     "Name" = "8:SlimDX.dll"
                     "Attributes" = "3:512"
@@ -236,96 +212,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_95E1B9C705AE108DDE2C9DC6432B23A2"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MaterialDesignThemes.Wpf, Version=2.3.1.953, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_95E1B9C705AE108DDE2C9DC6432B23A2"
-                    {
-                    "Name" = "8:MaterialDesignThemes.Wpf.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MaterialDesignThemes.Wpf.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C4050D5F9B324E15AA08EC0573F30803"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9DC08482275244A085D595C1657FFEF7"
-            {
-            "SourcePath" = "8:..\\GroestlCoin EasyMiner 2017\\Resources\\GRS-logo.ico"
-            "TargetName" = "8:GRS-logo.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_C4050D5F9B324E15AA08EC0573F30803"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A4760823988BC914B5400E60734090F4"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_A4760823988BC914B5400E60734090F4"
-                    {
-                    "Name" = "8:MaterialDesignColors.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MaterialDesignColors.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C4050D5F9B324E15AA08EC0573F30803"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AD2EEE07E8473F02E5C7AEA628DB8B9A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2EA729DE4DEDE836237814F0F75EF1E1"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_AD2EEE07E8473F02E5C7AEA628DB8B9A"
+                    "_2EA729DE4DEDE836237814F0F75EF1E1"
                     {
                     "Name" = "8:System.Net.Http.dll"
                     "Attributes" = "3:512"
@@ -349,20 +243,82 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AF8C4A1CB6668BCF17B4CC46F645D5AE"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CDEE25BD7CCA9394E462BD153556077F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_CDEE25BD7CCA9394E462BD153556077F"
+                    {
+                    "Name" = "8:MaterialDesignColors.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MaterialDesignColors.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C4050D5F9B324E15AA08EC0573F30803"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F78A0FB969885A8054CC10FC6620C7BA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_AF8C4A1CB6668BCF17B4CC46F645D5AE"
+                    "_F78A0FB969885A8054CC10FC6620C7BA"
                     {
                     "Name" = "8:Newtonsoft.Json.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C4050D5F9B324E15AA08EC0573F30803"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F80B3D5460C628CA40A1C3474303F8C7"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MaterialDesignThemes.Wpf, Version=2.3.1.953, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_F80B3D5460C628CA40A1C3474303F8C7"
+                    {
+                    "Name" = "8:MaterialDesignThemes.Wpf.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MaterialDesignThemes.Wpf.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_C4050D5F9B324E15AA08EC0573F30803"
@@ -480,15 +436,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Groestlcoin Easyminer 2018"
-        "ProductCode" = "8:{EA552907-580A-4BFA-AC36-D4A4C36ECFA9}"
-        "PackageCode" = "8:{EE5DCE2C-CCA7-4B81-8887-411E45502800}"
+        "ProductCode" = "8:{81358CAC-4CF2-43E1-9E6A-A0DC43A120DA}"
+        "PackageCode" = "8:{953F19F7-CBFA-4D61-A045-59FD130C29E5}"
         "UpgradeCode" = "8:{1EFF111F-04AC-49BD-BFEF-AC3FA1186970}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.4"
+        "ProductVersion" = "8:1.0.10"
         "Manufacturer" = "8:Groestlcoin"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -498,8 +454,8 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_9DC08482275244A085D595C1657FFEF7"
-        "ARPIconIndex" = "3:0"
+        "ARPPRODUCTICON" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+        "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
@@ -601,6 +557,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0F179131B369449B9D88E06BDB7B445A"
+            {
+            "Name" = "8:Groestlcoin Easyminer 2018"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:32512"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+            "Folder" = "8:_96C9E1EA59C54DEAA1018E4D3FB11A4F"
+            "WorkingFolder" = "8:_A6604F32A1494E57AA41A0C56B1AC222"
+            "Icon" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C65B1EC6D63A452383526BFCD401F77B"
+            {
+            "Name" = "8:Groestlcoin Easyminer 2018"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:32512"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+            "Folder" = "8:_7E83D4DB27B5452C9FB845083661A32B"
+            "WorkingFolder" = "8:_A6604F32A1494E57AA41A0C56B1AC222"
+            "Icon" = "8:_F76F036ACD6E4B6AB95EA57FAA62CC42"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

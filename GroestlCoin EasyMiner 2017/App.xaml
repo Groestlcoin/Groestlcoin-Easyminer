@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GroestlCoin_EasyMiner_2017"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:Converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf" x:Class="GroestlCoin_EasyMiner_2017.App"
-             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf"
+            
              StartupUri="Starting Guide.xaml">
     <Application.Resources>
         <FontFamily x:Key="Comfortaa">pack://application:,,,/Resources/#Comfortaa-Regular</FontFamily>

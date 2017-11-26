@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\GRS-logo.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Easyminer-Icon %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -152,17 +152,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\GRS-logo.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
     <Content Include="Resources\coin-util.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\GRS-logo.ico" />
+    <Resource Include="Resources\GRS-logo64.ico" />
+    <Resource Include="Resources\Easyminer-Icon %281%29.ico" />
     <Content Include="Resources\Miners\AMD Miner\libcurl.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
