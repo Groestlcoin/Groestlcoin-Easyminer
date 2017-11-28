@@ -5,9 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GroestlCoin EasyMiner", "GroestlCoin EasyMiner.vbproj", "{8DB2D98F-0AC4-440E-BC93-2E2688082501}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroestlCoin EasyMiner 2017", "GroestlCoin EasyMiner 2017\GroestlCoin EasyMiner 2017.csproj", "{ABFC00EB-2A6E-4353-AE91-4E1889A5DCAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroestlCoin EasyMiner 2018", "GroestlCoin EasyMiner 2017\GroestlCoin EasyMiner 2018.csproj", "{ABFC00EB-2A6E-4353-AE91-4E1889A5DCAC}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Easyminer Installer", "Easyminer Installer\Easyminer Installer.vdproj", "{6404B71E-DBF9-4B81-8958-5522ECBB35F5}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GroestlcoinEasyminer2018", "Easyminer Installer\Easyminer Installer.vdproj", "{6404B71E-DBF9-4B81-8958-5522ECBB35F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
