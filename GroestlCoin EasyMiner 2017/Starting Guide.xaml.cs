@@ -45,7 +45,6 @@ namespace GroestlCoin_EasyMiner_2017 {
                 uxCheckInstallBtn.Visibility = Visibility.Visible;
                 uxStepContent2.Visibility = Visibility.Visible;
                 uxStepContent3.Visibility = Visibility.Visible;
-
                 Hyperlink link = new Hyperlink {
                     NavigateUri = new Uri("https://www.groestlcoin.org/groestlcoin-electrum-wallet/"),
                     Foreground = Brushes.White

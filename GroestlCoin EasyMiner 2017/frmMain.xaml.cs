@@ -11,9 +11,11 @@ using System.Windows;
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using GroestlCoin_EasyMiner_2017.Business_Logic;
+using Clipboard = System.Windows.Clipboard;
 
 namespace GroestlCoin_EasyMiner_2017 {
 
@@ -421,6 +423,16 @@ namespace GroestlCoin_EasyMiner_2017 {
         private void UxViewDwarfPoolHl_OnRequestNavigate(object sender, RequestNavigateEventArgs e) {
             System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri + TxtAddress.Text));
             e.Handled = true;
+        }
+
+        private void UxCpuLog_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Clipboard.SetText(uxCpuLog.Text);
+        }
+
+        private void UxGpuLog_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Clipboard.SetText(uxGpuLog.Text);
         }
     }
 }
