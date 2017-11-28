@@ -187,13 +187,13 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="0" Name="uxCpuMiningLogGroup" Visibility="Collapsed" Style="{DynamicResource GroupBoxStyle1}">
+                        <GroupBox Grid.Row="0" Name="uxCpuMiningLogGroup" Visibility="Collapsed" Style="{DynamicResource GroupBoxStyle1}" >
                             <GroupBox.Header>
                                 <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">CPU Mining Log</Label>
                             </GroupBox.Header>
                             <StackPanel Orientation="Vertical">
                                 <ScrollViewer Height="65" Name="uxCpuScroller">
-                                    <TextBlock TextWrapping="Wrap" Name="uxCpuLog"></TextBlock>
+                                    <TextBlock TextWrapping="Wrap" Name="uxCpuLog" MouseRightButtonDown="UxCpuLog_OnMouseRightButtonDown"></TextBlock>
                                 </ScrollViewer>
                             </StackPanel>
                         </GroupBox>
@@ -203,7 +203,7 @@
                             </GroupBox.Header>
                             <StackPanel Orientation="Vertical">
                                 <ScrollViewer Height="65" Name="uxGpuScroller">
-                                    <TextBlock TextWrapping="Wrap" Name="uxGpuLog"></TextBlock>
+                                    <TextBlock TextWrapping="Wrap" Name="uxGpuLog" MouseRightButtonDown="UxGpuLog_OnMouseRightButtonDown"></TextBlock>
                                 </ScrollViewer>
                             </StackPanel>
                         </GroupBox>
