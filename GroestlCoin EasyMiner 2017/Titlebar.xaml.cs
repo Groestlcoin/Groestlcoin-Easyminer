@@ -36,16 +36,16 @@ namespace GroestlCoin_EasyMiner_2017 {
 
         public bool IsAbout {
             get {
-                return _isMainWindow;
+                return _isAbout;
             }
             set {
-                if (value == false) {
+                if (value) {
                     uxMinimiseBtn.Visibility = Visibility.Hidden;
                     uxMinimiseBtn.IsEnabled = false;
                     uxAboutBtn.Visibility = Visibility.Hidden;
                     uxAboutBtn.IsEnabled = false;
                 }
-                _isMainWindow = value;
+                _isAbout = value;
             }
         }
 

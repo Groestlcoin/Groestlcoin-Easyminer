@@ -85,6 +85,8 @@ namespace GroestlCoin_EasyMiner_2017 {
                 TxtUsername.IsEnabled = false;
                 TxtPassword.IsEnabled = false;
                 UxIntensityTxt.IsEnabled = false;
+                RbUsedwarfPool.IsEnabled = false;
+                RbCustomPool.IsEnabled = false;
 
                 UxAdvancedSettings.IsExpanded = false;
                 UxLogsExpander.IsExpanded = true;
@@ -117,6 +119,8 @@ namespace GroestlCoin_EasyMiner_2017 {
                 TxtUsername.IsEnabled = true;
                 TxtPassword.IsEnabled = true;
                 UxIntensityTxt.IsEnabled = true;
+                RbUsedwarfPool.IsEnabled = true;
+                RbCustomPool.IsEnabled = true;
 
                 UxLogsExpander.IsExpanded = false;
                 ProgressBar.IsIndeterminate = false;
