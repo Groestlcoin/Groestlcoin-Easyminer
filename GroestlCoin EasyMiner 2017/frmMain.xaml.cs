@@ -151,19 +151,23 @@ namespace GroestlCoin_EasyMiner_2017 {
                         process.StartInfo = info;
                         process.EnableRaisingEvents = true;
                         process.ErrorDataReceived += (o, eventArgs) => {
-                            try
-                            {
-                                Dispatcher.Invoke(() =>
-                                {
-                                    uxCpuLog.Text += eventArgs.Data + Environment.NewLine;
-                                    uxCpuScroller.ScrollToVerticalOffset(uxCpuScroller.ExtentHeight);
+                            try {
+                                Dispatcher.Invoke(() => {
+                                    var lines = uxCpuLog.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+
+                                    if (lines.Count() == 30) {
+                                        lines.RemoveAt(0);
+                                    }
+                                    lines.Add(eventArgs.Data);
+                                    uxCpuLog.Text = string.Join(Environment.NewLine, lines);
+
+                                    uxCpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                                 });
                             }
-                            catch
-                            {
+                            catch {
                                 //Do Nothing
                             }
-                          
+
                         };
                         process.Start();
                         process.BeginErrorReadLine();
@@ -200,16 +204,20 @@ namespace GroestlCoin_EasyMiner_2017 {
                     process.StartInfo = info;
                     process.EnableRaisingEvents = true;
                     process.ErrorDataReceived += (o, eventArgs) => {
-                        try
-                        {
-                            Dispatcher.Invoke(() =>
-                            {
-                                uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
+                        try {
+                            Dispatcher.Invoke(() => {
+                                var lines = uxGpuLog.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+                                
+                                if (lines.Count() == 30) {
+                                    lines.RemoveAt(0);
+                                }
+                                lines.Add(eventArgs.Data);
+                                uxGpuLog.Text = string.Join(Environment.NewLine, lines);
+                                
                                 uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                             });
                         }
-                        catch
-                        {
+                        catch {
                             //Do Nothing
                         }
                     };
@@ -251,7 +259,14 @@ namespace GroestlCoin_EasyMiner_2017 {
                     process.OutputDataReceived += (o, eventArgs) => {
                         try {
                             Dispatcher.Invoke(() => {
-                                uxGpuLog.Text += eventArgs.Data + Environment.NewLine;
+                                var lines = uxGpuLog.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+
+                                if (lines.Count() == 30) {
+                                    lines.RemoveAt(0);
+                                }
+                                lines.Add(eventArgs.Data);
+                                uxGpuLog.Text = string.Join(Environment.NewLine, lines);
+
                                 uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                             });
                         }
@@ -425,13 +440,11 @@ namespace GroestlCoin_EasyMiner_2017 {
             e.Handled = true;
         }
 
-        private void UxCpuLog_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
+        private void UxCpuLog_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e) {
             Clipboard.SetText(uxCpuLog.Text);
         }
 
-        private void UxGpuLog_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
+        private void UxGpuLog_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e) {
             Clipboard.SetText(uxGpuLog.Text);
         }
     }

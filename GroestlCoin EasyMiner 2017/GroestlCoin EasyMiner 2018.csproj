@@ -147,6 +147,15 @@
     <Content Include="Resources\Miners\AMD Miner\kernel\groestlcoin.cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestl.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestl256.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestlcoin-v1.cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Comfortaa-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>

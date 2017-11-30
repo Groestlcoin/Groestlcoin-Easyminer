@@ -172,38 +172,6 @@
             </DrawingBrush.Drawing>
         </DrawingBrush>
 
-        <Style x:Key="GroupBox" TargetType="{x:Type GroupBox}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{Binding (TextElement.Foreground), RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type FrameworkElement}}}"/>
-            <Setter Property="Padding" Value="9"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
-            <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
-            <Setter Property="materialDesign:ColorZoneAssist.Mode" Value="Accent"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type GroupBox}">
-                        <Grid>
-                            <Border BorderBrush="{Binding Background, ElementName=PART_ColorZone}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
-                            <DockPanel Background="{TemplateBinding Background}">
-                                <materialDesign:ColorZone x:Name="PART_ColorZone" DockPanel.Dock="Top" Mode="{Binding (materialDesign:ColorZoneAssist.Mode), RelativeSource={RelativeSource TemplatedParent}}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" materialDesign:ShadowAssist.ShadowEdges="{Binding (materialDesign:ShadowAssist.ShadowEdges), RelativeSource={RelativeSource TemplatedParent}}" UseLayoutRounding="True">
-                                    <materialDesign:ColorZone.Effect>
-                                        <Binding Path="(materialDesign:ShadowAssist.ShadowDepth)" RelativeSource="{RelativeSource TemplatedParent}">
-                                            <Binding.Converter>
-                                                <Converters:ShadowConverter/>
-                                            </Binding.Converter>
-                                        </Binding>
-                                    </materialDesign:ColorZone.Effect>
-                                    <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                </materialDesign:ColorZone>
-                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                            </DockPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="LabelLight" TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="{DynamicResource LightColor}"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -527,12 +495,12 @@
             </Setter>
         </Style>
 
-   
-       
+
+
         <Style x:Key="GroupBoxStyle1" TargetType="{x:Type GroupBox}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{Binding (TextElement.Foreground), RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type FrameworkElement}}}"/>
-            <Setter Property="Padding" Value="9"/>
+            <Setter Property="Padding" Value="6"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
@@ -543,7 +511,7 @@
                         <Grid>
                             <Border BorderBrush="{Binding Background, ElementName=PART_ColorZone}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="1"/>
                             <DockPanel Background="{TemplateBinding Background}">
-                                <materialDesign:ColorZone Background="{StaticResource LightColor}" x:Name="PART_ColorZone" DockPanel.Dock="Top" Mode="{Binding (materialDesign:ColorZoneAssist.Mode), RelativeSource={RelativeSource TemplatedParent}}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" materialDesign:ShadowAssist.ShadowEdges="{Binding (materialDesign:ShadowAssist.ShadowEdges), RelativeSource={RelativeSource TemplatedParent}}" UseLayoutRounding="True">
+                                <materialDesign:ColorZone Height="35" VerticalContentAlignment="Center" Background="{StaticResource LightColor}" x:Name="PART_ColorZone" DockPanel.Dock="Top" Mode="{Binding (materialDesign:ColorZoneAssist.Mode), RelativeSource={RelativeSource TemplatedParent}}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" materialDesign:ShadowAssist.ShadowEdges="{Binding (materialDesign:ShadowAssist.ShadowEdges), RelativeSource={RelativeSource TemplatedParent}}" UseLayoutRounding="True">
                                     <materialDesign:ColorZone.Effect>
                                         <Binding Path="(materialDesign:ShadowAssist.ShadowDepth)" RelativeSource="{RelativeSource TemplatedParent}">
                                             <Binding.Converter>
@@ -551,9 +519,9 @@
                                             </Binding.Converter>
                                         </Binding>
                                     </materialDesign:ColorZone.Effect>
-                                    <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    <ContentPresenter VerticalAlignment="Center" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                 </materialDesign:ColorZone>
-                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <ContentPresenter VerticalAlignment="Center" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             </DockPanel>
                         </Grid>
                     </ControlTemplate>
