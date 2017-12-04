@@ -1,11 +1,12 @@
-/* $Id: groestl.c 260 2011-07-21 01:02:38Z tp $ */
 /*
- * Groestl256
+ * Groestl512 implementation + GroestlCoin kernel implementation.
  *
  * ==========================(LICENSE BEGIN)============================
- * Copyright (c) 2014 djm34
- * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
+ * Copyright (c) 2007-2010  Projet RNRT SAPHIR
+ * Copyright (c) 2014  phm
+ * Changes and optimizations by srcxxx
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -13,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -28,7 +29,29 @@
  * ===========================(LICENSE END)=============================
  *
  * @author   Thomas Pornin <thomas.pornin@cryptolog.com>
+ * @author   phm <phm@inbox.com>
+ * @author   srcxxx <srcxxx@gmail.com>
  */
+
+#ifndef GROESTLCOIN_CL
+#define GROESTLCOIN_CL
+
+#if __ENDIAN_LITTLE__
+    //all ok
+#else
+    this file was optimized for little endian architectures and will not work on your device!
+#endif
+
+#ifndef __OPENCL_VERSION__
+typedef unsigned long long sph_u64;
+typedef long long sph_s64;
+#else
+typedef unsigned long sph_u64;
+typedef long sph_s64;
+#endif
+
+#define SPH_C64(x)    ((sph_u64)(x ## UL))
+#define SPH_T64(x)    (x)
 
 
 #define C64e(x)     ((SPH_C64(x) >> 56) \
@@ -40,19 +63,18 @@
                     | ((SPH_C64(x) << 40) & SPH_C64(0x00FF000000000000)) \
                     | ((SPH_C64(x) << 56) & SPH_C64(0xFF00000000000000)))
 
-#define B64_0(x)    ((x) & 0xFF)
-#define B64_1(x)    (((x) >> 8) & 0xFF)
-#define B64_2(x)    (((x) >> 16) & 0xFF)
-#define B64_3(x)    (((x) >> 24) & 0xFF)
-#define B64_4(x)    (((x) >> 32) & 0xFF)
-#define B64_5(x)    (((x) >> 40) & 0xFF)
-#define B64_6(x)    (((x) >> 48) & 0xFF)
-#define B64_7(x)    ((x) >> 56)
-#define R64         SPH_ROTL64
+#define B64_0(x)    as_uchar8(x).s0
+#define B64_1(x)    as_uchar8(x).s1
+#define B64_2(x)    as_uchar8(x).s2
+#define B64_3(x)    as_uchar8(x).s3
+#define B64_4(x)    as_uchar8(x).s4
+#define B64_5(x)    as_uchar8(x).s5
+#define B64_6(x)    as_uchar8(x).s6
+#define B64_7(x)    as_uchar8(x).s7
 #define PC64(j, r)  ((sph_u64)((j) + (r)))
-#define QC64(j, r)  (((sph_u64)(r) << 56) ^ (~((sph_u64)(j) << 56)))
+#define QC64(j, r)  ((as_ulong(as_uchar8((sph_u64)(r)).s76543210)) ^ SPH_T64(~(as_ulong(as_uchar8((sph_u64)(j)).s76543210))))
 
-__constant static const sph_u64 T0_G[] = {
+__constant static const sph_u64 T0[] = {
 	C64e(0xc632f4a5f497a5c6), C64e(0xf86f978497eb84f8),
 	C64e(0xee5eb099b0c799ee), C64e(0xf67a8c8d8cf78df6),
 	C64e(0xffe8170d17e50dff), C64e(0xd60adcbddcb7bdd6),
@@ -183,8 +205,7 @@ __constant static const sph_u64 T0_G[] = {
 	C64e(0x6d0c61d661dad66d), C64e(0x2c624e3a4e583a2c)
 };
 
-/*
-__constant static const ulong T1_G[] = {
+__constant static const sph_u64 T1[] = {
 	C64e(0xc6c632f4a5f497a5), C64e(0xf8f86f978497eb84),
 	C64e(0xeeee5eb099b0c799), C64e(0xf6f67a8c8d8cf78d),
 	C64e(0xffffe8170d17e50d), C64e(0xd6d60adcbddcb7bd),
@@ -315,7 +336,7 @@ __constant static const ulong T1_G[] = {
 	C64e(0x6d6d0c61d661dad6), C64e(0x2c2c624e3a4e583a)
 };
 
-__constant static const ulong T2_G[] = {
+__constant static const sph_u64 T2[] = {
 	C64e(0xa5c6c632f4a5f497), C64e(0x84f8f86f978497eb),
 	C64e(0x99eeee5eb099b0c7), C64e(0x8df6f67a8c8d8cf7),
 	C64e(0x0dffffe8170d17e5), C64e(0xbdd6d60adcbddcb7),
@@ -446,7 +467,7 @@ __constant static const ulong T2_G[] = {
 	C64e(0xd66d6d0c61d661da), C64e(0x3a2c2c624e3a4e58)
 };
 
-__constant static const ulong T3_G[] = {
+__constant static const sph_u64 T3[] = {
 	C64e(0x97a5c6c632f4a5f4), C64e(0xeb84f8f86f978497),
 	C64e(0xc799eeee5eb099b0), C64e(0xf78df6f67a8c8d8c),
 	C64e(0xe50dffffe8170d17), C64e(0xb7bdd6d60adcbddc),
@@ -576,8 +597,8 @@ __constant static const ulong T3_G[] = {
 	C64e(0xf6cb7b7b3d46cb46), C64e(0x4bfca8a8b71ffc1f),
 	C64e(0xdad66d6d0c61d661), C64e(0x583a2c2c624e3a4e)
 };
-*/
-__constant static const ulong T4_G[] = {
+
+__constant static const sph_u64 T4[] = {
 	C64e(0xf497a5c6c632f4a5), C64e(0x97eb84f8f86f9784),
 	C64e(0xb0c799eeee5eb099), C64e(0x8cf78df6f67a8c8d),
 	C64e(0x17e50dffffe8170d), C64e(0xdcb7bdd6d60adcbd),
@@ -708,8 +729,7 @@ __constant static const ulong T4_G[] = {
 	C64e(0x61dad66d6d0c61d6), C64e(0x4e583a2c2c624e3a)
 };
 
-/*
-__constant static const ulong T5_G[] = {
+__constant static const sph_u64 T5[] = {
 	C64e(0xa5f497a5c6c632f4), C64e(0x8497eb84f8f86f97),
 	C64e(0x99b0c799eeee5eb0), C64e(0x8d8cf78df6f67a8c),
 	C64e(0x0d17e50dffffe817), C64e(0xbddcb7bdd6d60adc),
@@ -840,7 +860,7 @@ __constant static const ulong T5_G[] = {
 	C64e(0xd661dad66d6d0c61), C64e(0x3a4e583a2c2c624e)
 };
 
-__constant static const ulong T6_G[] = {
+__constant static const sph_u64 T6[] = {
 	C64e(0xf4a5f497a5c6c632), C64e(0x978497eb84f8f86f),
 	C64e(0xb099b0c799eeee5e), C64e(0x8c8d8cf78df6f67a),
 	C64e(0x170d17e50dffffe8), C64e(0xdcbddcb7bdd6d60a),
@@ -971,7 +991,7 @@ __constant static const ulong T6_G[] = {
 	C64e(0x61d661dad66d6d0c), C64e(0x4e3a4e583a2c2c62)
 };
 
-__constant static const ulong T7_G[] = {
+__constant static const sph_u64 T7[] = {
 	C64e(0x32f4a5f497a5c6c6), C64e(0x6f978497eb84f8f8),
 	C64e(0x5eb099b0c799eeee), C64e(0x7a8c8d8cf78df6f6),
 	C64e(0xe8170d17e50dffff), C64e(0x0adcbddcb7bdd6d6),
@@ -1102,134 +1122,241 @@ __constant static const ulong T7_G[] = {
 	C64e(0x0c61d661dad66d6d), C64e(0x624e3a4e583a2c2c)
 };
 
-*/
+#define RBTT(d, a, b0, b1, b2, b3, b4, b5, b6, b7)   t[d] = T0[B64_0(a[b0])] ^ T1[B64_1(a[b1])] ^ T2[B64_2(a[b2])] ^ T3[B64_3(a[b3])] ^ T4[B64_4(a[b4])] ^ T5[B64_5(a[b5])] ^ T6[B64_6(a[b6])] ^ T7[B64_7(a[b7])];
 
-#define RSTT(d, a, b0, b1, b2, b3, b4, b5, b6, b7)   do { \
-		t[d] = T0_G[B64_0(a[b0])] \
-			^ R64(T0_G[B64_1(a[b1])],  8) \
-			^ R64(T0_G[B64_2(a[b2])], 16) \
-			^ R64(T0_G[B64_3(a[b3])], 24) \
-			^ T4_G[B64_4(a[b4])] \
-			^ R64(T4_G[B64_5(a[b5])],  8) \
-			^ R64(T4_G[B64_6(a[b6])], 16) \
-			^ R64(T4_G[B64_7(a[b7])], 24); \
-	} while (0)
-/*
-#define RSTT(d, a, b0, b1, b2, b3, b4, b5, b6, b7)   do { \
-		t[d] = T0_G[B64_0(a[b0])] \
-			^ as_ulong(as_uchar8(T0_G[B64_1(a[b1])]).s70123456) \
-			^ as_ulong(as_uchar8(T0_G[B64_2(a[b2])]).s67012345) \
-			^ as_ulong(as_uchar8(T0_G[B64_3(a[b3])]).s56701234) \
-			^ T4_G[B64_4(a[b4])] \
-			^ as_ulong(as_uchar8(T4_G[B64_5(a[b5])]).s70123456) \
-			^ as_ulong(as_uchar8(T4_G[B64_6(a[b6])]).s67012345) \
-			^ as_ulong(as_uchar8(T4_G[B64_7(a[b7])]).s56701234); \
-	} while (0)
-*/
+#define ROUND_BIG_P(a, r)   { \
+		sph_u64 t[16]; \
+		a[0x0] ^= PC64(0x00, r); \
+		a[0x1] ^= PC64(0x10, r); \
+		a[0x2] ^= PC64(0x20, r); \
+		a[0x3] ^= PC64(0x30, r); \
+		a[0x4] ^= PC64(0x40, r); \
+		a[0x5] ^= PC64(0x50, r); \
+		a[0x6] ^= PC64(0x60, r); \
+		a[0x7] ^= PC64(0x70, r); \
+		a[0x8] ^= PC64(0x80, r); \
+		a[0x9] ^= PC64(0x90, r); \
+		a[0xA] ^= PC64(0xA0, r); \
+		a[0xB] ^= PC64(0xB0, r); \
+		a[0xC] ^= PC64(0xC0, r); \
+		a[0xD] ^= PC64(0xD0, r); \
+		a[0xE] ^= PC64(0xE0, r); \
+		a[0xF] ^= PC64(0xF0, r); \
+		RBTT(0x0, a, 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0xB); \
+		RBTT(0x1, a, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0xC); \
+		RBTT(0x2, a, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0xD); \
+		RBTT(0x3, a, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xE); \
+		RBTT(0x4, a, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xF); \
+		RBTT(0x5, a, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0x0); \
+		RBTT(0x6, a, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0x1); \
+		RBTT(0x7, a, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0x2); \
+		RBTT(0x8, a, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0x3); \
+		RBTT(0x9, a, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0x4); \
+		RBTT(0xA, a, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0x0, 0x5); \
+		RBTT(0xB, a, 0xB, 0xC, 0xD, 0xE, 0xF, 0x0, 0x1, 0x6); \
+		RBTT(0xC, a, 0xC, 0xD, 0xE, 0xF, 0x0, 0x1, 0x2, 0x7); \
+		RBTT(0xD, a, 0xD, 0xE, 0xF, 0x0, 0x1, 0x2, 0x3, 0x8); \
+		RBTT(0xE, a, 0xE, 0xF, 0x0, 0x1, 0x2, 0x3, 0x4, 0x9); \
+		RBTT(0xF, a, 0xF, 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0xA); \
+		a[0x0] = t[0x0]; \
+		a[0x1] = t[0x1]; \
+		a[0x2] = t[0x2]; \
+		a[0x3] = t[0x3]; \
+		a[0x4] = t[0x4]; \
+		a[0x5] = t[0x5]; \
+		a[0x6] = t[0x6]; \
+		a[0x7] = t[0x7]; \
+		a[0x8] = t[0x8]; \
+		a[0x9] = t[0x9]; \
+		a[0xA] = t[0xA]; \
+		a[0xB] = t[0xB]; \
+		a[0xC] = t[0xC]; \
+		a[0xD] = t[0xD]; \
+		a[0xE] = t[0xE]; \
+		a[0xF] = t[0xF]; \
+	}
 
-/*
-#define RSTT(d, a, b0, b1, b2, b3, b4, b5, b6, b7)   do { \
-		   t[d] = T0[B64_0(a[b0])] \
-			^ R64(T0[B64_1(a[b1])],  8) \
-			^     T2[B64_2(a[b2])] \
-			^ R64(T2[B64_3(a[b3])], 8) \
-			^ T4[B64_4(a[b4])] \
-			^ R64(T4[B64_5(a[b5])], 8) \
-			^ T6[B64_6(a[b6])] \
-			^ R64(T6[B64_7(a[b7])], 8); \
-	} while (0)
+#define ROUND_BIG_Q(a, r)   { \
+		sph_u64 t[16]; \
+		a[0x0] ^= QC64(0x00, r); \
+		a[0x1] ^= QC64(0x10, r); \
+		a[0x2] ^= QC64(0x20, r); \
+		a[0x3] ^= QC64(0x30, r); \
+		a[0x4] ^= QC64(0x40, r); \
+		a[0x5] ^= QC64(0x50, r); \
+		a[0x6] ^= QC64(0x60, r); \
+		a[0x7] ^= QC64(0x70, r); \
+		a[0x8] ^= QC64(0x80, r); \
+		a[0x9] ^= QC64(0x90, r); \
+		a[0xA] ^= QC64(0xA0, r); \
+		a[0xB] ^= QC64(0xB0, r); \
+		a[0xC] ^= QC64(0xC0, r); \
+		a[0xD] ^= QC64(0xD0, r); \
+		a[0xE] ^= QC64(0xE0, r); \
+		a[0xF] ^= QC64(0xF0, r); \
+		RBTT(0x0, a, 0x1, 0x3, 0x5, 0xB, 0x0, 0x2, 0x4, 0x6); \
+		RBTT(0x1, a, 0x2, 0x4, 0x6, 0xC, 0x1, 0x3, 0x5, 0x7); \
+		RBTT(0x2, a, 0x3, 0x5, 0x7, 0xD, 0x2, 0x4, 0x6, 0x8); \
+		RBTT(0x3, a, 0x4, 0x6, 0x8, 0xE, 0x3, 0x5, 0x7, 0x9); \
+		RBTT(0x4, a, 0x5, 0x7, 0x9, 0xF, 0x4, 0x6, 0x8, 0xA); \
+		RBTT(0x5, a, 0x6, 0x8, 0xA, 0x0, 0x5, 0x7, 0x9, 0xB); \
+		RBTT(0x6, a, 0x7, 0x9, 0xB, 0x1, 0x6, 0x8, 0xA, 0xC); \
+		RBTT(0x7, a, 0x8, 0xA, 0xC, 0x2, 0x7, 0x9, 0xB, 0xD); \
+		RBTT(0x8, a, 0x9, 0xB, 0xD, 0x3, 0x8, 0xA, 0xC, 0xE); \
+		RBTT(0x9, a, 0xA, 0xC, 0xE, 0x4, 0x9, 0xB, 0xD, 0xF); \
+		RBTT(0xA, a, 0xB, 0xD, 0xF, 0x5, 0xA, 0xC, 0xE, 0x0); \
+		RBTT(0xB, a, 0xC, 0xE, 0x0, 0x6, 0xB, 0xD, 0xF, 0x1); \
+		RBTT(0xC, a, 0xD, 0xF, 0x1, 0x7, 0xC, 0xE, 0x0, 0x2); \
+		RBTT(0xD, a, 0xE, 0x0, 0x2, 0x8, 0xD, 0xF, 0x1, 0x3); \
+		RBTT(0xE, a, 0xF, 0x1, 0x3, 0x9, 0xE, 0x0, 0x2, 0x4); \
+		RBTT(0xF, a, 0x0, 0x2, 0x4, 0xA, 0xF, 0x1, 0x3, 0x5); \
+		a[0x0] = t[0x0]; \
+		a[0x1] = t[0x1]; \
+		a[0x2] = t[0x2]; \
+		a[0x3] = t[0x3]; \
+		a[0x4] = t[0x4]; \
+		a[0x5] = t[0x5]; \
+		a[0x6] = t[0x6]; \
+		a[0x7] = t[0x7]; \
+		a[0x8] = t[0x8]; \
+		a[0x9] = t[0x9]; \
+		a[0xA] = t[0xA]; \
+		a[0xB] = t[0xB]; \
+		a[0xC] = t[0xC]; \
+		a[0xD] = t[0xD]; \
+		a[0xE] = t[0xE]; \
+		a[0xF] = t[0xF]; \
+	}
 
-#define RSTT(d, a, b0, b1, b2, b3, b4, b5, b6, b7)   do { \
-		t[d] = T0[B64_0(a[b0])] \
-			^  T1[B64_1(a[b1])] \
-			^  T2[B64_2(a[b2])] \
-			^  T3[B64_3(a[b3])] \
-			^  T4[B64_4(a[b4])] \
-			^  T5[B64_5(a[b5])] \
-			^  T6[B64_6(a[b6])] \
-			^  T7[B64_7(a[b7])]; \
-	} while (0)
-*/
+#define PERM_BIG_P(a)   { \
+		for (unsigned r = 0; r < 14; r++) { \
+			ROUND_BIG_P(a, r); \
+		} \
+	}
 
-#define ROUND_SMALL_P(a, r)   do { \
-		a[0] ^= PC64(0x00, r); \
-		a[1] ^= PC64(0x10, r); \
-		a[2] ^= PC64(0x20, r); \
-		a[3] ^= PC64(0x30, r); \
-		a[4] ^= PC64(0x40, r); \
-		a[5] ^= PC64(0x50, r); \
-		a[6] ^= PC64(0x60, r); \
-		a[7] ^= PC64(0x70, r); \
-		RSTT(0, a, 0, 1, 2, 3, 4, 5, 6, 7); \
-		RSTT(1, a, 1, 2, 3, 4, 5, 6, 7, 0); \
-		RSTT(2, a, 2, 3, 4, 5, 6, 7, 0, 1); \
-		RSTT(3, a, 3, 4, 5, 6, 7, 0, 1, 2); \
-		RSTT(4, a, 4, 5, 6, 7, 0, 1, 2, 3); \
-		RSTT(5, a, 5, 6, 7, 0, 1, 2, 3, 4); \
-		RSTT(6, a, 6, 7, 0, 1, 2, 3, 4, 5); \
-		RSTT(7, a, 7, 0, 1, 2, 3, 4, 5, 6); \
-		a[0] = t[0]; \
-		a[1] = t[1]; \
-		a[2] = t[2]; \
-		a[3] = t[3]; \
-		a[4] = t[4]; \
-		a[5] = t[5]; \
-		a[6] = t[6]; \
-		a[7] = t[7]; \
-	} while (0)
+#define PERM_BIG_Q(a)   { \
+		for (unsigned r = 0; r < 14; r++) { \
+			ROUND_BIG_Q(a, r); \
+		} \
+	}
 
-#define ROUND_SMALL_Pf(a,r)   do { \
-		a[0] ^= PC64(0x00, r); \
-		a[1] ^= PC64(0x10, r); \
-		a[2] ^= PC64(0x20, r); \
-		a[3] ^= PC64(0x30, r); \
-		a[4] ^= PC64(0x40, r); \
-		a[5] ^= PC64(0x50, r); \
-		a[6] ^= PC64(0x60, r); \
-		a[7] ^= PC64(0x70, r); \
-		RSTT(7, a, 7, 0, 1, 2, 3, 4, 5, 6); \
-		a[7] = t[7]; \
-	} while (0)
 
-#define ROUND_SMALL_Q(a, r)   do { \
-		a[0] ^= QC64(0x00, r); \
-		a[1] ^= QC64(0x10, r); \
-		a[2] ^= QC64(0x20, r); \
-		a[3] ^= QC64(0x30, r); \
-		a[4] ^= QC64(0x40, r); \
-		a[5] ^= QC64(0x50, r); \
-		a[6] ^= QC64(0x60, r); \
-		a[7] ^= QC64(0x70, r); \
-		RSTT(0, a, 1, 3, 5, 7, 0, 2, 4, 6); \
-		RSTT(1, a, 2, 4, 6, 0, 1, 3, 5, 7); \
-		RSTT(2, a, 3, 5, 7, 1, 2, 4, 6, 0); \
-		RSTT(3, a, 4, 6, 0, 2, 3, 5, 7, 1); \
-		RSTT(4, a, 5, 7, 1, 3, 4, 6, 0, 2); \
-		RSTT(5, a, 6, 0, 2, 4, 5, 7, 1, 3); \
-		RSTT(6, a, 7, 1, 3, 5, 6, 0, 2, 4); \
-		RSTT(7, a, 0, 2, 4, 6, 7, 1, 3, 5); \
-		a[0] = t[0]; \
-		a[1] = t[1]; \
-		a[2] = t[2]; \
-		a[3] = t[3]; \
-		a[4] = t[4]; \
-		a[5] = t[5]; \
-		a[6] = t[6]; \
-		a[7] = t[7]; \
-	} while (0)
 
-#define PERM_SMALL_P(a)   do { \
-		for (int r = 0; r < 10; r ++) \
-			ROUND_SMALL_P(a, r); \
-	} while (0)
+__attribute__((reqd_work_group_size(WORKSIZE, 1, 1)))
+__kernel void search(__global unsigned char* block, volatile __global uint* output, const ulong target)
+{
+    uint gid = get_global_id(0);
 
-#define PERM_SMALL_Pf(a)   do { \
-		for (int r = 0; r < 9; r ++) { \
-			ROUND_SMALL_P(a, r);} \
-            ROUND_SMALL_Pf(a,9); \
-	} while (0)
+    __local sph_u64 T0_L[256], T1_L[256], T2_L[256], T3_L[256], T4_L[256], T5_L[256], T6_L[256], T7_L[256];
+    int init = get_local_id(0);
+    int step = get_local_size(0);
+    for (int i = init; i < 256; i += step)
+    {
+        T0_L[i] = T0[i];
+        T1_L[i] = T1[i];
+        T2_L[i] = T2[i];
+        T3_L[i] = T3[i];
+        T4_L[i] = T4[i];
+        T5_L[i] = T5[i];
+        T6_L[i] = T6[i];
+        T7_L[i] = T7[i];
+    }
+    barrier(CLK_LOCAL_MEM_FENCE);
 
-#define PERM_SMALL_Q(a)   do { \
-		for (int r = 0; r < 10; r ++) \
-			ROUND_SMALL_Q(a, r); \
-	} while (0)
+#define T0 T0_L
+#define T1 T1_L
+#define T2 T2_L
+#define T3 T3_L
+#define T4 T4_L
+#define T5 T5_L
+#define T6 T6_L
+#define T7 T7_L
+
+    //round 1 preparations
+    sph_u64 H[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x0002000000000000};
+    sph_u64 g[16], m[16];
+    g[0] = m[0] = (*(const __global sph_u64 *) (block));
+    g[1] = m[1] = (*(const __global sph_u64 *) (block + 8));
+    g[2] = m[2] = (*(const __global sph_u64 *) (block + 16));
+    g[3] = m[3] = (*(const __global sph_u64 *) (block + 24));
+    g[4] = m[4] = (*(const __global sph_u64 *) (block + 32));
+    g[5] = m[5] = (*(const __global sph_u64 *) (block + 40));
+    g[6] = m[6] = (*(const __global sph_u64 *) (block + 48));
+    g[7] = m[7] = (*(const __global sph_u64 *) (block + 56));
+    g[8] = m[8] = (*(const __global sph_u64 *) (block + 64));
+    g[9] = m[9] = ((sph_u64) gid << 32) | (((*(const __global sph_u64 *) (block + 72))) & 0x00000000FFFFFFFF);
+    g[10] = m[10] = 0x80;
+    g[11] = m[11] = 0;
+    g[12] = m[12] = 0;
+    g[13] = m[13] = 0;
+    g[14] = m[14] = 0;
+    g[15] = 0x102000000000000;
+    m[15] = 0x100000000000000;
+
+    //round 1 computing
+    PERM_BIG_P(g);
+    PERM_BIG_Q(m);
+
+    sph_u64 xH[16];
+    for (unsigned int u = 0; u < 16; u ++)
+    {
+        H[u] ^= g[u] ^ m[u];
+        xH[u] = H[u];
+    }
+
+    PERM_BIG_P(xH);
+
+    //round 2 preparations
+    g[0] = m[0] = H[8] ^ xH[8];
+    g[1] = m[1] = H[9] ^ xH[9];
+    g[2] = m[2] = H[10] ^ xH[10];
+    g[3] = m[3] = H[11] ^ xH[11];
+    g[4] = m[4] = H[12] ^ xH[12];
+    g[5] = m[5] = H[13] ^ xH[13];
+    g[6] = m[6] = H[14] ^ xH[14];
+    g[7] = m[7] = H[15] ^ xH[15];
+    g[8] = m[8] = 0x80;
+    g[9] = m[9] = 0;
+    g[10] = m[10] = 0;
+    g[11] = m[11] = 0;
+    g[12] = m[12] = 0;
+    g[13] = m[13] = 0;
+    g[14] = m[14] = 0;
+    g[15] = 0x102000000000000;
+    m[15] = 0x100000000000000;
+
+    H[0] = 0;
+    H[1] = 0;
+    H[2] = 0;
+    H[3] = 0;
+    H[4] = 0;
+    H[5] = 0;
+    H[6] = 0;
+    H[7] = 0;
+    H[8] = 0;
+    H[9] = 0;
+    H[10] = 0;
+    H[11] = 0;
+    H[12] = 0;
+    H[13] = 0;
+    H[14] = 0;
+    H[15] = 0x02000000000000;
+
+    //round 2 computing
+    PERM_BIG_P(g);
+    PERM_BIG_Q(m);
+
+    for (unsigned int u = 0; u < 16; u ++)
+    {
+        H[u] ^= g[u] ^ m[u];
+        xH[u] = H[u];
+    }
+
+    PERM_BIG_P(xH);
+
+    //result
+    if ((H[11] ^ xH[11]) <= target)
+        output[output[0xFF]++] = as_uint(as_uchar4(gid).wzyx);
+}
+
+#endif // GROESTLCOIN_CL

@@ -11,7 +11,6 @@ using System.Windows;
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using GroestlCoin_EasyMiner_2017.Business_Logic;
@@ -199,32 +198,60 @@ namespace GroestlCoin_EasyMiner_2017 {
                     ProcessStartInfo info = new ProcessStartInfo {
                         FileName = "cmd.exe",
                         Arguments =
-                            $"/C {fullPathWithQuotes} -g 4 -w 64 -k groestlcoin --no-submit-stale -o \"{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()}\" -u {MiningOperations.MiningPoolUsername.Trim()} -p {MiningOperations.MiningPoolPassword.Trim()}  -I {MiningOperations.MiningIntensity} --text-only",
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true,
+                            $"/C {fullPathWithQuotes} -g 4 -w 64 -k groestlcoin --no-submit-stale -o \"{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()}\" -u {MiningOperations.MiningPoolUsername.Trim()} -p {MiningOperations.MiningPoolPassword.Trim()}  -I {MiningOperations.MiningIntensity} --text-only --debug --gpu-engine 1000 --gpu-memclock 1500 --temp-target 85 --auto-fan --temp-overheat 94 --temp-cutoff 99 >log.txt",
+                      //  RedirectStandardOutput = true,
+                      //  RedirectStandardError = true,
+                        CreateNoWindow = false,
                         UseShellExecute = false
                     };
                     process.StartInfo = info;
+                  //  MessageBox.Show(info.Arguments);
                     process.EnableRaisingEvents = true;
-                    process.ErrorDataReceived += (o, eventArgs) => {
-                        try {
-                            Dispatcher.Invoke(() => {
-                                var lines = uxGpuLog.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
-                                
-                                if (lines.Count() == 30) {
-                                    lines.RemoveAt(0);
-                                }
-                                lines.Add(eventArgs.Data);
-                                uxGpuLog.Text = string.Join(Environment.NewLine, lines);
-                                
-                                uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
-                            });
-                        }
-                        catch {
-                            //Do Nothing
-                        }
-                    };
+
+                    //process.OutputDataReceived += (o, eventArgs) => {
+                    //    try {
+                    //        Dispatcher.Invoke(() => {
+                    //            var lines =
+                    //                uxGpuLog.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None)
+                    //                    .ToList();
+
+                    //            if (lines.Count() == 30) {
+                    //                lines.RemoveAt(0);
+                    //            }
+                    //            lines.Add(eventArgs.Data);
+                    //            uxGpuLog.Text = string.Join(Environment.NewLine, lines);
+
+                    //            uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                    //        });
+                    //    }
+//                        catch (Exception e) {
+//#if DEBUG
+//                            MessageBox.Show("Errr: " + e.Message);
+//                            //Do Nothing
+//#endif
+//                        }
+//                    };
+//                    process.ErrorDataReceived += (o, eventArgs) => {
+//                        try {
+//                            Dispatcher.Invoke(() => {
+//                                var lines = uxGpuLog.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+
+//                                if (lines.Count() == 30) {
+//                                    lines.RemoveAt(0);
+//                                }
+//                                lines.Add(eventArgs.Data);
+//                                uxGpuLog.Text = string.Join(Environment.NewLine, lines);
+
+//                                uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+//                            });
+//                        }
+//                        catch (Exception e) {
+//#if DEBUG
+//                            MessageBox.Show("Errr: " + e.Message);
+//                            //Do Nothing
+//#endif
+//                        }
+//                    };
                     process.Start();
                     MiningOperations.GpuStarted = true;
                     process.BeginErrorReadLine();
