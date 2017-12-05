@@ -40,12 +40,12 @@
     <ApplicationIcon>Resources\Easyminer-Icon %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=2.3.1.953, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.2.3.1.953\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.3.2.1016, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.3.2-ci1016\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
@@ -144,244 +144,246 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\Miners\AMD Miner\kernel\aes_helper.cl">
+    <Content Include="Resources\Miners\AMD Miner\kernel\aes_helper.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\alexkarnew.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\alexkarnew.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\alexkarold.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\alexkarold.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\animecoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\animecoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\arebyp.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\arebyp.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\bitblock.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\bitblock.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\bitblockold.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\bitblockold.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\blake.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\blake.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\blake256.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\blake256.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\blake256r14.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\blake256r14.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\blake256r8.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\blake256r8.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\bmw.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\bmw.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\bmw256.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\bmw256.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\bufius.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\bufius.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\ckolivas.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\ckolivas.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\credits.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\credits.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\cryptonight.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\cryptonight.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\cubehash.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\cubehash.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\cubehash256.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\cubehash256.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\darkcoin-mod.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\darkcoin-mod.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\darkcoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\darkcoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\diamond.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\diamond.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\echo.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\echo.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\equihash.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\equihash.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\ethash-genoil.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\ethash-genoil.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\ethash.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\ethash.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\fresh.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\fresh.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\fugue.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\fugue.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\fuguecoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\fuguecoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\groestl.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestl.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\groestl256.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestl256.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\groestlcoin-v1.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestlcoin-v1.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\groestlcoin-v2.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestlcoin-v2.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\groestlcoin-v3.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestlcoin-v3.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\groestlcoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\groestlcoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\hamsi.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\hamsi.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\hamsi_helper.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\hamsi_helper.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\hamsi_helper_big.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\hamsi_helper_big.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\inkcoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\inkcoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\jh.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\jh.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\keccak.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\keccak.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\keccak1600.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\keccak1600.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\luffa.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\luffa.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\lyra2.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\lyra2.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\lyra2re.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\lyra2re.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\lyra2rev2.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\lyra2rev2.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\lyra2v2.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\lyra2v2.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\marucoin-mod.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\marucoin-mod.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\marucoin-modold.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\marucoin-modold.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\marucoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\marucoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\maxcoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\maxcoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\myriadcoin-groestl.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\myriadcoin-groestl.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\neoscrypt.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\neoscrypt.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\panama.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\panama.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\pluck.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\pluck.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\psw.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\psw.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\quarkcoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\quarkcoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\qubitcoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\qubitcoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\shabal.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\shabal.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\shavite.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\shavite.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\sifcoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\sifcoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\simd.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\simd.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\skein.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\skein.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\skein256.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\skein256.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\talkcoin-mod.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\talkcoin-mod.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\twecoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\twecoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\vanilla.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\vanilla.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\whirlcoin.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\whirlcoin.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\whirlpool.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\whirlpool.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\whirlpoolx.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\whirlpoolx.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\wolf-aes.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\wolf-aes.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\wolf-skein.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\wolf-skein.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\x14.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\x14.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\x14old.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\x14old.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\yescrypt-multi.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\yescrypt-multi.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\yescrypt.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\yescrypt.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\yescrypt_essential.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\yescrypt_essential.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Miners\AMD Miner\kernel\zuikkis.cl">
+    </Content>
+    <Content Include="Resources\Miners\AMD Miner\kernel\zuikkis.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Resource Include="Resources\Comfortaa-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Miners\AMD Miner\doc\" />

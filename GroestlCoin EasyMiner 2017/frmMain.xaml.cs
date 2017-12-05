@@ -189,16 +189,16 @@ namespace GroestlCoin_EasyMiner_2017 {
                 var path = executingAssembly + @"\Resources\Miners\AMD Miner\sgminer.exe";
                 var folderNames = path.Split('\\');
 
-                folderNames = folderNames.Select(fn => (fn.Contains(' ')) ? String.Format("\"{0}\"", fn) : fn)
+                folderNames = folderNames.Select(fn => (fn.Contains(' ')) ? $"\"{fn}\"" : fn)
                                          .ToArray();
 
-                var fullPathWithQuotes = String.Join("\\", folderNames);
+                var fullPathWithQuotes = string.Join("\\", folderNames);
 
                 using (var process = new Process()) {
                     ProcessStartInfo info = new ProcessStartInfo {
                         FileName = "cmd.exe",
                         Arguments =
-                            $"/C {fullPathWithQuotes} -g 4 -w 64 -k groestlcoin --no-submit-stale -o \"{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()}\" -u {MiningOperations.MiningPoolUsername.Trim()} -p {MiningOperations.MiningPoolPassword.Trim()}  -I {MiningOperations.MiningIntensity} --text-only --debug --gpu-engine 1000 --gpu-memclock 1500 --temp-target 85 --auto-fan --temp-overheat 94 --temp-cutoff 99 >log.txt",
+                            $"/C {fullPathWithQuotes} -g 4 -w 64 -k groestlcoin --no-submit-stale -o \"{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()}\" -u {MiningOperations.MiningPoolUsername.Trim()} -p {MiningOperations.MiningPoolPassword.Trim()}  -I {MiningOperations.MiningIntensity} --text-only --debug",
                       //  RedirectStandardOutput = true,
                       //  RedirectStandardError = true,
                         CreateNoWindow = false,
@@ -254,7 +254,7 @@ namespace GroestlCoin_EasyMiner_2017 {
 //                    };
                     process.Start();
                     MiningOperations.GpuStarted = true;
-                    process.BeginErrorReadLine();
+                //    process.BeginErrorReadLine();
                     process.WaitForExit();
                     Dispatcher.Invoke(() => OnGpuMinerClosed(new EventArgs()));
                 }
@@ -265,13 +265,8 @@ namespace GroestlCoin_EasyMiner_2017 {
                     args.Cancel = true;
                     return;
                 }
-                var intensity = 8;
-                if (MiningOperations.MiningIntensity < 8) {
-                    intensity = 8;
-                }
-                else {
-                    intensity = MiningOperations.MiningIntensity;
-                }
+                int intensity;
+                intensity = MiningOperations.MiningIntensity < 8 ? 8 : MiningOperations.MiningIntensity;
 
                 using (var process = new Process()) {
                     ProcessStartInfo info = new ProcessStartInfo {
