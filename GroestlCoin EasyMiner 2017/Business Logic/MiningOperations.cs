@@ -45,14 +45,14 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             get {
                 var hasGpu = false;
                 try {
-                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("nvidia"));
+                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("nvidia") || d.Details.Description.ToLower().Contains("quadro"));
                 }
                 catch {
                     hasGpu = false;
                 }
                 finally {
                     if (hasGpu == false) {
-                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("nvidia"));
+                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("nvidia") || d.ToLower().Contains("quadro"));
                     }
                 }
                 return hasGpu;
@@ -63,14 +63,14 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             get {
                 var hasGpu = false;
                 try {
-                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("amd"));
+                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("amd") || d.Details.Description.ToLower().Contains("firepro"));
                 }
                 catch {
                     hasGpu = false;
                 }
                 finally {
                     if (hasGpu == false) {
-                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("amd"));
+                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("amd") || d.ToLower().Contains("firepro"));
                     }
                 }
                 return hasGpu;
