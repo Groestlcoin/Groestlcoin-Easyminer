@@ -26,7 +26,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5">
+    <Border BorderThickness="2" BorderBrush="{StaticResource LightColor}" CornerRadius="5">
     <Grid Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="25px"></RowDefinition>
@@ -50,35 +50,35 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Rectangle Grid.Row="0" Grid.Column="0" Fill="{StaticResource GrsLogo}" Height="48" Width="48" HorizontalAlignment="Center"/>
-            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource LabelLight}" FontSize="26" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Groestlcoin Easyminer</Label>
-            <Label Grid.Row="1" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Website:</Label>
-            <Label Grid.Row="2" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Facebook:</Label>
-            <Label Grid.Row="3" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Twitter:</Label>
-            <Label Grid.Row="4" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Reddit:</Label>
-            <Label Grid.Row="5" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Discord:</Label>
-            <Label Grid.Row="6" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Github:</Label>
-            <Label Grid.Row="7" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Developer:</Label>
-            <Label Grid.Row="8" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Right">Donate:</Label>
-            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Foreground="White">
-                <Hyperlink NavigateUri="https://www.groestlcoin.org" Foreground="White" RequestNavigate="Hyperlink_OnRequestNavigate">https://www.groestlcoin.org</Hyperlink>
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource LabelLight}" FontSize="26" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Groestlcoin Easyminer</Label>
+            <Label Grid.Row="1" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Website:</Label>
+            <Label Grid.Row="2" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Facebook:</Label>
+            <Label Grid.Row="3" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Twitter:</Label>
+            <Label Grid.Row="4" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Reddit:</Label>
+            <Label Grid.Row="5" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Discord:</Label>
+            <Label Grid.Row="6" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Github:</Label>
+            <Label Grid.Row="7" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Developer:</Label>
+            <Label Grid.Row="8" Style="{StaticResource LabelLight}" FontSize="12" VerticalAlignment="Center" Foreground="{StaticResource LightColor}" HorizontalAlignment="Right">Donate:</Label>
+            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource LightColor}">
+                <Hyperlink NavigateUri="https://www.groestlcoin.org" Foreground="{StaticResource LightColor}" RequestNavigate="Hyperlink_OnRequestNavigate">https://www.groestlcoin.org</Hyperlink>
             </TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Foreground="White">
-                <Hyperlink NavigateUri="https://www.facebook.com/groestlcoin" Foreground="White" RequestNavigate="Hyperlink_OnRequestNavigate">https://www.facebook.com/groestlcoin</Hyperlink>
+            <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource LightColor}">
+                <Hyperlink NavigateUri="https://www.facebook.com/groestlcoin" Foreground="{StaticResource LightColor}" RequestNavigate="Hyperlink_OnRequestNavigate">https://www.facebook.com/groestlcoin</Hyperlink>
             </TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Foreground="White">
-                <Hyperlink NavigateUri="https://twitter.com/GroestlcoinTeam" Foreground="White" RequestNavigate="Hyperlink_OnRequestNavigate">https://twitter.com/GroestlcoinTeam</Hyperlink>
+            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource LightColor}">
+                <Hyperlink NavigateUri="https://twitter.com/GroestlcoinTeam" Foreground="{StaticResource LightColor}" RequestNavigate="Hyperlink_OnRequestNavigate">https://twitter.com/GroestlcoinTeam</Hyperlink>
             </TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Foreground="White">
-                <Hyperlink NavigateUri="https://www.reddit.com/r/groestlcoin/" Foreground="White" RequestNavigate="Hyperlink_OnRequestNavigate">https://www.reddit.com/r/groestlcoin/</Hyperlink>
+            <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource LightColor}">
+                <Hyperlink NavigateUri="https://www.reddit.com/r/groestlcoin/" Foreground="{StaticResource LightColor}" RequestNavigate="Hyperlink_OnRequestNavigate">https://www.reddit.com/r/groestlcoin/</Hyperlink>
             </TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Foreground="White">
-                <Hyperlink NavigateUri="https://discord.gg/8VURndr" Foreground="White" RequestNavigate="Hyperlink_OnRequestNavigate">https://discord.gg/8VURndr</Hyperlink>
+            <TextBlock Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource LightColor}">
+                <Hyperlink NavigateUri="https://discord.gg/8VURndr" Foreground="{StaticResource LightColor}" RequestNavigate="Hyperlink_OnRequestNavigate">https://discord.gg/8VURndr</Hyperlink>
             </TextBlock>
-            <TextBlock Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Foreground="White">
-                <Hyperlink NavigateUri="https://github.com/Groestlcoin/" Foreground="White" RequestNavigate="Hyperlink_OnRequestNavigate">https://github.com/Groestlcoin/</Hyperlink>
+            <TextBlock Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource LightColor}">
+                <Hyperlink NavigateUri="https://github.com/Groestlcoin/" Foreground="{StaticResource LightColor}" RequestNavigate="Hyperlink_OnRequestNavigate">https://github.com/Groestlcoin/</Hyperlink>
             </TextBlock>
-            <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Foreground="White">Yokomoko</TextBlock>
-            <TextBox Grid.Row="8" Grid.Column="1" IsReadOnly="True" Height="25" Foreground="White" BorderThickness="0" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" HorizontalAlignment="Left">FX31y8bTongNXqMuDQMxFtf79L3wXpi3oz</TextBox>
+            <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource LightColor}">Yokomoko</TextBlock>
+            <TextBox Grid.Row="8" Grid.Column="1" IsReadOnly="True" Height="25" Foreground="{StaticResource LightColor}" BorderThickness="0" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" HorizontalAlignment="Left">FX31y8bTongNXqMuDQMxFtf79L3wXpi3oz</TextBox>
         </Grid>
     </Grid>
     </Border>
