@@ -17,7 +17,7 @@
         ResizeMode="NoResize"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Icon="/Resources/GRS-logo.ico" BorderThickness="0"
-        Title="Groestlcoin EasyMiner 2018" Height="500" Width="575" SizeToContent="Height" MaxHeight="750" Closing="Window_Closing">
+        Title="Groestlcoin EasyMiner 2018" Height="500" Width="580" SizeToContent="Height" MaxHeight="750" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -28,76 +28,68 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border CornerRadius="5" BorderThickness="2" BorderBrush="#263238">
+    <Border CornerRadius="5" BorderThickness="2" BorderBrush="White">
         <Grid Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25px"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <local:Titlebar BorderThickness="0" IsMainWindow="True"></local:Titlebar>
+            <local:Titlebar x:Name="Titlebar" BorderThickness="0" IsMainWindow="True"></local:Titlebar>
             <Grid Margin="5,10,5,10" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="85px"/>
-                    <RowDefinition Height="145"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" VerticalAlignment="Top">
+                <Grid Grid.Row="0" VerticalAlignment="Top" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Rectangle Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Stretch="Fill" Height="80" Width="570" Fill="{StaticResource GRSMiningLogo}"/>
                 </Grid>
-                <GroupBox Grid.Row="1" Style="{DynamicResource GroupBoxStyle1}">
-                    <GroupBox.Header>
-                        <Label Margin="0" Height="25"  Style="{DynamicResource LabelDark}">Wallet Address + Hardware</Label>
-                    </GroupBox.Header>
-                    <StackPanel HorizontalAlignment="Stretch" Height="90px">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition Height="60px"/>
-                            </Grid.RowDefinitions>
-                            <CheckBox Name="UxCpuTgl" Height="50px" Width="70px" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ToolTip="CPU Mining" Style="{DynamicResource ColourfulCheckBox}">
-                                <ToggleButton.Content>
-                                    <Rectangle Fill="{DynamicResource CpuLogo}" Width="48" Height="48"></Rectangle>
-                                </ToggleButton.Content>
-                            </CheckBox>
-                            <CheckBox Name="uxnVidiaRb" Grid.Column="2" Grid.Row="1" Height="50px" Width="76px" ToolTip="nVidia Mining" Checked="UxnVidiaRb_OnChecked" Style="{DynamicResource ColourfulCheckBox}" HorizontalAlignment="Right">
-                                <CheckBox.Content>
-                                    <Rectangle Fill="{DynamicResource NVidiaLogo}" Width="56" Height="48"></Rectangle>
-                                </CheckBox.Content>
-                            </CheckBox>
-                            <CheckBox Name="uxnAMDRb" Grid.Column="3" Grid.Row="1" Width="70px" Height="50px" ToolTip="AMD Mining" Checked="UxAmdRb_OnChecked" Style="{DynamicResource ColourfulCheckBox}" HorizontalAlignment="Right">
-                                <CheckBox.Content>
-                                    <Rectangle Fill="{DynamicResource AmdLogo}" Width="48" Height="48"></Rectangle>
-                                </CheckBox.Content>
-                            </CheckBox>
-                            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
+                <Expander Grid.Row="1" x:Name="UxStandardSettings" IsExpanded="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#263238" Style="{DynamicResource ExpanderStyle}">
+                    <Expander.Header>
+                        <Label Padding="5,0,0,0" Style="{DynamicResource LabelLight}">Standard Settings</Label>
+                    </Expander.Header>
+                    <GroupBox Grid.Row="1" Style="{DynamicResource GroupBoxStyle1}">
+                        <GroupBox.Header>
+                            <Label Margin="0" Height="25"  Style="{DynamicResource LabelDark}">Wallet Address + Hardware</Label>
+                        </GroupBox.Header>
+                        <StackPanel HorizontalAlignment="Stretch" Height="90px">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="80"/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                    <Label Grid.Column="0" Grid.Row="0" Style="{DynamicResource LabelLight}" HorizontalAlignment="Left">Address:</Label>
-                                    <TextBox Width="260" Name="TxtAddress" Height="25" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" HorizontalAlignment="Left"></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0">
-                                    <Label Style="{DynamicResource LabelLight}" HorizontalAlignment="Right">Intensity</Label>
-                                    <Slider Name="uxIntervalSlider" Margin="5,0,10,0" IsSnapToTickEnabled="True"  Width="100" Maximum="20" Minimum="8" ValueChanged="RangeBase_OnValueChanged" SmallChange="0" Foreground="{StaticResource LightColor}" VerticalAlignment="Center"/>
-                                    <TextBox Width="20" MaxLength="2" BorderThickness="0" IsReadOnly="True" Margin="0,0,0,0" TextAlignment="Center" PreviewTextInput="UxIntensityTxt_OnPreviewTextInput" Name="UxIntensityTxt" Height="25" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}">19</TextBox>
-                                    <Image x:Name="UxIntensityHelp" HorizontalAlignment="Right" Source="{StaticResource HelpIcon}" Margin="5,0,0,0"  Width="16" Height="16" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave"/>
-                                    <Popup x:Name="UxIntensityPopup" Opacity="20" Placement="Right" VerticalOffset="-1" HorizontalOffset="5" Height="Auto" AllowsTransparency="True" Margin="10,0,0,0" PlacementTarget="{Binding ElementName=UxIntensityHelp}" IsOpen="False" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50px"/>
+                                    <RowDefinition Height="30px"/>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.RowSpan="2" Name="UxCpuTgl" Height="50px" Width="70px" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" ToolTip="CPU Mining" Style="{DynamicResource ColourfulCheckBox}">
+                                    <ToggleButton.Content>
+                                        <Rectangle Fill="{DynamicResource CpuLogo}" Width="48" Height="48"></Rectangle>
+                                    </ToggleButton.Content>
+                                </CheckBox>
+                                <CheckBox Name="uxnVidiaRb" Grid.Column="2" Grid.Row="0" Height="50px" Width="76px" ToolTip="nVidia Mining" Checked="UxnVidiaRb_OnChecked" Style="{DynamicResource ColourfulCheckBox}" HorizontalAlignment="Right">
+                                    <CheckBox.Content>
+                                        <Rectangle Fill="{DynamicResource NVidiaLogo}" Width="48" Height="40"></Rectangle>
+                                    </CheckBox.Content>
+                                </CheckBox>
+                                <CheckBox Name="uxnAMDRb" Padding="0,2,0,0" Grid.Column="3" Grid.Row="0" Width="60px" Height="50px" ToolTip="AMD Mining" Checked="UxAmdRb_OnChecked" Style="{DynamicResource ColourfulCheckBox}" HorizontalAlignment="Right">
+                                    <CheckBox.Content>
+                                        <Rectangle Fill="{DynamicResource AmdLogo}" Width="40" Height="40"></Rectangle>
+                                    </CheckBox.Content>
+                                </CheckBox>
+                                <StackPanel Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0">
+                                    <Image x:Name="UxIntensityHelp" HorizontalAlignment="Right" VerticalAlignment="Center" Source="{StaticResource HelpIcon}" Margin="5,0,0,0"  Width="16" Height="16" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave"/>
+                                    <Popup x:Name="UxIntensityPopup" Opacity="20" Placement="Left" VerticalOffset="-1" HorizontalOffset="-5" Height="Auto" AllowsTransparency="True" Margin="10,0,0,0" PlacementTarget="{Binding ElementName=UxIntensityHelp}" IsOpen="False" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave">
                                         <Border BorderThickness="2" CornerRadius="5" Margin="10,0,0,0" BorderBrush="{StaticResource LightColor}" Background="{StaticResource DarkColor}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -109,13 +101,21 @@
                                             </Grid>
                                         </Border>
                                     </Popup>
-                                </StackPanel>
-                            </Grid>
+                                    <Label Style="{DynamicResource LabelLight}" HorizontalAlignment="Right" VerticalAlignment="Center">GPU Intensity</Label>
+                                    <Slider Orientation="Horizontal" Name="uxIntervalSlider" VerticalContentAlignment="Center" IsSnapToTickEnabled="True"  Width="90" Maximum="20" Minimum="8" ValueChanged="RangeBase_OnValueChanged" SmallChange="0" Foreground="{StaticResource LightColor}" VerticalAlignment="Center"/>
+                                    <TextBox Width="20" MaxLength="2" BorderThickness="0" IsReadOnly="True" Margin="0,0,0,0" TextAlignment="Center" VerticalAlignment="Center" PreviewTextInput="UxIntensityTxt_OnPreviewTextInput" Name="UxIntensityTxt" Height="25" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}">19</TextBox>
 
-                        </Grid>
-                    </StackPanel>
-                </GroupBox>
-                <Expander x:Name="UxAdvancedSettings" IsExpanded="False" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Expanded="UxAdvancedSettings_OnExpanded" Background="#263238">
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                    <Label Style="{DynamicResource LabelLight}" VerticalAlignment="Center" HorizontalAlignment="Left">Address:</Label>
+                                    <TextBox Width="260" VerticalAlignment="Center" Name="TxtAddress" Height="25" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" HorizontalAlignment="Left"></TextBox>
+                                   </StackPanel>
+                                <Button Grid.Column="1" Grid.Row="1" Background="{DynamicResource LightColor}" Foreground="{StaticResource DarkColor}" Name="UxGetWalletAddressTxt" HorizontalAlignment="Center" Height="20" FontSize="12" ToolTip="If you use Electrum-GRS, the application will populate the receiving address for you." Click="UxGetWalletAddressTxt_Click">Reset Address</Button>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                </Expander>
+                <Expander Padding="5,0,0,0" x:Name="UxAdvancedSettings" IsExpanded="False" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Style="{DynamicResource ExpanderStyle}" Expanded="UxAdvancedSettings_OnExpanded" Background="#263238">
                     <Expander.Header>
                         <Label Style="{DynamicResource LabelLight}">Advanced</Label>
                     </Expander.Header>
@@ -135,7 +135,7 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                 
+
                                         <RadioButton Foreground="{StaticResource LightColor}" GroupName="Pool" Name="RbUsedwarfPool" IsChecked="True" Checked="PoolRadioOptions">Use DwarfPool (default)</RadioButton>
                                         <TextBlock Name="uxViewdwarfPool" Grid.Column="1" HorizontalAlignment="Right">
                                             <Hyperlink NavigateUri="https://dwarfpool.com/grs/address?wallet=" RequestNavigate="UxViewDwarfPoolHl_OnRequestNavigate" Name="uxViewDwarfPoolHl"  Foreground="{StaticResource LightColor}">View Dwarfpool</Hyperlink>
@@ -178,7 +178,7 @@
                         </Grid>
                     </ScrollViewer>
                 </Expander>
-                <Expander x:Name="UxLogsExpander" IsExpanded="False" Grid.Row="4"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Expanded="UxLogsExpander_OnExpanded" Visibility="Collapsed" Background="Transparent">
+                <Expander Padding="5,0,0,0" x:Name="UxLogsExpander"  Style="{DynamicResource ExpanderStyle}" IsExpanded="False" Grid.Row="4"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Expanded="UxLogsExpander_OnExpanded" Visibility="Collapsed" Background="Transparent">
                     <Expander.Header>
                         <Label Style="{DynamicResource LabelLight}">Logs</Label>
                     </Expander.Header>
@@ -209,10 +209,9 @@
                         </GroupBox>
                     </Grid>
                 </Expander>
-                <ProgressBar Grid.Row="5" Name="ProgressBar" Margin="10,5,10,5"></ProgressBar>
+                <ProgressBar Grid.Row="5" Name="ProgressBar" Margin="10,5,10,5" Visibility="Collapsed"></ProgressBar>
                 <StackPanel Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button Background="{DynamicResource LightColor}" Foreground="{StaticResource DarkColor}" Margin="0,0,10,0" Name="UxGetWalletAddressTxt"   ToolTip="If you use Electrum-GRS, the application will populate the receiving address for you." Click="UxGetWalletAddressTxt_Click">Get Wallet Address</Button>
-                    <Button Name="BtnStart" Click="BtnStart_OnClick" Background="{DynamicResource LightColor}" Foreground="{StaticResource DarkColor}" >Start Mining</Button>
+                   <Button Name="BtnStart" Click="BtnStart_OnClick" Background="{DynamicResource LightColor}" Foreground="{StaticResource DarkColor}" >Start Mining</Button>
                 </StackPanel>
             </Grid>
         </Grid>

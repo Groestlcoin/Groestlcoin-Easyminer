@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using GroestlCoin_EasyMiner_2018.Business_Logic;
 using Clipboard = System.Windows.Clipboard;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
 
 
 namespace GroestlCoin_EasyMiner_2018 {
@@ -85,9 +86,12 @@ namespace GroestlCoin_EasyMiner_2018 {
                 UxIntensityTxt.IsEnabled = false;
                 RbUsedwarfPool.IsEnabled = false;
                 RbCustomPool.IsEnabled = false;
+                ProgressBar.Visibility = Visibility.Visible;
 
+                UxStandardSettings.IsExpanded = false;
                 UxAdvancedSettings.IsExpanded = false;
                 UxLogsExpander.IsExpanded = true;
+                UxGetWalletAddressTxt.Visibility = Visibility.Collapsed;
 
                 if (UxCpuTgl.IsChecked == true) {
                     _cpuBg.RunWorkerAsync();
@@ -119,9 +123,12 @@ namespace GroestlCoin_EasyMiner_2018 {
                 UxIntensityTxt.IsEnabled = true;
                 RbUsedwarfPool.IsEnabled = true;
                 RbCustomPool.IsEnabled = true;
+                UxGetWalletAddressTxt.Visibility = Visibility.Visible;
 
+                UxStandardSettings.IsExpanded = true;
                 UxLogsExpander.IsExpanded = false;
                 ProgressBar.IsIndeterminate = false;
+                ProgressBar.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -400,7 +407,11 @@ namespace GroestlCoin_EasyMiner_2018 {
                 guide.ShowDialog();
             }
             else {
-                TxtAddress.Text = MiningOperations.GetAddress();
+                if (TxtAddress.Text == MiningOperations.GetAddress()) return;
+                var messageBoxResult = MessageBox.Show(this, "Warning: Resetting your mining address will reset your rewards. Are you sure?", "Address Warning", MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes) {
+                    TxtAddress.Text = MiningOperations.GetAddress();
+                }
             }
         }
 
@@ -480,11 +491,30 @@ namespace GroestlCoin_EasyMiner_2018 {
         }
 
         private void UxCpuLog_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e) {
-            Clipboard.SetText(uxCpuLog.Text);
+            try {
+                Clipboard.SetText(uxCpuLog.Text);
+                MessageBox.Show(this, "Copied to Clipboard");
+            }
+            catch {
+
+            }
+
         }
 
         private void UxGpuLog_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e) {
-            Clipboard.SetText(uxGpuLog.Text);
+            try {
+                Clipboard.SetText(uxGpuLog.Text);
+                MessageBox.Show(this, "Copied to Clipboard");
+            }
+            catch {
+
+            }
+
+
+        }
+
+        private void UIElement_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+            this?.DragMove();
         }
     }
 }
