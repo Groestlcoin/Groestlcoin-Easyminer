@@ -95,24 +95,23 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             var euAddress = "erebor.dwarfpool.com";
 
             var ping = new Ping();
-            var americanServer = ping.Send(usAddress);
-            var europeanServer = ping.Send(euAddress);
 
-            long usTime = 9999;
-            long euTime = 9999;
+            long americanServerTime = 9999;
+            long europeanServerTime = 9999;
 
-            if (americanServer?.Status == IPStatus.Success) {
-                usTime = americanServer.RoundtripTime;
+            for (int i = 0; i < 4; i++) {
+                var americanServer = ping.Send(usAddress, 4);
+                var europeanServer = ping.Send(euAddress, 4);
+                if (americanServer?.Status != IPStatus.Success) continue;
+                if (americanServer?.RoundtripTime < americanServerTime) {
+                    americanServerTime = americanServer.RoundtripTime;
+                }
+                if (europeanServer?.Status != IPStatus.Success) continue;
+                if (europeanServer?.RoundtripTime < americanServerTime) {
+                    europeanServerTime = europeanServer.RoundtripTime;
+                }
             }
-            if (europeanServer?.Status == IPStatus.Success) {
-                euTime = europeanServer.RoundtripTime;
-            }
-            if (usTime <= euTime) {
-                return usAddress + ":3345";
-            }
-            else {
-                return euAddress + ":3345";
-            }
+            return (americanServerTime <= europeanServerTime ? usAddress : euAddress) + ":3345";
         }
 
         public static string GetAddress() {
