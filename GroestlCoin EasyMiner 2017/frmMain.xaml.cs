@@ -219,7 +219,7 @@ namespace GroestlCoin_EasyMiner_2018 {
                     ProcessStartInfo info = new ProcessStartInfo {
                         FileName = "cmd.exe",
                         Arguments =
-                            $"/C {fullPathWithQuotes} -g 4 -w 64 -k groestlcoin --no-submit-stale -o \"{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()}\" -u {MiningOperations.MiningPoolUsername.Trim()} -p {MiningOperations.MiningPoolPassword.Trim()}  -I {MiningOperations.MiningIntensity} --text-only --debug",
+                            $"/C {fullPathWithQuotes} -g 4 -w 64 -k groestlcoin --no-submit-stale -o \"{MiningOperations.MiningPoolAddress.ToLower().Replace("stratum+tcp://", "").Trim()}\" -u {MiningOperations.MiningPoolUsername.Trim()} -p {MiningOperations.MiningPoolPassword.Trim()}  -I {MiningOperations.MiningIntensity} --text-only",
                         //  RedirectStandardOutput = true,
                         //  RedirectStandardError = true,
                         CreateNoWindow = false,
