@@ -7,10 +7,10 @@ using System.Management;
 using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 using SlimDX.Direct3D9;
-using GroestlCoin_EasyMiner_2017.Business_Logic;
-using GroestlCoin_EasyMiner_2017.Properties;
+using GroestlCoin_EasyMiner_2018.Business_Logic;
+using GroestlCoin_EasyMiner_2018.Properties;
 
-namespace GroestlCoin_EasyMiner_2017.Business_Logic {
+namespace GroestlCoin_EasyMiner_2018.Business_Logic {
     class MiningOperations {
         public enum GpuMiningSettings {
             None = 0,
@@ -23,12 +23,20 @@ namespace GroestlCoin_EasyMiner_2017.Business_Logic {
 
         public static bool WalletFileExists => File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Electrum-grs\wallets\default_wallet");
 
-        public static AdapterCollection GpuModels => new Direct3D().Adapters;
+        public static AdapterCollection GpuModels {
+            get {
+                try {
+                    return new Direct3D().Adapters;
+                }
+                catch {
+                    return null;
+                }
+            }
+        }
 
         public static List<string> GpuModels2 {
             get {
-                ManagementObjectSearcher searcher =
-    new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
                 return (from ManagementBaseObject mo in searcher.Get() select mo.Properties["Description"].ToString()).ToList();
             }
         }
@@ -37,14 +45,14 @@ namespace GroestlCoin_EasyMiner_2017.Business_Logic {
             get {
                 var hasGpu = false;
                 try {
-                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("nvidia"));
+                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("nvidia") || d.Details.Description.ToLower().Contains("quadro"));
                 }
                 catch {
                     hasGpu = false;
                 }
                 finally {
                     if (hasGpu == false) {
-                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("nvidia"));
+                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("nvidia") || d.ToLower().Contains("quadro"));
                     }
                 }
                 return hasGpu;
@@ -55,14 +63,14 @@ namespace GroestlCoin_EasyMiner_2017.Business_Logic {
             get {
                 var hasGpu = false;
                 try {
-                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("amd"));
+                    hasGpu = GpuModels.Any(d => d.Details.Description.ToLower().Contains("amd") || d.Details.Description.ToLower().Contains("firepro"));
                 }
                 catch {
                     hasGpu = false;
                 }
                 finally {
                     if (hasGpu == false) {
-                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("amd"));
+                        hasGpu = GpuModels2.Any(d => d.ToLower().Contains("amd") || d.ToLower().Contains("firepro"));
                     }
                 }
                 return hasGpu;
@@ -87,24 +95,23 @@ namespace GroestlCoin_EasyMiner_2017.Business_Logic {
             var euAddress = "erebor.dwarfpool.com";
 
             var ping = new Ping();
-            var americanServer = ping.Send(usAddress);
-            var europeanServer = ping.Send(euAddress);
 
-            long usTime = 9999;
-            long euTime = 9999;
+            long americanServerTime = 9999;
+            long europeanServerTime = 9999;
 
-            if (americanServer?.Status == IPStatus.Success) {
-                usTime = americanServer.RoundtripTime;
+            for (int i = 0; i < 4; i++) {
+                var americanServer = ping.Send(usAddress, 4);
+                var europeanServer = ping.Send(euAddress, 4);
+                if (americanServer?.Status != IPStatus.Success) continue;
+                if (americanServer?.RoundtripTime < americanServerTime) {
+                    americanServerTime = americanServer.RoundtripTime;
+                }
+                if (europeanServer?.Status != IPStatus.Success) continue;
+                if (europeanServer?.RoundtripTime < americanServerTime) {
+                    europeanServerTime = europeanServer.RoundtripTime;
+                }
             }
-            if (europeanServer?.Status == IPStatus.Success) {
-                euTime = europeanServer.RoundtripTime;
-            }
-            if (usTime <= euTime) {
-                return usAddress + ":3345";
-            }
-            else {
-                return euAddress + ":3345";
-            }
+            return (americanServerTime <= europeanServerTime ? usAddress : euAddress) + ":3345";
         }
 
         public static string GetAddress() {

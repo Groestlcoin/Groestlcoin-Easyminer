@@ -436,15 +436,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Groestlcoin Easyminer 2018"
-        "ProductCode" = "8:{49DA6772-6CF8-42A7-9E7E-AC25DA8A2B72}"
-        "PackageCode" = "8:{AC7C1AB0-9F99-4DB4-A526-14A93F4B3AE0}"
+        "ProductCode" = "8:{B822DB09-2014-4C2F-9E89-E80AE18804B8}"
+        "PackageCode" = "8:{75A833A5-9B85-416C-969E-E5EECA708C4D}"
         "UpgradeCode" = "8:{1EFF111F-04AC-49BD-BFEF-AC3FA1186970}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.15"
+        "ProductVersion" = "8:1.0.19"
         "Manufacturer" = "8:Groestlcoin"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1042,7 +1042,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F76F036ACD6E4B6AB95EA57FAA62CC42"
             {
-            "SourcePath" = "8:..\\GroestlCoin EasyMiner 2017\\obj\\Release\\GroestlCoin EasyMiner 2017.exe"
+            "SourcePath" = "8:..\\GroestlCoin EasyMiner 2017\\obj\\Debug\\GroestlCoin EasyMiner 2018.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A6604F32A1494E57AA41A0C56B1AC222"
