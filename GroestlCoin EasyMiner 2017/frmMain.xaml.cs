@@ -86,12 +86,15 @@ namespace GroestlCoin_EasyMiner_2018 {
                 UxIntensityTxt.IsEnabled = false;
                 RbUsedwarfPool.IsEnabled = false;
                 RbCustomPool.IsEnabled = false;
+                UxAddressLabel.IsEnabled = false;
+                GpuIntensityLbl.IsEnabled = false;
+                UxIntensityHelp.Opacity = 0.56;
                 ProgressBar.Visibility = Visibility.Visible;
 
-                UxStandardSettings.IsExpanded = false;
+                UxStandardSettings.IsExpanded = true;
                 UxAdvancedSettings.IsExpanded = false;
                 UxLogsExpander.IsExpanded = true;
-                UxGetWalletAddressTxt.Visibility = Visibility.Collapsed;
+                UxGetWalletAddressTxt.IsEnabled = false;
 
                 if (UxCpuTgl.IsChecked == true) {
                     _cpuBg.RunWorkerAsync();
@@ -123,9 +126,11 @@ namespace GroestlCoin_EasyMiner_2018 {
                 UxIntensityTxt.IsEnabled = true;
                 RbUsedwarfPool.IsEnabled = true;
                 RbCustomPool.IsEnabled = true;
-                UxGetWalletAddressTxt.Visibility = Visibility.Visible;
+                UxAddressLabel.IsEnabled = true;
+                GpuIntensityLbl.IsEnabled = true;
+                UxGetWalletAddressTxt.IsEnabled = true;
+                UxIntensityHelp.Opacity = 1;
 
-                UxStandardSettings.IsExpanded = true;
                 UxLogsExpander.IsExpanded = false;
                 ProgressBar.IsIndeterminate = false;
                 ProgressBar.Visibility = Visibility.Collapsed;
@@ -389,6 +394,15 @@ namespace GroestlCoin_EasyMiner_2018 {
 
         private void UxAdvancedSettings_OnExpanded(object sender, RoutedEventArgs e) {
             UxLogsExpander.IsExpanded = false;
+            UxStandardSettings.IsExpanded = false;
+        }
+
+        private void UxStandardSettings_OnExpanded(object sender, RoutedEventArgs e)
+        {
+            if (UxAdvancedSettings != null)
+            {
+                UxAdvancedSettings.IsExpanded = false;
+            }
         }
 
         private void UxAmdRb_OnChecked(object sender, RoutedEventArgs e) {
