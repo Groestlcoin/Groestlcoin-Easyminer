@@ -7,10 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Media;
-using GroestlCoin_EasyMiner_2017.Business_Logic;
-using GroestlCoin_EasyMiner_2017.Properties;
+using GroestlCoin_EasyMiner_2018.Business_Logic;
+using GroestlCoin_EasyMiner_2018.Properties;
 
-namespace GroestlCoin_EasyMiner_2017 {
+namespace GroestlCoin_EasyMiner_2018 {
     /// <summary>
     /// Interaction logic for Starting_Guide.xaml
     /// </summary>

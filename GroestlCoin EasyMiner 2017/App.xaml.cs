@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace GroestlCoin_EasyMiner_2017 {
+namespace GroestlCoin_EasyMiner_2018 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

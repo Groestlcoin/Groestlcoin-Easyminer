@@ -1,4 +1,4 @@
-﻿using GroestlCoin_EasyMiner_2017.Properties;
+﻿using GroestlCoin_EasyMiner_2018.Properties;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using System.Collections.Generic;
@@ -13,10 +13,11 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using GroestlCoin_EasyMiner_2017.Business_Logic;
+using GroestlCoin_EasyMiner_2018.Business_Logic;
 using Clipboard = System.Windows.Clipboard;
 
-namespace GroestlCoin_EasyMiner_2017 {
+
+namespace GroestlCoin_EasyMiner_2018 {
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -167,8 +168,8 @@ namespace GroestlCoin_EasyMiner_2017 {
                                     uxCpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                                 });
                             }
-                            catch {
-                                //Do Nothing
+                            catch (Exception ex) {
+                                MessageBox.Show("Error " + ex.Message + Environment.NewLine + Environment.NewLine + ex.StackTrace);
                             }
 
                         };
@@ -207,7 +208,7 @@ namespace GroestlCoin_EasyMiner_2017 {
                     process.StartInfo = info;
                   //  MessageBox.Show(info.Arguments);
                     process.EnableRaisingEvents = true;
-
+                    #region Writing to local window
                     //process.OutputDataReceived += (o, eventArgs) => {
                     //    try {
                     //        Dispatcher.Invoke(() => {
@@ -224,34 +225,35 @@ namespace GroestlCoin_EasyMiner_2017 {
                     //            uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                     //        });
                     //    }
-//                        catch (Exception e) {
-//#if DEBUG
-//                            MessageBox.Show("Errr: " + e.Message);
-//                            //Do Nothing
-//#endif
-//                        }
-//                    };
-//                    process.ErrorDataReceived += (o, eventArgs) => {
-//                        try {
-//                            Dispatcher.Invoke(() => {
-//                                var lines = uxGpuLog.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+                    //                        catch (Exception e) {
+                    //#if DEBUG
+                    //                            MessageBox.Show("Errr: " + e.Message);
+                    //                            //Do Nothing
+                    //#endif
+                    //                        }
+                    //                    };
+                    //                    process.ErrorDataReceived += (o, eventArgs) => {
+                    //                        try {
+                    //                            Dispatcher.Invoke(() => {
+                    //                                var lines = uxGpuLog.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
 
-//                                if (lines.Count() == 30) {
-//                                    lines.RemoveAt(0);
-//                                }
-//                                lines.Add(eventArgs.Data);
-//                                uxGpuLog.Text = string.Join(Environment.NewLine, lines);
+                    //                                if (lines.Count() == 30) {
+                    //                                    lines.RemoveAt(0);
+                    //                                }
+                    //                                lines.Add(eventArgs.Data);
+                    //                                uxGpuLog.Text = string.Join(Environment.NewLine, lines);
 
-//                                uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
-//                            });
-//                        }
-//                        catch (Exception e) {
-//#if DEBUG
-//                            MessageBox.Show("Errr: " + e.Message);
-//                            //Do Nothing
-//#endif
-//                        }
-//                    };
+                    //                                uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
+                    //                            });
+                    //                        }
+                    //                        catch (Exception e) {
+                    //#if DEBUG
+                    //                            MessageBox.Show("Errr: " + e.Message);
+                    //                            //Do Nothing
+                    //#endif
+                    //                        }
+                    //                    };
+                    #endregion
                     process.Start();
                     MiningOperations.GpuStarted = true;
                 //    process.BeginErrorReadLine();
@@ -265,8 +267,7 @@ namespace GroestlCoin_EasyMiner_2017 {
                     args.Cancel = true;
                     return;
                 }
-                int intensity;
-                intensity = MiningOperations.MiningIntensity < 8 ? 8 : MiningOperations.MiningIntensity;
+                var intensity = MiningOperations.MiningIntensity < 8 ? 8 : MiningOperations.MiningIntensity;
 
                 using (var process = new Process()) {
                     ProcessStartInfo info = new ProcessStartInfo {
@@ -296,8 +297,9 @@ namespace GroestlCoin_EasyMiner_2017 {
                                 uxGpuScroller.ScrollToVerticalOffset(uxGpuScroller.ExtentHeight);
                             });
                         }
-                        catch {
-                            //Do Nothing
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error " + ex.Message + Environment.NewLine + Environment.NewLine + ex.StackTrace);
                         }
 
                     };
@@ -309,8 +311,9 @@ namespace GroestlCoin_EasyMiner_2017 {
                     try {
                         Dispatcher.Invoke(() => OnGpuMinerClosed(new EventArgs()));
                     }
-                    catch {
-                        //Do Nothing
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error " + ex.Message + Environment.NewLine + Environment.NewLine + ex.StackTrace);
                     }
                 }
             };
@@ -374,7 +377,6 @@ namespace GroestlCoin_EasyMiner_2017 {
             if (uxnVidiaRb.IsChecked != true) return;
             uxnVidiaRb.Checked -= UxnVidiaRb_OnChecked;
             uxnVidiaRb.IsChecked = false;
-            uxnVidiaRb.Checked += UxnVidiaRb_OnChecked;
         }
 
         private void UxGetWalletAddressTxt_Click(object sender, RoutedEventArgs e) {

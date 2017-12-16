@@ -7,10 +7,10 @@ using System.Management;
 using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 using SlimDX.Direct3D9;
-using GroestlCoin_EasyMiner_2017.Business_Logic;
-using GroestlCoin_EasyMiner_2017.Properties;
+using GroestlCoin_EasyMiner_2018.Business_Logic;
+using GroestlCoin_EasyMiner_2018.Properties;
 
-namespace GroestlCoin_EasyMiner_2017.Business_Logic {
+namespace GroestlCoin_EasyMiner_2018.Business_Logic {
     class MiningOperations {
         public enum GpuMiningSettings {
             None = 0,
@@ -23,12 +23,20 @@ namespace GroestlCoin_EasyMiner_2017.Business_Logic {
 
         public static bool WalletFileExists => File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Electrum-grs\wallets\default_wallet");
 
-        public static AdapterCollection GpuModels => new Direct3D().Adapters;
+        public static AdapterCollection GpuModels {
+            get {
+                try {
+                    return new Direct3D().Adapters;
+                }
+                catch {
+                    return null;
+                }
+            }
+        }
 
         public static List<string> GpuModels2 {
             get {
-                ManagementObjectSearcher searcher =
-    new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
                 return (from ManagementBaseObject mo in searcher.Get() select mo.Properties["Description"].ToString()).ToList();
             }
         }

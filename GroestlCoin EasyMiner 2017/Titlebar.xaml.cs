@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GroestlCoin_EasyMiner_2017 {
+namespace GroestlCoin_EasyMiner_2018 {
     /// <summary>
     /// Interaction logic for Titlebar.xaml
     /// </summary>
