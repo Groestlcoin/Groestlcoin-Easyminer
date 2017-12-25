@@ -5,9 +5,8 @@ Before installing the Groestlcoin Easyminer it is advised that you disable your 
 
 If you do not already have a wallet in which to store your coins, download the Electrum-GRS wallet from https://www.groestlcoin.org/groestlcoin-electrum-wallet/. If you use the Electrum wallet, the application will automatically detect your address key and mine directly to this. Otherwise you can enter in your own key.
 
-###### You may need to disable real-time protection from your antivirus to allow your internet browser to download the file.
-
 Download and install the latest Easyminer from here: https://github.com/Groestlcoin/Groestlcoin-Easyminer/releases.
+###### NOTE: You may need to disable real-time protection from your antivirus to allow your internet browser to download the file.
 
 **It is now advised to add an antivirus exception/exclusion to your install directory. For Windows Defender (Windows 10), go to:**
 **Start --> Settings --> Updates and Security --> Windows Defender --> Open Windows Defender Security Center --> Virus and Threat Protection --> Virus & Threat Protection Settings --> Add or Remove Exclusions.**
