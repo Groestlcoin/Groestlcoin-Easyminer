@@ -227,7 +227,7 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             if (SelectedMiningPool != MiningPools.P2Pool) {
                 sb.Append("--no-submit-stale");
             }
-            var intensityArgs = useAutoIntensity ? string.Empty : $"-I {intensity}";
+            var intensityArgs = useAutoIntensity ? string.Empty : $" -I {intensity}";
             sb.Append(intensityArgs);
             sb.Append(arguments);
 
@@ -238,7 +238,7 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             var sb = new StringBuilder();
             sb.Append(SelectedMiningPool != MiningPools.P2Pool ? " --no-submit-stale" : "");
 
-            var intensityArgs = useAutoIntensity ? string.Empty : $"-i {intensity} ";
+            var intensityArgs = useAutoIntensity ? string.Empty : $" -i {intensity} ";
 
             sb.Append(arguments);
             sb.Append(intensityArgs);

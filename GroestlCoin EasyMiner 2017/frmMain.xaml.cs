@@ -665,14 +665,18 @@ namespace GroestlCoin_EasyMiner_2018 {
                 switch ((MiningOperations.MiningPools)uxPoolSelectorDdl.SelectedIndex) {
                     case MiningOperations.MiningPools.Dwarfpool:
                         uxViewStatsHl.NavigateUri = new Uri($"https://dwarfpool.com/grs/address?wallet={TxtUsername?.Text}");
+                        TxtPool.IsEnabled = false;
                         break;
                     case MiningOperations.MiningPools.Suprnova:
                         uxViewStatsHl.NavigateUri = new Uri("https://grs.suprnova.cc/index.php?page=dashboard");
+                        TxtPool.IsEnabled = false;
                         break;
                     case MiningOperations.MiningPools.MiningPoolHub:
                         uxViewStatsHl.NavigateUri = new Uri("https://groestlcoin.miningpoolhub.com/index.php?page=account&action=pooledit");
+                        TxtPool.IsEnabled = false;
                         break;
                     case MiningOperations.MiningPools.P2Pool:
+                        TxtPool.IsEnabled = true;
                         var address = TxtPool?.Text.ToLower().Replace("stratum.tcp://", "");
                         if (!string.IsNullOrEmpty(address)) {
                             uxViewStatsHl.NavigateUri = new Uri($"http://{address}/static");
@@ -683,6 +687,7 @@ namespace GroestlCoin_EasyMiner_2018 {
                         break;
                     case MiningOperations.MiningPools.Custom:
                         uxViewdwarfPool.Visibility = Visibility.Collapsed;
+                        TxtPool.IsEnabled = true;
                         break;
                 }
             }

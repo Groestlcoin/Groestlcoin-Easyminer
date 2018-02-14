@@ -167,9 +167,9 @@
                                     </WrapPanel>
                                     <WrapPanel Name="WpCustom2">
                                         <Label  Style="{DynamicResource LabelLight}">User Name:</Label>
-                                        <TextBox  Height="25" Width="150" Name="TxtUsername" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
+                                        <TextBox  Height="25" Width="260" Name="TxtUsername" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
                                         <Label  Style="{DynamicResource LabelLight}">Password:</Label>
-                                        <TextBox  Height="25" Width="150" Name="TxtPassword" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
+                                        <TextBox  Height="25" Width="80" Name="TxtPassword" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
                                     </WrapPanel>
                                     <WrapPanel Name="WpCustom3">
                                         <Label  Style="{DynamicResource LabelLight}">Kernel:</Label>
