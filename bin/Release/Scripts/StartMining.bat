@@ -1,1 +1,0 @@
-"C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\bin\Release\Scripts\groestl\GroestlGPU\GroestlGPU.exe" -k groestlcoin -I d -o stratum+tcp://moria.dwarfpool.com:3345 -u FYoLoE5UCLDQxNZoWbb1izcegnvKbvpWnA -p x  2>"C:\Users\aceoyame\Desktop\GroestlCoin Easyminer GUI - Master\Simplicity\bin\Release\scripts\minelog.txt"

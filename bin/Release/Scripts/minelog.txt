@@ -1,7 +1,0 @@
-[15:51:06] Started sgminer 4.1.0
-[15:51:07] WARNING: GPU_MAX_ALLOC_PERCENT is not specified!
-[15:51:07] WARNING: GPU_USE_SYNC_OBJECTS is not specified!
-[15:51:07] Kernel groestlcoin is experimental.
-[15:51:07] Probing for an alive pool
-[15:51:08] Pool 0 difficulty changed to 16
-[15:51:09] Network diff set to 15
