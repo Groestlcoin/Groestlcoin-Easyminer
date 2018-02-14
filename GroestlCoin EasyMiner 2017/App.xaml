@@ -16,6 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         <SolidColorBrush x:Key="LightColor" Color="#64ffda"/>
+        <SolidColorBrush x:Key="MedColour" Color="#2A4A5A"/>
         <SolidColorBrush x:Key="DarkColor" Color="#263238"/>
 
 
@@ -1777,6 +1778,8 @@
             </Style.Triggers>
         </Style>
 
+
+   
 
 
 

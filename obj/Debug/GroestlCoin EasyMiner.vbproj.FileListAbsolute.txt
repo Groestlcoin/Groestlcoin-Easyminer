@@ -41,3 +41,7 @@ C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.exe
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.pdb
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\bin\Debug\EasyMiner.xml
 C:\Users\yokom\Source\Repos\Groestlcoin-Easyminer\obj\Debug\GroestlCoin EasyMiner.vbprojResolveAssemblyReference.cache
+C:\Users\achapman\Source\Repos\Groestlcoin-Easyminer_new\bin\Debug\EasyMiner.exe.config
+C:\Users\achapman\Source\Repos\Groestlcoin-Easyminer_new\obj\Debug\EasyMiner.exe
+C:\Users\achapman\Source\Repos\Groestlcoin-Easyminer_new\obj\Debug\EasyMiner.xml
+C:\Users\achapman\Source\Repos\Groestlcoin-Easyminer_new\obj\Debug\EasyMiner.pdb

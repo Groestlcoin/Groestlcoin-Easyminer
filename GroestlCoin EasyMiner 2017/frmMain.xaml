@@ -17,7 +17,7 @@
         ResizeMode="NoResize"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Icon="/Resources/GRS-logo.ico" BorderThickness="0"
-        Title="Groestlcoin EasyMiner 2018" Height="450" Width="580" SizeToContent="Height" MaxHeight="750" Closing="Window_Closing">
+        Title="Groestlcoin EasyMiner 2018" Height="450" Width="580" SizeToContent="Height"  Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -74,8 +74,8 @@
                             <StackPanel HorizontalAlignment="Stretch" Height="Auto">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="90"/>
                                         <ColumnDefinition Width="80"/>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition/>
@@ -93,17 +93,22 @@
                                             <Rectangle Fill="{DynamicResource NVidiaLogo}" Width="48" Height="40"></Rectangle>
                                         </CheckBox.Content>
                                     </CheckBox>
-                                    <CheckBox Name="uxnAMDRb" Padding="0,2,0,0" Grid.Column="3" Grid.Row="0" Width="60px" Height="50px" ToolTip="AMD Mining" Checked="UxAmdRb_OnChecked" Style="{DynamicResource ColourfulCheckBox}" HorizontalAlignment="Right">
+                                    <CheckBox Name="uxnAMDRb" Padding="0,2,0,0" Grid.Column="3" Grid.Row="0" Width="60px" Height="50px" ToolTip="AMD Mining" Checked="UxAmdRb_OnChecked" Style="{DynamicResource ColourfulCheckBox}" HorizontalAlignment="Right" Unchecked="UxnAMDRb_OnUnchecked">
                                         <CheckBox.Content>
                                             <Rectangle Fill="{DynamicResource AmdLogo}" Width="40" Height="40"></Rectangle>
                                         </CheckBox.Content>
                                     </CheckBox>
                                     <DockPanel Grid.Column="4" HorizontalAlignment="Right" Margin="0">
-                                        <Label Style="{DynamicResource LabelLight}" HorizontalAlignment="Right" VerticalAlignment="Center" Name="GpuIntensityLbl">GPU Intensity</Label>
-                                        <Slider Orientation="Horizontal" Name="uxIntervalSlider" VerticalContentAlignment="Center" IsSnapToTickEnabled="True"  Width="90" Maximum="20" Minimum="8" ValueChanged="RangeBase_OnValueChanged" SmallChange="0" Foreground="{StaticResource LightColor}" VerticalAlignment="Center" Style="{DynamicResource SliderStyle}"/>
+                                        <Label Style="{DynamicResource LabelLight}" HorizontalAlignment="Right" VerticalAlignment="Center" Name="GpuIntensityLbl">Intensity:</Label>
+                                        <Slider Orientation="Horizontal" Name="uxIntervalSlider" VerticalContentAlignment="Center" IsSnapToTickEnabled="True"  Width="90" Maximum="24" Minimum="8" ValueChanged="RangeBase_OnValueChanged" SmallChange="0" Foreground="{StaticResource LightColor}" VerticalAlignment="Center" Style="{DynamicResource SliderStyle}"/>
                                         <TextBox Width="20" MaxLength="2" BorderThickness="0" IsReadOnly="True" Margin="0,0,0,0" TextAlignment="Center" VerticalAlignment="Center" PreviewTextInput="UxIntensityTxt_OnPreviewTextInput" Name="UxIntensityTxt" Height="25" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}">19</TextBox>
+                                        <CheckBox Name="uxAutoIntensityChk" Style="{DynamicResource ColourfulCheckBox}" Checked="UxAutoIntensityChk_OnChecked" Unchecked="UxAutoIntensityChk_OnUnchecked" FlowDirection="RightToLeft">
+                                            <CheckBox.Content>
+                                                <Label Style="{DynamicResource LabelLight}" HorizontalAlignment="Right" VerticalAlignment="Center">Auto</Label>
+                                            </CheckBox.Content>
+                                        </CheckBox>
                                         <Image x:Name="UxIntensityHelp" HorizontalAlignment="Right" VerticalAlignment="Center" Source="{StaticResource HelpIcon}" Margin="5,0,0,0"  Width="16" Height="16" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave"/>
-                                        <Popup x:Name="UxIntensityPopup" Opacity="20" Placement="Left" VerticalOffset="-1" HorizontalOffset="-5" Height="Auto" AllowsTransparency="True" Margin="10,0,0,0" PlacementTarget="{Binding ElementName=UxIntensityHelp}" IsOpen="False" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave">
+                                        <Popup x:Name="UxIntensityPopup" Opacity="20" Placement="Right" VerticalOffset="-1" HorizontalOffset="-5" Height="Auto" AllowsTransparency="True" Margin="10,0,0,0" PlacementTarget="{Binding ElementName=UxIntensityHelp}" IsOpen="False" MouseEnter="UxIntensityHelp_OnMouseEnter" MouseLeave="UxIntensityHelp_OnMouseLeave">
                                             <Border BorderThickness="2" CornerRadius="5" Margin="10,0,0,0" BorderBrush="{StaticResource LightColor}" Background="{StaticResource DarkColor}">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -120,7 +125,7 @@
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
-                    
+
                 </Expander>
                 <Expander Padding="5,0,0,0" x:Name="UxAdvancedSettings" IsExpanded="False" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Style="{DynamicResource ExpanderStyle}" Expanded="UxAdvancedSettings_OnExpanded" Background="#263238">
                     <Expander.Header>
@@ -142,30 +147,45 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-
-                                        <RadioButton Foreground="{StaticResource LightColor}" GroupName="Pool" Name="RbUsedwarfPool" IsChecked="True" Checked="PoolRadioOptions">Use DwarfPool (default)</RadioButton>
+                                        <ComboBox Name="uxPoolSelectorDdl" SelectedIndex="0" Width="175" BorderBrush="{DynamicResource LightColor}" Foreground="{DynamicResource LightColor}" SelectionChanged="UxPoolSelectorDdl_OnSelectionChanged">
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">Dwarfpool</ComboBoxItem>
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">Suprnova</ComboBoxItem>
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">MiningPoolHub</ComboBoxItem>
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">P2Pool</ComboBoxItem>
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">Custom</ComboBoxItem>
+                                        </ComboBox>
                                         <TextBlock Name="uxViewdwarfPool" Grid.Column="1" HorizontalAlignment="Right">
-                                            <Hyperlink NavigateUri="https://dwarfpool.com/grs/address?wallet=" RequestNavigate="UxViewDwarfPoolHl_OnRequestNavigate" Name="uxViewDwarfPoolHl"  Foreground="{StaticResource LightColor}">View Dwarfpool</Hyperlink>
+                                            <Hyperlink NavigateUri="https://dwarfpool.com/grs/address?wallet=" RequestNavigate="UxViewDwarfPoolHl_OnRequestNavigate" Name="uxViewStatsHl" Foreground="{StaticResource LightColor}">
+                                                <Label Style="{DynamicResource LabelLight}" HorizontalAlignment="Right" VerticalAlignment="Center" Name="uxHyperlinkLbl">View Stats</Label>
+                                            </Hyperlink>
                                         </TextBlock>
 
                                     </Grid>
-                                    <RadioButton Foreground="{StaticResource LightColor}" GroupName="Pool" Name="RbCustomPool" Checked="PoolRadioOptions">Custom Pool</RadioButton>
-                                    <WrapPanel Name="WpCustom1" Visibility="Collapsed">
+                                    <WrapPanel Name="WpCustom1">
                                         <Label  Style="{DynamicResource LabelLight}">Pool Address:</Label>
-                                        <TextBox Height="25" Width="400" Name="TxtPool" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
+                                        <TextBox Height="25" Width="400" Name="TxtPool" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" TextChanged="TxtPool_OnTextChanged"></TextBox>
                                     </WrapPanel>
-                                    <WrapPanel Name="WpCustom2" Visibility="Collapsed">
+                                    <WrapPanel Name="WpCustom2">
                                         <Label  Style="{DynamicResource LabelLight}">User Name:</Label>
                                         <TextBox  Height="25" Width="150" Name="TxtUsername" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
                                         <Label  Style="{DynamicResource LabelLight}">Password:</Label>
                                         <TextBox  Height="25" Width="150" Name="TxtPassword" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
+                                    </WrapPanel>
+                                    <WrapPanel Name="WpCustom3">
+                                        <Label  Style="{DynamicResource LabelLight}">Kernel:</Label>
+                                        <ComboBox Width="175" BorderBrush="{DynamicResource LightColor}" Foreground="{DynamicResource LightColor}" SelectedIndex="2">
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">Groestlcoin</ComboBoxItem>
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">Groestlcoin-v1</ComboBoxItem>
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">Groestlcoin-v2</ComboBoxItem>
+                                            <ComboBoxItem Background="{DynamicResource MedColour}">Groestlcoin-v3</ComboBoxItem>
+                                        </ComboBox>
                                     </WrapPanel>
 
                                 </StackPanel>
                             </GroupBox>
                             <GroupBox Grid.Row="1" Name="uxDonationsGroup"  Style="{DynamicResource GroupBoxStyle1}">
                                 <GroupBox.Header>
-                                    <Label Margin="0" Height="25"  Style="{StaticResource LabelDark}">Donations</Label>
+                                    <Label Margin="0" Height="25"  Style="{StaticResource LabelDark}">Donations (Optional - No Donation is Taken)</Label>
                                 </GroupBox.Header>
                                 <Grid>
                                     <Grid.RowDefinitions>

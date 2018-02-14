@@ -154,5 +154,73 @@ namespace GroestlCoin_EasyMiner_2018.Properties {
                 this["FirstLaunch"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseAutoIntensity {
+            get {
+                return ((bool)(this["UseAutoIntensity"]));
+            }
+            set {
+                this["UseAutoIntensity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte SelectedMiningPool {
+            get {
+                return ((byte)(this["SelectedMiningPool"]));
+            }
+            set {
+                this["SelectedMiningPool"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection P2PoolSettings {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["P2PoolSettings"]));
+            }
+            set {
+                this["P2PoolSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection MiningPoolHubSettings {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["MiningPoolHubSettings"]));
+            }
+            set {
+                this["MiningPoolHubSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection SuprNovaSettings {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["SuprNovaSettings"]));
+            }
+            set {
+                this["SuprNovaSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection CustomSettings {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomSettings"]));
+            }
+            set {
+                this["CustomSettings"] = value;
+            }
+        }
     }
 }
