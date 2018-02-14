@@ -54,6 +54,10 @@ namespace GroestlCoin_EasyMiner_2018 {
             _amdBg.DoWork += OnAmdBgOnDoWork;
             _nVidiaBg.DoWork += OnNVidiaBgOnDoWork;
 
+            Height = 450;
+            Width = 580;
+            WindowState = WindowState.Normal;
+
             PopulatePage();
         }
 
