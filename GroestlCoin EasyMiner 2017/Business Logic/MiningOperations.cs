@@ -224,10 +224,10 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
 
         public static string GetNVidiaCommandLine(PublicMiningArgs arguments, bool useAutoIntensity, string intensity) {
             var sb = new StringBuilder();
-            if (SelectedMiningPool != MiningPools.P2Pool) {
-                sb.Append("--no-submit-stale");
+            if (SelectedMiningPool == MiningPools.P2Pool) {
+                sb.Append("--submit-stale");
             }
-            var intensityArgs = useAutoIntensity ? string.Empty : $" -I {intensity}";
+            var intensityArgs = useAutoIntensity ? string.Empty : $" -i {intensity}";
             sb.Append(intensityArgs);
             sb.Append(arguments);
 

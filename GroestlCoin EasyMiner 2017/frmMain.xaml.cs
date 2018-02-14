@@ -342,6 +342,13 @@ namespace GroestlCoin_EasyMiner_2018 {
                     UseShellExecute = false
                 };
                 process.StartInfo = info;
+
+                if (Debugger.IsAttached) {
+                    Dispatcher.Invoke(() => {
+                        MessageBox.Show(info.FileName + " " + info.Arguments);
+                    });
+                }
+
                 process.EnableRaisingEvents = true;
                 process.OutputDataReceived += (o, eventArgs) => {
                     try {
