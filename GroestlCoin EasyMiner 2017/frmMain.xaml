@@ -159,7 +159,6 @@
                                                 <Label Style="{DynamicResource LabelLight}" HorizontalAlignment="Right" VerticalAlignment="Center" Name="uxHyperlinkLbl">View Stats</Label>
                                             </Hyperlink>
                                         </TextBlock>
-
                                     </Grid>
                                     <WrapPanel Name="WpCustom1">
                                         <Label  Style="{DynamicResource LabelLight}">Pool Address:</Label>
