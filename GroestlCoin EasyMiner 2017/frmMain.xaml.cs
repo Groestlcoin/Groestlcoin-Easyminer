@@ -697,13 +697,13 @@ namespace GroestlCoin_EasyMiner_2018 {
 
                             break;
                         case MiningOperations.MiningPools.Custom:
-                            uxViewdwarfPool.Visibility = Visibility.Collapsed;
+                            if (uxViewdwarfPool != null) uxViewdwarfPool.Visibility = Visibility.Collapsed;
                             TxtPool.IsEnabled = true;
                             break;
                     }
                 }
-                catch {
-                    // ignored
+                catch{
+                    if (uxViewdwarfPool != null) uxViewdwarfPool.Visibility = Visibility.Collapsed;
                 }
             }
         }
