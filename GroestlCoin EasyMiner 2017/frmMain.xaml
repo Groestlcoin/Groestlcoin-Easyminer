@@ -4,19 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroestlCoin_EasyMiner_2018"
-        mc:Ignorable="d" WindowStyle="None" 
+        mc:Ignorable="d" WindowStyle="None" Style="{DynamicResource WindowStyle}" BorderThickness="2" BorderBrush="{StaticResource LightColor}" AllowsTransparency="True"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource  SecondaryAccentBrush}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        BorderBrush="Transparent"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"
         WindowStartupLocation="CenterScreen"
         Background="#263238"
+
         ResizeMode="NoResize"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Icon="/Resources/GRS-logo.ico" BorderThickness="0"
+        Icon="/Resources/GRS-logo.ico"
         Title="Groestlcoin EasyMiner 2018" Height="450" Width="580" SizeToContent="Height"  Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
@@ -28,7 +28,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border CornerRadius="5" BorderThickness="2" BorderBrush="{StaticResource LightColor}">
         <Grid Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25px"></RowDefinition>
@@ -241,5 +240,4 @@
                 </StackPanel>
             </Grid>
         </Grid>
-    </Border>
 </Window>

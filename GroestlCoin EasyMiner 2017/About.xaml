@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroestlCoin_EasyMiner_2018"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" Style="{DynamicResource WindowStyle}" BorderThickness="2" BorderBrush="{StaticResource LightColor}" AllowsTransparency="True"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         ShowInTaskbar="False"
@@ -26,7 +26,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border BorderThickness="2" BorderBrush="{StaticResource LightColor}" CornerRadius="5">
     <Grid Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="25px"></RowDefinition>
@@ -81,5 +80,4 @@
             <TextBox Grid.Row="8" Grid.Column="1" IsReadOnly="True" Height="25" Foreground="{StaticResource LightColor}" BorderThickness="0" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" HorizontalAlignment="Left">FX31y8bTongNXqMuDQMxFtf79L3wXpi3oz</TextBox>
         </Grid>
     </Grid>
-    </Border>
 </Window>
