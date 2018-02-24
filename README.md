@@ -27,4 +27,4 @@ Groestlcoin Marketing Fund: FqkPKgvb2jFv6GdVphgyVY2iFPcHHi3dx7
 Groestlcoin Development Fund: FWN1qdiRrymSR6jbpbanLYqZpjkEaZouHN
 
 
-Developer Donation Address: FX31y8bTongNXqMuDQMxFtf79L3wXpi3oz
+Developer Donation Address: FYoKoGrSXGpTavNFVbvW18UYxo6JVbUDDa
