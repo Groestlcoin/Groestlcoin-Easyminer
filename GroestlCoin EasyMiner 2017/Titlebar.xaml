@@ -21,7 +21,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-        <Border Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, FallbackValue=White}" CornerRadius="5" DockPanel.Dock="Top" Height="25" x:Name="TitleBar" MouseLeftButtonDown="TitleBar_OnMouseLeftButtonDown">
+        <Border Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, FallbackValue=#263238}" CornerRadius="5" DockPanel.Dock="Top" Height="25" x:Name="TitleBar" MouseLeftButtonDown="TitleBar_OnMouseLeftButtonDown">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

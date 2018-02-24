@@ -32,9 +32,9 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
 
         public static string ExecutingDirectory => Directory.GetCurrentDirectory();
 
-        public static string CpuDirectory => Path.Combine(ExecutingDirectory, @"Resources\Miners\CPU Miner\minerd.exe");
-        public static string AMDDirectory => Path.Combine(ExecutingDirectory, @"Resources\Miners\AMD Miner\sgminer.exe");
-        public static string NVididiaDirectory => Path.Combine(ExecutingDirectory, @"Resources\Miners\nVidia Miner\ccminer.exe");
+        public static string CpuDirectory => Path.Combine(ExecutingDirectory, @"Resources\Miners\CPU Miner\minerd_grs.exe");
+        public static string AMDDirectory => Path.Combine(ExecutingDirectory, @"Resources\Miners\AMD Miner\sgminer_grs.exe");
+        public static string NVididiaDirectory => Path.Combine(ExecutingDirectory, @"Resources\Miners\nVidia Miner\ccminer_grs.exe");
 
         public static List<string> GpuModels {
             get {
@@ -133,6 +133,9 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             }
         }
 
+        /// <summary>
+        /// Gets the currently selected mining pool from settings
+        /// </summary>
         public static MiningPools SelectedMiningPool => (MiningPools)Settings.Default.SelectedMiningPool;
 
         /// <summary>
@@ -140,7 +143,11 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
         /// </summary>
         public static PublicMiningArgs CommonMiningPoolVariables => new PublicMiningArgs(MiningPoolAddress, MiningPoolUsername, MiningPoolPassword);
 
-
+        /// <summary>
+        /// Gets the address for the specified pool
+        /// </summary>
+        /// <param name="pool"></param>
+        /// <returns></returns>
         public static string GetAddressForPool(MiningPools pool) {
             switch (pool) {
                 case MiningPools.Dwarfpool:
@@ -158,6 +165,11 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             }
         }
 
+        /// <summary>
+        /// Gets the username for the specified pool or the wallet address, from app settings 
+        /// </summary>
+        /// <param name="pool"></param>
+        /// <returns></returns>
         public static string GetUsernameForPool(MiningPools pool) {
             switch (pool) {
                 case MiningPools.Dwarfpool:
@@ -175,6 +187,11 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             }
         }
 
+        /// <summary>
+        /// Gets the password for the specified pool or x, from app settings
+        /// </summary>
+        /// <param name="pool"></param>
+        /// <returns></returns>
         public static string GetPasswordForPool(MiningPools pool) {
             switch (pool) {
                 case MiningPools.Dwarfpool:
@@ -193,7 +210,10 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
         }
 
 
-
+        /// <summary>
+        /// Runs a ping on both dwarfpool servers to see what one is the best
+        /// </summary>
+        /// <returns>The best dwarfpool address to use</returns>
         public static string GetBestDwarfServer() {
             var usAddress = "moria.dwarfpool.com";
             var euAddress = "erebor.dwarfpool.com";
@@ -234,6 +254,14 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Gets the command line arguments for AMD
+        /// </summary>
+        /// <param name="arguments"></param>
+        /// <param name="useAutoIntensity"></param>
+        /// <param name="intensity"></param>
+        /// <param name="kernal"></param>
+        /// <returns></returns>
         public static string GetAMDCommandLine(PublicMiningArgs arguments, bool useAutoIntensity, string intensity, string kernal = "") {
             var sb = new StringBuilder();
             sb.Append(SelectedMiningPool != MiningPools.P2Pool ? " --no-submit-stale" : "");
@@ -251,7 +279,10 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             return sb.ToString();
         }
 
-
+        /// <summary>
+        /// Accesses the json wallet file and extrapolates the first address
+        /// </summary>
+        /// <returns>Returns first public GRS address</returns>
         public static string GetAddress() {
             try {
                 //Get the pubkey
@@ -305,7 +336,9 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             }
         }
 
-
+        /// <summary>
+        /// Common mining pool arguments 
+        /// </summary>
         public class PublicMiningArgs {
             public string PoolAddress;
             public string PoolUsername;

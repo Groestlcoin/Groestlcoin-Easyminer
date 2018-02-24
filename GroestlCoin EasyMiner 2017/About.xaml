@@ -77,7 +77,7 @@
                 <Hyperlink NavigateUri="https://github.com/Groestlcoin/" Foreground="{StaticResource LightColor}" RequestNavigate="Hyperlink_OnRequestNavigate">https://github.com/Groestlcoin/</Hyperlink>
             </TextBlock>
             <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource LightColor}">Yokomoko</TextBlock>
-            <TextBox Grid.Row="8" Grid.Column="1" IsReadOnly="True" Height="25" Foreground="{StaticResource LightColor}" BorderThickness="0" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" HorizontalAlignment="Left">FX31y8bTongNXqMuDQMxFtf79L3wXpi3oz</TextBox>
+            <TextBox Grid.Row="8" Grid.Column="1" IsReadOnly="True" Height="25" Foreground="{StaticResource LightColor}" BorderThickness="0" BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}" HorizontalAlignment="Left">FYoKoGrSXGpTavNFVbvW18UYxo6JVbUDDa</TextBox>
         </Grid>
     </Grid>
 </Window>

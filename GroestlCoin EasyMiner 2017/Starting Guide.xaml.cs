@@ -16,6 +16,7 @@ namespace GroestlCoin_EasyMiner_2018 {
     /// </summary>
     public partial class StartingGuide {
 
+        private LogViewer logViewer;
 
 
         public bool FromMainWindow { get; set; }

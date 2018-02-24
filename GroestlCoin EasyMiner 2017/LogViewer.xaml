@@ -1,0 +1,67 @@
+﻿<Window x:Class="GroestlCoin_EasyMiner_2018.LogViewer"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GroestlCoin_EasyMiner_2018"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" Style="{DynamicResource WindowStyle}" BorderThickness="2" BorderBrush="{StaticResource LightColor}" AllowsTransparency="True"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"      
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="{StaticResource DarkColor}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Icon="/Resources/GRS-logo.ico"
+        Title="Log Viewer" Height="602.537" Width="500" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Teal.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Teal.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+        <Grid Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25px"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <local:Titlebar BorderThickness="0" IsMainWindow="False"></local:Titlebar>
+        <Grid Grid.Row="1" Margin="5,10,5,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" Name="uxStatisticsGroup" Visibility="Collapsed" Style="{DynamicResource GroupBoxStyle1}">
+                <GroupBox.Header>
+                    <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">Stats</Label>
+                </GroupBox.Header>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Name="uxCpuMiningLogGroup" Visibility="Visible" Style="{DynamicResource GroupBoxStyle1}" >
+                <GroupBox.Header>
+                    <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">CPU Mining Log</Label>
+                </GroupBox.Header>
+                <StackPanel Orientation="Vertical">
+                    <ScrollViewer Name="uxCpuScroller">
+                        <TextBox TextWrapping="Wrap" Name="uxCpuLog" MaxHeight="300" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
+                    </ScrollViewer>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="2" Name="uxGpuMiningLog" Visibility="Visible"  Style="{DynamicResource GroupBoxStyle1}">
+                <GroupBox.Header>
+                    <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">GPU Mining Log</Label>
+                </GroupBox.Header>
+                <StackPanel Orientation="Vertical">
+                    <ScrollViewer Height="65" Name="uxGpuScroller">
+                        <TextBox TextWrapping="Wrap" Name="uxGpuLog" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
+                    </ScrollViewer>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
