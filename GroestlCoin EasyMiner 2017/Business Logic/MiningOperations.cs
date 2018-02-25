@@ -336,6 +336,26 @@ namespace GroestlCoin_EasyMiner_2018.Business_Logic {
             }
         }
 
+        //Kill all processes relating to mining
+        public static void KillProcesses()
+        {
+            var processes = Process.GetProcessesByName("minerd_grs");
+            foreach (var process in processes)
+            {
+                process.Kill();
+            }
+            processes = Process.GetProcessesByName("ccminer_grs");
+            foreach (var process in processes)
+            {
+                process.Kill();
+            }
+            processes = Process.GetProcessesByName("sgminer_grs");
+            foreach (var process in processes)
+            {
+                process.Kill();
+            }
+        }
+
         /// <summary>
         /// Common mining pool arguments 
         /// </summary>

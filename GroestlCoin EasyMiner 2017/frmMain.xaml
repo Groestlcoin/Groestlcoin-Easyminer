@@ -166,7 +166,7 @@
             </Expander>
             <Expander Padding="5,0,0,0" x:Name="UxAdvancedSettings" IsExpanded="False" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Style="{DynamicResource ExpanderStyle}" Expanded="UxAdvancedSettings_OnExpanded" Background="#263238">
                 <Expander.Header>
-                    <Label Style="{DynamicResource LabelLight}">Advanced</Label>
+                    <Label Style="{DynamicResource LabelLight}">Donate</Label>
                 </Expander.Header>
                 <ScrollViewer HorizontalAlignment="Stretch" MaxHeight="400" VerticalScrollBarVisibility="Auto">
                     <Grid>
@@ -182,14 +182,19 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <WrapPanel>
-                                    <Label Style="{DynamicResource LabelLight}" Width="125"  Content="Marketing Fund:"></Label>
-                                    <TextBox Width="250" IsReadOnly="True" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}">FqkPKgvb2jFv6GdVphgyVY2iFPcHHi3dx7</TextBox>
+                                    <Label Style="{DynamicResource LabelLight}" Width="140"  Content="Marketing Fund:"></Label>
+                                    <TextBox Width="270" IsReadOnly="True" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}">FqkPKgvb2jFv6GdVphgyVY2iFPcHHi3dx7</TextBox>
                                 </WrapPanel>
                                 <WrapPanel Grid.Row="1">
-                                    <Label Style="{DynamicResource LabelLight}" Width="125" Content="Development Fund:"></Label>
-                                    <TextBox Width="250" IsReadOnly="True" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}">FWN1qdiRrymSR6jbpbanLYqZpjkEaZouHN</TextBox>
+                                    <Label Style="{DynamicResource LabelLight}" Width="140" Content="Development Fund:"></Label>
+                                    <TextBox Width="270" IsReadOnly="True" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}">FWN1qdiRrymSR6jbpbanLYqZpjkEaZouHN</TextBox>
+                                </WrapPanel>
+                                <WrapPanel Grid.Row="2">
+                                    <Label Style="{DynamicResource LabelLight}" Width="140" Content="Easyminer Developer:"></Label>
+                                    <TextBox Width="270" IsReadOnly="True" Foreground="{DynamicResource LightColor}" BorderBrush="{DynamicResource LightColor}">FYoKoGrSXGpTavNFVbvW18UYxo6JVbUDDa</TextBox>
                                 </WrapPanel>
                             </Grid>
                         </GroupBox>

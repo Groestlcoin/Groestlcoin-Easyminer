@@ -1,31 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GroestlCoin_EasyMiner_2018.Business_Logic;
 
-namespace GroestlCoin_EasyMiner_2018 {
+
+
+namespace GroestlCoin_EasyMiner_2018
+{
     /// <summary>
     /// Interaction logic for Titlebar.xaml
     /// </summary>
-    public partial class Titlebar : UserControl {
+    public partial class Titlebar : UserControl
+    {
         private bool _isMainWindow = false;
 
-        public bool IsMainWindow {
-            get {
+        public bool IsMainWindow
+        {
+            get
+            {
                 return _isMainWindow;
             }
-            set {
-                if (value == false) {
+            set
+            {
+                if (value == false)
+                {
                     uxMinimiseBtn.Visibility = Visibility.Hidden;
                     uxMinimiseBtn.IsEnabled = false;
                 }
@@ -34,12 +32,16 @@ namespace GroestlCoin_EasyMiner_2018 {
         }
         private bool _isAbout = false;
 
-        public bool IsAbout {
-            get {
+        public bool IsAbout
+        {
+            get
+            {
                 return _isAbout;
             }
-            set {
-                if (value) {
+            set
+            {
+                if (value)
+                {
                     uxMinimiseBtn.Visibility = Visibility.Hidden;
                     uxMinimiseBtn.IsEnabled = false;
                     uxAboutBtn.Visibility = Visibility.Hidden;
@@ -50,26 +52,34 @@ namespace GroestlCoin_EasyMiner_2018 {
         }
 
 
-        public Titlebar() {
+        public Titlebar()
+        {
             InitializeComponent();
         }
 
-        private void UxCloseBtn_OnClick(object sender, RoutedEventArgs e) {
-            if (IsMainWindow) {
+        private void UxCloseBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (IsMainWindow)
+            {
+                MiningOperations.KillProcesses();
                 Application.Current.Shutdown();
             }
-            else {
+            else
+            {
                 Window.GetWindow(this)?.Hide();
             }
         }
 
-        private void TitleBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+        private void TitleBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
             Window.GetWindow(this)?.DragMove();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
             var win = Window.GetWindow(this);
-            if (win != null) {
+            if (win != null)
+            {
                 win.WindowState = WindowState.Minimized;
             }
         }

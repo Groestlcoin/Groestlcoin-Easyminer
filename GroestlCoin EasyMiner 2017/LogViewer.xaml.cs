@@ -30,6 +30,14 @@ namespace GroestlCoin_EasyMiner_2018
             {
                 _ShowCpu = value;
                 uxCpuMiningLogGroup.Visibility = _ShowCpu ? Visibility.Visible : Visibility.Collapsed;
+                if (uxGpuMiningLog.Visibility == Visibility.Collapsed)
+                {
+                    CpuLogger.Width = GridLength.Auto;
+                }
+                else
+                {
+                    CpuLogger.Width = new GridLength(1, GridUnitType.Star);
+                }
             }
         }
         public bool ShowGpu
@@ -42,6 +50,15 @@ namespace GroestlCoin_EasyMiner_2018
             {
                 _ShowGpu = value;
                 uxGpuMiningLog.Visibility = _ShowGpu ? Visibility.Visible : Visibility.Collapsed;
+                if (uxGpuMiningLog.Visibility == Visibility.Collapsed)
+                {
+                    GpuLogger.Width = GridLength.Auto;
+                }
+                else
+                {
+                    GpuLogger.Width = new GridLength(1, GridUnitType.Star);
+                }
+
             }
         }
 
@@ -51,9 +68,6 @@ namespace GroestlCoin_EasyMiner_2018
             ShowCpu = false;
             ShowGpu = false;
         }
-
-
-
 
         private const int _MaxLines = 30;
 

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -170,10 +169,14 @@ namespace GroestlCoin_EasyMiner_2018
                     _amdBg.RunWorkerAsync();
                     logViewer.ShowGpu = true;
                 }
-                if (uxnVidiaRb.IsChecked == true)
+                else if (uxnVidiaRb.IsChecked == true)
                 {
                     _nVidiaBg.RunWorkerAsync();
                     logViewer.ShowGpu = true;
+                }
+                else
+                {
+                    logViewer.ShowGpu = false;
                 }
                 ProgressBar.IsIndeterminate = true;
             }
@@ -181,7 +184,7 @@ namespace GroestlCoin_EasyMiner_2018
             {
                 BtnStart.Content = "Start Mining";
 
-                KillProcesses();
+                MiningOperations.KillProcesses();
 
                 uxIntervalSlider.IsEnabled = true;
                 uxAutoIntensityChk.IsEnabled = true;
@@ -206,25 +209,6 @@ namespace GroestlCoin_EasyMiner_2018
                 UxLogsExpander.IsExpanded = false;
                 ProgressBar.IsIndeterminate = false;
                 ProgressBar.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void KillProcesses()
-        {
-            var processes = Process.GetProcessesByName("minerd_grs");
-            foreach (var process in processes)
-            {
-                process.Kill();
-            }
-            processes = Process.GetProcessesByName("ccminer_grs");
-            foreach (var process in processes)
-            {
-                process.Kill();
-            }
-            processes = Process.GetProcessesByName("sgminer_grs");
-            foreach (var process in processes)
-            {
-                process.Kill();
             }
         }
 
@@ -760,7 +744,7 @@ namespace GroestlCoin_EasyMiner_2018
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            KillProcesses();
+            MiningOperations.KillProcesses();
         }
 
         private void UxPoolSelectorDdl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

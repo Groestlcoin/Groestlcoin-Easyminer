@@ -13,8 +13,8 @@
         WindowStyle="None"
         Background="{StaticResource DarkColor}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Icon="/Resources/GRS-logo.ico"
-        Title="Log Viewer" Height="602.537" Width="500" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+        Icon="/Resources/GRS-logo.ico" 
+        Title="Log Viewer" Height="400" Width="850" MaxHeight="400"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,35 +33,41 @@
             <local:Titlebar BorderThickness="0" IsMainWindow="False"></local:Titlebar>
         <Grid Grid.Row="1" Margin="5,10,5,10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="250"></RowDefinition>
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" Name="uxStatisticsGroup" Visibility="Collapsed" Style="{DynamicResource GroupBoxStyle1}">
                 <GroupBox.Header>
                     <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">Stats</Label>
                 </GroupBox.Header>
             </GroupBox>
-            <GroupBox Grid.Row="1" Name="uxCpuMiningLogGroup" Visibility="Visible" Style="{DynamicResource GroupBoxStyle1}" >
-                <GroupBox.Header>
-                    <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">CPU Mining Log</Label>
-                </GroupBox.Header>
-                <StackPanel Orientation="Vertical">
-                    <ScrollViewer Name="uxCpuScroller">
-                        <TextBox TextWrapping="Wrap" Name="uxCpuLog" MaxHeight="300" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
-                    </ScrollViewer>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Grid.Row="2" Name="uxGpuMiningLog" Visibility="Visible"  Style="{DynamicResource GroupBoxStyle1}">
-                <GroupBox.Header>
-                    <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">GPU Mining Log</Label>
-                </GroupBox.Header>
-                <StackPanel Orientation="Vertical">
-                    <ScrollViewer Height="65" Name="uxGpuScroller">
-                        <TextBox TextWrapping="Wrap" Name="uxGpuLog" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
-                    </ScrollViewer>
-                </StackPanel>
-            </GroupBox>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" Name="CpuLogger"/>
+                    <ColumnDefinition Width="1*" Name="GpuLogger"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Column="0" Name="uxCpuMiningLogGroup"  VerticalAlignment="Stretch" Visibility="Visible" Style="{DynamicResource GroupBoxStyle1}" >
+                    <GroupBox.Header>
+                        <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">CPU Mining Log</Label>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <ScrollViewer Name="uxCpuScroller">
+                            <TextBox TextWrapping="Wrap" Name="uxCpuLog" VerticalAlignment="Stretch" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
+                        </ScrollViewer>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Name="uxGpuMiningLog" Visibility="Visible"  Style="{DynamicResource GroupBoxStyle1}">
+                    <GroupBox.Header>
+                        <Label Margin="0" Height="26"  Style="{StaticResource LabelDark}">GPU Mining Log</Label>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <ScrollViewer Height="65" Name="uxGpuScroller">
+                            <TextBox TextWrapping="Wrap" Name="uxGpuLog" VerticalAlignment="Stretch" Foreground="{DynamicResource LightColor}"  BorderBrush="{DynamicResource LightColor}" CaretBrush="{DynamicResource LightColor}"></TextBox>
+                        </ScrollViewer>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        
         </Grid>
     </Grid>
 </Window>
